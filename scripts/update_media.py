@@ -3,6 +3,7 @@
 홈페이지를 파일로 열어도 보이도록 JSON 대신 window.MEDIA = {...} 형태로 저장한다.
 
 채널 피드는 최근 15개만 주므로, 새 영상을 기존 목록 앞에 쌓아 종류마다 최대 KEEP개를 남긴다.
+피드가 막히면 채널의 동영상·라이브 탭 화면에서 대신 읽는다.
 피드에 해당 종류가 없으면 그 목록은 그대로 둔다.
 
 제목 예: 2026.11.01 "말씀을 대하는 결심" (스7:1-10) 고용진 목사 예그린교회 주일2부예배
@@ -106,25 +107,71 @@ def kind_of(title):
     return None
 
 
+def get(url):
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0", "Accept-Language": "ko-KR,ko"})
+    with urllib.request.urlopen(req, timeout=30) as res:
+        return res.read()
+
+
+def from_feed():
+    """채널 피드에서 (제목, 영상ID, 올린 날짜) 목록. 최신순."""
+    root = ET.fromstring(get(FEED))
+    return [(e.findtext("a:title", "", NS), e.findtext("yt:videoId", "", NS), e.findtext("a:published", "", NS))
+            for e in root.findall("a:entry", NS)]
+
+
+def from_channel_pages():
+    """피드가 막혔을 때: 채널의 동영상·라이브 탭 화면에 들어 있는 목록을 읽는다. 날짜는 제목에서 찾는다."""
+    found = []
+    for tab in ("videos", "streams"):
+        html = get(f"https://www.youtube.com/channel/{CHANNEL_ID}/{tab}").decode("utf-8")
+        m = re.search(r"var ytInitialData = (\{.*?\});</script>", html)
+        if not m:
+            continue
+
+        def walk(o):
+            if isinstance(o, dict):
+                lv = o.get("lockupViewModel")
+                if isinstance(lv, dict) and lv.get("contentId"):
+                    title = lv.get("metadata", {}).get("lockupMetadataViewModel", {}).get("title", {}).get("content", "")
+                    if title:
+                        found.append((title, lv["contentId"], ""))
+                for v in o.values():
+                    walk(v)
+            elif isinstance(o, list):
+                for v in o:
+                    walk(v)
+
+        walk(json.loads(m.group(1)))
+    return found
+
+
 def main():
-    with urllib.request.urlopen(FEED, timeout=30) as res:
-        root = ET.fromstring(res.read())
+    try:
+        entries = from_feed()
+    except Exception as e:  # 2026-11-12 피드가 404를 내서 채널 화면으로 대신 읽음
+        print("피드를 못 읽어 채널 화면에서 읽습니다:", e)
+        entries = from_channel_pages()
+    if not entries:
+        print("영상 목록을 찾지 못했습니다.")
+        return 1
 
     data = json.loads(OUT.read_text(encoding="utf-8")[len(PREFIX):].rstrip().rstrip(";")) if OUT.exists() else {}
     lists = data.get("lists", {})
     changed = False
 
-    # 피드는 최신순 → 오래된 것부터 앞에 끼워 넣어야 최신이 맨 앞에 옴
-    for entry in reversed(root.findall("a:entry", NS)):
-        title = entry.findtext("a:title", "", NS)
+    # 목록은 최신순 → 오래된 것부터 앞에 끼워 넣어야 최신이 맨 앞에 옴
+    for title, vid, published in reversed(entries):
         kind = kind_of(title)
         if not kind:
             continue
-        vid = entry.findtext("yt:videoId", "", NS)
         items = lists.setdefault(kind, [])
         if any(i["videoId"] == vid for i in items):
             continue
-        items.insert(0, parse(kind, title, vid, entry.findtext("a:published", "", NS)))
+        item = parse(kind, title, vid, published)
+        if not item["date"]:
+            continue  # 제목에도 날짜가 없으면 순서를 정할 수 없어 건너뜀
+        items.insert(0, item)
         changed = True
 
     for kind in lists:
