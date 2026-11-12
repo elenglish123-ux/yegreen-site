@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>알림 보내기 — 예그린교회</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#1f4a37">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="logo-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<section class="page-head">
+  <div class="wrap">
+    <div class="eyebrow">ADMIN</div>
+    <h1>알림 보내기</h1>
+    <p>담당자가 쓴 소식을 앱을 설치한 성도의 휴대폰에 알림으로 보내요.</p>
+  </div>
+</section>
+
+<section class="block alt">
+  <div class="wrap narrow">
+    <div class="demo-note"><b>시안 화면</b> 지금은 이 기기에서만 어떻게 보이는지 확인해요. 실제 서비스에서는 담당자 로그인을 거쳐 알림을 켠 성도 전체에게 발송돼요.</div>
+    <div class="tabs" id="templates"></div>
+    <div class="notify-grid">
+      <form class="card form" id="notifyForm">
+        <label>제목<input id="nTitle" maxlength="30" required></label>
+        <label>내용<textarea id="nBody" rows="3" maxlength="120" required></textarea></label>
+        <label>누르면 열릴 화면
+          <select id="nUrl">
+            <option value="news.html">교회 소식</option>
+            <option value="sermons.html">말씀 영상</option>
+            <option value="worship.html">예배·모임</option>
+            <option value="community.html">커뮤니티</option>
+          </select>
+        </label>
+        <button class="btn">이 기기로 시험 발송</button>
+      </form>
+      <div>
+        <div class="eyebrow2">PREVIEW</div>
+        <div class="phone">
+          <div class="push-card">
+            <img src="icon-192.png" alt="">
+            <div><b id="pTitle"></b><p id="pBody"></p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h3 class="sub">보낸 기록</h3>
+    <div id="history" class="history"></div>
+  </div>
+</section>
+
+<script src="assets/site.js"></script>
+<script src="assets/notify.js"></script>
+</body>
+</html>

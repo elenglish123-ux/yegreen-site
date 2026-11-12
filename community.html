@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>커뮤니티 — 예그린교회</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#1f4a37">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="logo-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<section class="page-head">
+  <div class="wrap">
+    <div class="eyebrow">COMMUNITY</div>
+    <h1>커뮤니티</h1>
+    <p>감사와 기도제목을 나누는 예그린 성도들의 공간이에요.</p>
+  </div>
+</section>
+
+<section class="block alt">
+  <div class="wrap narrow">
+    <div class="demo-note"><b>시안 화면</b> 지금은 글이 이 기기에만 저장되고, 다른 성도에게 보이지 않아요. 예시 글은 실제 성도의 글이 아닙니다.</div>
+
+    <div class="card" id="gate" hidden>
+      <h3 class="gate-title">성도 확인 후 입장해요</h3>
+      <p class="gate-text">실제 서비스에서는 교회에서 승인한 성도만 들어와요. 시안에서는 아무 이름이나 넣어 보세요.</p>
+      <form id="gateForm" class="form">
+        <label>이름<input id="gateName" maxlength="12" required placeholder="예: 홍길동"></label>
+        <label>목장 (선택)<input id="gateGroup" maxlength="12" placeholder="예: 기쁨목장"></label>
+        <button class="btn">입장하기</button>
+      </form>
+    </div>
+
+    <div id="board" hidden>
+      <form class="card composer" id="composer">
+        <div class="composer-top"><b id="meName"></b>
+          <select id="postCat" aria-label="글 종류"><option value="thanks">감사 나눔</option><option value="pray">기도제목</option><option value="group">목장 이야기</option></select>
+          <select id="postScope" aria-label="공개 범위"><option value="all">성도 전체</option><option value="pastor">목사님께만</option></select>
+        </div>
+        <textarea id="postText" rows="3" maxlength="1000" required placeholder="오늘 감사한 일이나 함께 기도하고 싶은 내용을 적어 주세요."></textarea>
+        <button class="btn">올리기</button>
+      </form>
+      <div class="tabs" id="catTabs"></div>
+      <div id="posts"></div>
+      <div class="demo-actions"><button class="link-btn" id="resetDemo" type="button">시안 처음 상태로 되돌리기</button></div>
+    </div>
+  </div>
+</section>
+
+<script src="assets/site.js"></script>
+<script src="assets/community.js"></script>
+</body>
+</html>
