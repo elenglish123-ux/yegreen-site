@@ -1,0 +1,1334 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>교회 주보 만들기</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700;900&family=Black+Han+Sans&family=Gowun+Batang:wght@700&family=Cormorant+Garamond:ital,wght@1,500;1,600&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+:root {
+  --g: #1f4a37; --g2: #2f6b4f; --gl: #e7f1ea; --cream: #faf7f1;
+  --gold: #a9823c; --goldl: #f1d9a2; --blue: #2b86c5; --leaf: #7ab648;
+  --ink: #2b2b2b; --muted: #6f6a60; --line: #e3dccd;
+  --serif: "Noto Serif KR", "Batang", serif;
+  --sans: "Pretendard", "Malgun Gothic", sans-serif;
+  --en: "Cormorant Garamond", serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--sans); color: var(--ink); background: #ecebe6; word-break: keep-all; }
+button, input, textarea, select { font: inherit; color: inherit; }
+
+/* ───────── 편집 화면 ───────── */
+.app { display: grid; grid-template-columns: 430px 1fr; height: 100vh; }
+.side { background: #fff; border-right: 1px solid var(--line); display: flex; flex-direction: column; min-height: 0; }
+.brand { padding: 16px 18px 12px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 10px; }
+.brand svg { width: 28px; height: 36px; }
+.brand b { font-size: 18px; color: var(--g); display: block; line-height: 1.2; }
+.brand small { font-size: 12px; color: var(--muted); }
+.form { overflow-y: auto; padding: 8px 14px 60px; flex: 1; }
+details.sec { border: 1px solid var(--line); border-radius: 10px; margin: 8px 0; background: #fff; }
+details.sec[open] { background: var(--cream); }
+details.sec > summary { cursor: pointer; padding: 11px 14px; font-weight: 700; color: var(--g); list-style: none; display: flex; justify-content: space-between; align-items: center; }
+details.sec > summary::after { content: "펼치기"; font-size: 12px; font-weight: 500; color: var(--muted); }
+details.sec[open] > summary::after { content: "접기"; }
+details.sec > summary small { font-weight: 500; color: var(--muted); font-size: 12px; margin-left: 6px; }
+.sec-body { padding: 2px 14px 14px; }
+label.f { display: block; margin: 8px 0; }
+label.f > span { display: block; font-size: 12.5px; font-weight: 600; color: var(--muted); margin-bottom: 3px; }
+input[type=text], input[type=date], input[type=password], input:not([type]), textarea { width: 100%; border: 1px solid #d8d1c2; border-radius: 7px; padding: 7px 9px; background: #fff; font-size: 14px; line-height: 1.5; }
+textarea { resize: vertical; }
+input:focus, textarea:focus { outline: 2px solid var(--leaf); outline-offset: -1px; border-color: transparent; }
+.hint { font-size: 12px; color: var(--muted); margin: 2px 0 6px; line-height: 1.5; }
+.item { border: 1px solid var(--line); background: #fff; border-radius: 8px; padding: 8px; margin: 8px 0; }
+.item-top { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--muted); font-weight: 700; margin-bottom: 4px; }
+.mini { display: flex; gap: 2px; }
+.mini button { border: 1px solid var(--line); background: #fff; border-radius: 5px; width: 26px; height: 24px; cursor: pointer; font-size: 12px; }
+.mini button:hover { background: var(--gl); }
+.mini button.x:hover { background: #fde8e6; color: #b3261e; }
+.orow { display: grid; grid-template-columns: 82px 1fr 82px 54px; gap: 4px; align-items: center; margin: 4px 0; }
+.orow input { padding: 5px 6px; font-size: 13px; }
+.orow .tools { display: flex; gap: 1px; }
+.orow .tools button { border: 0; background: none; cursor: pointer; width: 17px; font-size: 12px; color: var(--muted); }
+.orow .tools button:hover { color: var(--g); }
+.ohead { font-size: 11.5px; color: var(--muted); font-weight: 700; }
+.add { border: 1px dashed var(--g2); color: var(--g2); background: #fff; border-radius: 7px; padding: 6px 10px; cursor: pointer; font-weight: 700; font-size: 13px; width: 100%; margin-top: 4px; }
+.add:hover { background: var(--gl); }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 8px; }
+.grid7 { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+.grid7 label.f > span { text-align: center; font-size: 11px; }
+.grid7 input { padding: 6px 3px; text-align: center; font-size: 12.5px; }
+.chk { display: flex; align-items: center; gap: 3px; font-size: 11.5px; color: var(--muted); cursor: pointer; }
+.imgbox { display: flex; gap: 8px; align-items: center; }
+.imgbox .thumb { width: 90px; height: 56px; border-radius: 6px; background: var(--gl) center/cover; border: 1px solid var(--line); flex: none; }
+.btn2 { border: 1px solid var(--line); background: #fff; border-radius: 7px; padding: 6px 10px; cursor: pointer; font-size: 13px; }
+.btn2:hover { background: var(--gl); }
+
+.main { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+.bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 12px 18px; background: #fff; border-bottom: 1px solid var(--line); }
+.bar .ttl { font-weight: 800; color: var(--g); margin-right: auto; font-size: 16px; }
+.bar .ttl small { font-weight: 500; color: var(--muted); font-size: 12.5px; margin-left: 8px; }
+.b { border: 0; border-radius: 9px; padding: 9px 14px; font-weight: 700; cursor: pointer; font-size: 14px; background: var(--gl); color: var(--g); }
+.b:hover { filter: brightness(.96); }
+.b.pri { background: var(--g); color: #fff; }
+.b.gold { background: var(--goldl); color: #5d4413; }
+.warn { padding: 8px 18px; background: #fff4e5; color: #8a4b00; font-size: 13.5px; border-bottom: 1px solid #f3dcb8; display: none; }
+.warn.on { display: block; }
+.stage { flex: 1; overflow: auto; padding: 22px; }
+.zoomer { transform-origin: top left; width: 1123px; }
+.plabel { font-size: 13px; font-weight: 700; color: var(--muted); margin: 0 0 8px 2px; }
+.plabel + .page { margin-bottom: 28px; box-shadow: 0 6px 24px rgba(0,0,0,.12); }
+.toast { position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%) translateY(20px); background: var(--g); color: #fff; padding: 11px 18px; border-radius: 10px; font-size: 14px; opacity: 0; transition: .25s; pointer-events: none; z-index: 50; max-width: 90vw; }
+.toast.on { opacity: 1; transform: translateX(-50%); }
+.modal { position: fixed; inset: 0; background: rgba(0,0,0,.4); display: none; align-items: center; justify-content: center; z-index: 40; padding: 20px; }
+.modal.on { display: flex; }
+.modal .box { background: #fff; border-radius: 14px; max-width: 640px; width: 100%; max-height: 86vh; overflow: auto; padding: 26px 28px; line-height: 1.7; font-size: 15px; }
+.modal h2 { color: var(--g); font-size: 21px; margin-bottom: 10px; }
+.modal h3 { color: var(--g2); font-size: 16px; margin: 16px 0 4px; }
+.modal ol, .modal ul { padding-left: 22px; }
+.modal code { background: var(--gl); padding: 1px 5px; border-radius: 4px; font-size: 14px; }
+.modal .close { float: right; }
+.arc { display: flex; justify-content: space-between; align-items: center; gap: 10px; border-bottom: 1px solid var(--line); padding: 10px 2px; }
+.arc b { color: var(--g); margin-right: 6px; }
+.arc small { display: block; color: var(--muted); font-size: 12.5px; }
+.arc.now { background: var(--gl); border-radius: 8px; padding: 10px 8px; }
+.arc-b { display: flex; gap: 4px; flex: none; }
+
+/* ───────── 주보 지면 (A4 가로, 반 접기) ───────── */
+.page { width: 297mm; height: 210mm; background: #fff; display: grid; grid-template-columns: 1fr 1fr; position: relative; overflow: hidden; }
+.panel { height: 210mm; padding: 11mm 11mm 9mm; position: relative; overflow: hidden; }
+.page .panel:first-child::after { content: ""; position: absolute; right: 0; top: 9mm; bottom: 9mm; border-right: 1px dashed #e4ddcf; }
+.fit { height: 100%; overflow: hidden; font-size: calc(9.2pt * var(--s, 1)); line-height: 1.62; display: flex; flex-direction: column; }
+.serif { font-family: var(--serif); }
+
+.hd { display: flex; align-items: flex-end; justify-content: space-between; border-bottom: 1.6px solid var(--g); padding-bottom: .45em; margin-bottom: 1em; }
+.hd h2 { font-family: var(--serif); font-weight: 900; font-size: 1.85em; color: var(--g); letter-spacing: -.02em; line-height: 1.1; }
+.hd .en { font-family: var(--en); font-style: italic; color: var(--gold); font-size: 1.5em; line-height: 1; }
+.st { display: flex; align-items: center; gap: .5em; font-weight: 800; color: var(--g); font-size: 1.12em; margin: 1em 0 .45em; }
+.st::before { content: ""; width: .32em; height: 1em; background: var(--leaf); border-radius: 2px; }
+.st small { font-weight: 600; color: var(--muted); font-size: .8em; }
+.st:first-child { margin-top: 0; }
+.ln { min-height: .8em; }
+.li { position: relative; padding-left: .95em; }
+.li::before { content: ""; position: absolute; left: .2em; top: .68em; width: .3em; height: .3em; border-radius: 50%; background: var(--gold); }
+
+/* 표지 */
+.cover .fit { line-height: 1.5; }
+.c-top { display: flex; justify-content: space-between; align-items: center; font-size: .92em; color: var(--muted); letter-spacing: .04em; }
+.c-top b { color: var(--g); font-weight: 800; letter-spacing: 0; font-size: 1.12em; }
+.c-brand { display: flex; align-items: center; gap: .8em; margin: 1.1em 0 1em; }
+.c-brand .lg-sl { font-family: var(--serif); font-weight: 500; }
+.c-art { flex: 1; min-height: 32mm; border-radius: 3.5mm; overflow: hidden; position: relative; background: var(--gl) center/cover no-repeat; }
+.c-art svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.season { position: absolute; left: 3mm; top: 3mm; z-index: 1; background: rgba(255,255,255,.92); color: var(--g); border-radius: 2em; padding: .25em .95em; font-weight: 800; font-size: 1em; letter-spacing: .02em; box-shadow: 0 1px 4px rgba(0,0,0,.12); }
+.season i { font-family: var(--en); font-weight: 600; color: var(--gold); margin-left: .45em; font-size: 1.1em; }
+.c-word { text-align: center; padding: 1.25em .5em .9em; }
+.c-word .lab { display: inline-block; font-size: .85em; font-weight: 700; color: var(--gold); letter-spacing: .3em; border-top: 1px solid var(--goldl); border-bottom: 1px solid var(--goldl); padding: .15em .9em; margin-bottom: .55em; }
+.c-word h1 { font-family: var(--serif); font-weight: 900; font-size: 2.7em; color: var(--g); line-height: 1.25; letter-spacing: -.03em; }
+.c-word .en { font-family: var(--en); font-style: italic; font-size: 1.55em; color: var(--gold); margin-top: .15em; }
+.c-word .vs { font-family: var(--serif); color: var(--muted); font-size: 1em; margin-top: .6em; line-height: 1.6; }
+.c-word .vs b { color: var(--g2); font-weight: 700; margin-left: .4em; white-space: nowrap; }
+.c-info { display: grid; grid-template-columns: 1.15fr 1fr 1fr; gap: 0 1em; border-top: 1px solid var(--line); padding-top: .8em; font-size: .86em; line-height: 1.5; }
+.c-info h4 { font-size: 1.02em; color: var(--g); font-weight: 800; margin-bottom: .35em; }
+.vis { display: grid; grid-template-columns: 1.2em 1fr; column-gap: .25em; }
+.vis .L { font-family: var(--serif); font-weight: 900; color: var(--blue); font-size: 1.15em; line-height: 1.3; }
+.vis .L:nth-of-type(2n) { color: var(--leaf); }
+.vis .t { line-height: 1.3; margin-bottom: .18em; }
+.vis .t small { display: block; color: var(--muted); font-size: .9em; }
+.mis div { margin-bottom: .12em; }
+.mis b { color: var(--g2); }
+.flow { display: flex; flex-wrap: wrap; gap: .3em .2em; align-items: center; }
+.flow span.s { background: var(--gl); color: var(--g); border-radius: 1em; padding: .1em .65em; font-weight: 600; white-space: nowrap; }
+.flow span.a { color: var(--gold); font-size: .9em; }
+.c-foot { display: flex; justify-content: space-between; align-items: flex-end; gap: 1em; border-top: 1.6px solid var(--g); margin-top: .8em; padding-top: .6em; font-size: .86em; color: var(--ink); line-height: 1.5; }
+.c-foot .who b { color: var(--g); }
+.c-foot .addr { text-align: right; color: var(--muted); }
+
+/* 목장 순서지 */
+.mj-steps { counter-reset: st; margin-bottom: .6em; }
+.mj-steps div { counter-increment: st; position: relative; padding-left: 1.9em; margin-bottom: .2em; }
+.mj-steps div::before { content: counter(st); position: absolute; left: 0; top: .1em; width: 1.35em; height: 1.35em; border-radius: 50%; background: var(--g); color: #fff; font-size: .82em; font-weight: 700; display: flex; align-items: center; justify-content: center; line-height: 1; }
+.sum { margin: .55em 0; display: grid; grid-template-columns: 3.2em 1fr; gap: .6em; text-align: justify; }
+.sum .k { font-family: var(--serif); font-weight: 900; color: var(--g2); text-align: center; border-right: 1.5px solid var(--leaf); line-height: 1.2; padding-top: .15em; font-size: .95em; }
+.sum .k small { display: block; font-family: var(--sans); font-size: .72em; color: var(--muted); font-weight: 600; letter-spacing: .1em; }
+.qbox { background: var(--cream); border: 1px solid var(--line); border-radius: 2.5mm; padding: .75em 1em; margin-top: .6em; }
+.qbox .q { display: grid; grid-template-columns: 2.3em 1fr; margin: .3em 0; }
+.qbox .q b { font-family: var(--en); font-style: italic; color: var(--gold); font-size: 1.25em; line-height: 1.25; }
+
+/* 예배 안내 */
+.wcard { border: 1px solid var(--line); border-radius: 2.5mm; padding: .8em 1em .7em; }
+.wcard .wh { display: flex; justify-content: space-between; align-items: baseline; gap: .6em; border-bottom: 1px solid var(--line); padding-bottom: .35em; margin-bottom: .45em; }
+.wcard .wh b { font-family: var(--serif); font-weight: 900; color: var(--g); font-size: 1.3em; }
+.wcard .wh span { color: var(--g2); font-weight: 700; font-size: .95em; }
+.wcard .note { color: var(--muted); font-size: .88em; text-align: right; margin: -.2em 0 .3em; }
+.ord { display: grid; grid-template-columns: 5.2em 1fr auto; column-gap: .6em; padding: .12em 0; align-items: baseline; }
+.ord .a { color: var(--g2); font-weight: 700; }
+.ord .c { border-bottom: 1px dotted #cfc6b3; padding-bottom: .05em; }
+.ord .w { color: var(--muted); font-size: .93em; }
+.ord.hi { background: var(--gl); margin: .25em -.5em; padding: .35em .5em; border-radius: 1.5mm; }
+.ord.hi .c { font-family: var(--serif); font-weight: 900; color: var(--g); font-size: 1.12em; border: 0; }
+.aft { display: flex; justify-content: space-between; align-items: baseline; border-top: 1px solid var(--line); margin-top: .5em; padding-top: .45em; }
+.aft b { color: var(--g); }
+.aft span { font-family: var(--serif); font-weight: 700; color: var(--g); font-size: 1.05em; }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1.2em; }
+.wk { margin-bottom: .6em; }
+.wk .t { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--line); margin-bottom: .2em; }
+.wk .t b { color: var(--g); font-weight: 800; }
+.wk .t span { color: var(--muted); font-size: .9em; }
+.meet div { margin-bottom: .3em; line-height: 1.45; }
+.meet b { color: var(--g2); display: block; }
+table.rd { width: 100%; border-collapse: collapse; text-align: center; font-size: .9em; table-layout: fixed; }
+table.rd th { background: var(--g); color: #fff; font-weight: 600; padding: .25em 0; border: 1px solid var(--g); }
+table.rd th.sun { background: var(--g2); }
+table.rd td { border: 1px solid var(--line); padding: .3em 0; font-weight: 600; }
+
+/* 교회 소식 */
+.news { display: grid; grid-template-columns: 1.8em 1fr; column-gap: .35em; margin-bottom: .6em; }
+.news .no { font-family: var(--en); font-style: italic; font-weight: 600; color: var(--gold); font-size: 1.3em; line-height: 1.2; }
+.news .tt { font-weight: 800; color: var(--g); font-size: 1.05em; }
+.news .bd { grid-column: 2; color: #3b3b3b; }
+table.sv { width: 100%; border-collapse: collapse; text-align: center; font-size: .86em; table-layout: fixed; line-height: 1.35; }
+table.sv th, table.sv td { border: 1px solid var(--line); padding: .3em .1em; }
+table.sv thead th { background: var(--gl); color: var(--g); font-weight: 800; }
+table.sv tbody th { color: var(--g2); font-weight: 700; width: 3.6em; }
+.svwrap { display: grid; grid-template-columns: 1fr 9.5em; gap: 0 1em; align-items: start; }
+.grp div { display: flex; justify-content: space-between; border-bottom: 1px dotted var(--line); font-size: .86em; padding: .12em 0; }
+.grp b { color: var(--g2); }
+.times { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8em; align-items: start; font-size: .82em; line-height: 1.4; }
+.times table { width: 100%; border-collapse: collapse; }
+.times caption { text-align: left; font-weight: 800; color: var(--g); padding-bottom: .2em; }
+.times td { border-bottom: 1px solid var(--line); padding: .15em .1em; }
+.times td:nth-child(2) { text-align: center; color: var(--g2); font-weight: 700; }
+.times td:last-child { text-align: right; color: var(--muted); }
+.dir { font-size: .86em; margin-top: .55em; line-height: 1.5; }
+.dir b { color: var(--g); }
+.grow { flex: 1; min-height: .4em; }
+
+/* 표지 형태: 글씨 중심 */
+.c-big { flex: 1; display: flex; flex-direction: column; justify-content: center; position: relative; border-top: 1px solid var(--goldl); border-bottom: 1px solid var(--goldl); margin: .4em 0 1em; background: var(--cream); border-radius: 3.5mm; overflow: hidden; }
+.c-big .wm { position: absolute; right: -6%; bottom: -10%; width: 55%; opacity: .1; }
+.c-big .c-word { position: relative; padding: 1.5em 1.2em; }
+.c-big .c-word h1 { font-size: 3.5em; }
+.c-big .c-word .en { font-size: 1.8em; }
+.c-big .c-word .vs { font-size: 1.12em; margin-top: 1em; }
+
+/* 디자인 고르기 */
+.themes { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.themes label, .layouts label { border: 1.5px solid var(--line); border-radius: 9px; padding: 7px 9px; cursor: pointer; background: #fff; display: flex; align-items: center; gap: 8px; font-size: 13.5px; font-weight: 600; }
+.themes label:has(input:checked), .layouts label:has(input:checked) { border-color: var(--g); box-shadow: 0 0 0 1.5px var(--g) inset; }
+.themes input, .layouts input { display: none; }
+.sw { display: flex; flex: none; }
+.sw i { width: 14px; height: 22px; display: block; }
+.sw i:first-child { border-radius: 4px 0 0 4px; }
+.sw i:last-child { border-radius: 0 4px 4px 0; }
+.themes small { display: block; font-weight: 500; color: var(--muted); font-size: 11.5px; }
+.layouts { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.layouts.three { grid-template-columns: 1fr 1fr 1fr; }
+
+/* 로고 */
+.lg { display: flex; align-items: center; gap: .7em; }
+.lg.stack { flex-direction: column; text-align: center; gap: .35em; }
+.lg-sym { display: block; flex: none; width: 3.3em; height: 3.3em; }
+.lg-sym svg { width: 100%; height: 100%; display: block; }
+.lg-tx { display: flex; flex-direction: column; }
+.lg-nm { font-size: 2.6em; line-height: 1.08; letter-spacing: -.02em; }
+.lg-sl { font-size: 1.08em; opacity: .8; letter-spacing: .02em; margin-top: .1em; }
+.lg-img { display: block; height: 4.4em; width: 100%; background: left center/contain no-repeat; }
+.c-brand.stack { justify-content: center; }
+.c-brand.stack .lg-img { background-position: center; }
+.den { display: inline-flex; align-items: center; gap: .4em; }
+.den i { display: inline-block; width: 1.7em; height: 1.7em; background: center/contain no-repeat; }
+.c-big .wm svg { width: 100%; height: auto; }
+
+.syms { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; }
+.syms label { border: 1.5px solid var(--line); border-radius: 8px; padding: 5px; cursor: pointer; background: #fff; text-align: center; font-size: 10.5px; color: var(--muted); line-height: 1.25; }
+.syms label:has(input:checked) { border-color: var(--g); box-shadow: 0 0 0 1.5px var(--g) inset; color: var(--g); font-weight: 700; }
+.syms input { display: none; }
+.syms svg { width: 34px; height: 34px; display: block; margin: 0 auto 3px; }
+.colors { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.colors label { display: flex; align-items: center; gap: 4px; font-size: 12.5px; color: var(--muted); }
+.colors input[type=color] { width: 34px; height: 28px; border: 1px solid var(--line); border-radius: 6px; padding: 1px; background: #fff; cursor: pointer; }
+.pairs { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 6px; }
+.pairs button { width: 34px; height: 22px; border-radius: 5px; border: 1px solid var(--line); cursor: pointer; overflow: hidden; display: flex; padding: 0; }
+.pairs button i { flex: 1; }
+select { width: 100%; border: 1px solid #d8d1c2; border-radius: 7px; padding: 7px 9px; background: #fff; font-size: 14px; }
+.lgprev { background: #fff; border: 1px dashed var(--line); border-radius: 10px; padding: 16px; margin-top: 10px; font-size: 9pt; display: flex; justify-content: center; }
+
+@media print {
+  @page { size: A4 landscape; margin: 0; }
+  body { background: #fff; }
+  .side, .bar, .warn, .plabel, .toast, .modal { display: none !important; }
+  .app { display: block; height: auto; }
+  .stage { padding: 0; overflow: visible; }
+  .zoomer { transform: none !important; width: auto; height: auto !important; }
+  .page { box-shadow: none !important; margin: 0 !important; break-after: page; }
+  #p2 { break-after: auto; }
+  .page .panel:first-child::after { display: none; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="brand">
+      <span id="sideLogo" style="width:34px;height:34px;flex:none"></span>
+      <div><b id="sideName">주보 만들기</b><small>왼쪽 칸을 고치면 오른쪽 주보가 바로 바뀝니다</small></div>
+    </div>
+    <div class="form" id="form"></div>
+  </aside>
+  <main class="main">
+    <div class="bar">
+      <div class="ttl" id="ttl">주보</div>
+      <button class="b gold" id="bNext" title="날짜를 한 주 넘기고 섬김표를 당깁니다">다음 주 주보</button>
+      <button class="b" id="bArc">지난 주보</button>
+      <button class="b" id="bSave">파일로 저장</button>
+      <button class="b" id="bOpen">파일 열기</button>
+      <button class="b" id="bImg">이미지로 저장</button>
+      <button class="b gold" id="bSite" title="홈페이지 소식 페이지에 이번 주 주보와 소식을 올립니다">홈페이지로 보내기</button>
+      <button class="b pri" id="bPrint">인쇄 · PDF</button>
+      <button class="b" id="bAI">AI 설정</button>
+      <button class="b" id="bHelp">사용법</button>
+      <input type="file" id="fOpen" accept=".json,application/json" hidden>
+    </div>
+    <div class="warn" id="warn"></div>
+    <div class="stage" id="stage">
+      <div id="zwrap"><div class="zoomer" id="zoomer">
+        <div class="plabel">1면 · 바깥쪽 (왼쪽: 뒷면 / 오른쪽: 앞표지)</div>
+        <section class="page" id="p1">
+          <div class="panel back"><div class="fit" id="fBack"></div></div>
+          <div class="panel cover"><div class="fit" id="fCover"></div></div>
+        </section>
+        <div class="plabel">2면 · 안쪽 (펼쳤을 때)</div>
+        <section class="page" id="p2">
+          <div class="panel"><div class="fit" id="fWorship"></div></div>
+          <div class="panel"><div class="fit" id="fNews"></div></div>
+        </section>
+      </div></div>
+    </div>
+  </main>
+</div>
+<div class="toast" id="toast"></div>
+<div class="modal" id="arcBox"><div class="box">
+  <button class="b close" onclick="arcBox.classList.remove('on')">닫기</button>
+  <h2>지난 주보</h2>
+  <p class="hint" style="font-size:13.5px">주보를 고칠 때마다 날짜별로 이 컴퓨터에 자동 보관됩니다. <b>열기</b>는 그 주보를 다시 고칠 때, <b>이번 주로 복사</b>는 작년 성탄절 주보처럼 예전 내용으로 새 주보를 시작할 때 씁니다.</p>
+  <div id="arcList"></div>
+</div></div>
+<div class="modal" id="aiBox"><div class="box">
+  <button class="b close" onclick="aiBox.classList.remove('on')">닫기</button>
+  <h2>AI 번역 설정</h2>
+  <p>설교 제목을 영어로 옮길 때 Anthropic의 AI(Claude)를 씁니다. 처음 한 번만 <b>API 키</b>를 넣으면 됩니다.</p>
+  <h3>키 받는 방법</h3>
+  <ol>
+    <li><a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">console.anthropic.com</a>에 가입하고 결제 수단(충전)을 등록합니다.</li>
+    <li>API Keys 화면에서 <b>Create Key</b>를 눌러 나온 키(sk-ant-로 시작)를 복사합니다.</li>
+    <li>아래 칸에 붙여 넣고 <b>저장</b>을 누릅니다.</li>
+  </ol>
+  <label class="f"><span>API 키</span><input type="password" id="aiKeyIn" placeholder="sk-ant-..." autocomplete="off"></label>
+  <div style="display:flex;gap:8px;margin-top:6px"><button class="b pri" id="aiSave">저장</button><button class="b" id="aiDel">키 지우기</button></div>
+  <h3>알아 두면 좋은 것</h3>
+  <ul>
+    <li>키는 <b>이 컴퓨터의 인터넷 창에만</b> 저장되고, "파일로 저장"한 주보 파일에는 들어가지 않습니다.</li>
+    <li>제목 한 번 번역에 드는 비용은 몇 원 정도입니다.</li>
+    <li>번역할 때 설교 제목과 본문 구절 위치만 AI에 보냅니다.</li>
+    <li>번역이 마음에 안 들면 영어 제목 칸에서 바로 고치면 됩니다.</li>
+  </ul>
+</div></div>
+<div class="modal" id="help"><div class="box">
+  <button class="b close" onclick="help.classList.remove('on')">닫기</button>
+  <h2>주보 만들기 사용법</h2>
+  <h3>매주 하는 일</h3>
+  <ol>
+    <li><b>다음 주 주보</b>를 누릅니다. 날짜가 한 주 넘어가고, 섬김 안내표가 한 칸씩 당겨지고, 성경읽기 진도가 비워집니다. 나머지 내용은 지난주 그대로 남아 있습니다.</li>
+    <li>왼쪽 칸에서 바뀐 것만 고칩니다. (설교 제목·본문, 성경읽기, 교회소식, 목장 순서지)</li>
+    <li><b>인쇄 · PDF</b>를 누릅니다. 인쇄 창에서 <b>용지 A4 · 가로 · 여백 없음 · 배경 그래픽 켜기</b>로 맞추고, 양면 인쇄는 <b>짧은 쪽으로 넘기기</b>를 고릅니다. PDF로 저장하려면 프린터를 "PDF로 저장"으로 바꿉니다.</li>
+    <li><b>홈페이지로 보내기</b>를 누르면 홈페이지 "교회 소식" 페이지에 이번 주 주보 그림과 교회소식이 올라갑니다. 처음 한 번은 "교회 홈페이지" 안의 <b>site</b> 폴더를 골라 주세요. (그림 파일만 필요하면 <b>이미지로 저장</b>)</li>
+    <li>지난 주보는 날짜별로 자동 보관됩니다. <b>지난 주보</b>에서 다시 열거나, 예전 주보 내용으로 이번 주 주보를 시작할 수 있습니다. 다른 컴퓨터로 옮길 때는 <b>파일로 저장</b> → <b>파일 열기</b>를 쓰세요.</li>
+  </ol>
+  <h3>처음 한 번만: 교회 · 로고 · 디자인</h3>
+  <ul>
+    <li><b>교회 · 교단 · 로고</b> 칸에서 교회 이름, 슬로건, 교단을 고릅니다. 교단 공식 마크는 교단 홈페이지에서 받은 그림 파일을 <b>심볼 파일 올리기</b>로 넣어 주세요.</li>
+    <li>로고가 있는 교회는 <b>로고 파일 올리기</b>, 없는 교회는 <b>로고 만들기</b>에서 상징·색·글꼴·배치를 골라 만듭니다. 만든 로고는 <b>PNG로 저장</b>해 현수막·홈페이지에도 쓸 수 있습니다.</li>
+    <li><b>디자인</b> 칸에서 색(숲·하늘·클래식·노을)과 표지 모양(그림/글씨)을 고릅니다.</li>
+    <li>절기 주일(대림절·성탄절·신년·사순절·부활절·성령강림절·맥추감사·추수감사)에는 날짜를 보고 색과 표지 그림이 <b>자동으로</b> 바뀝니다. 절기가 끝나면 평소 디자인으로 돌아옵니다. 추수감사주일이 셋째 주인지 넷째 주인지는 디자인 칸에서 정해 주세요.</li>
+  </ul>
+  <h3>글 쓰는 규칙</h3>
+  <ul>
+    <li>줄 맨 앞에 <code>-</code>를 쓰면 점이 붙은 목록이 됩니다.</li>
+    <li><code>**굵게**</code>처럼 별표 두 개로 감싸면 굵은 글씨가 됩니다.</li>
+    <li>목장 순서지 "말씀 요약"은 <b>빈 줄</b>로 나누면 요약 1, 요약 2…로 번호가 붙습니다.</li>
+    <li>목장 순서지는 <b>설교 원고</b>를 붙여 넣거나 원고 파일(Word·PDF·txt)을 올리고 <b>✨ 원고를 목장용 요약 · 나눔 질문으로 만들기</b>를 누르면 요약 3개와 질문 3개가 채워집니다. 한글(hwp) 원고는 열어서 전체 복사 → 붙여넣기 해 주세요. 꼭 읽어 보고 다듬어 주세요.</li>
+    <li>영어 제목은 <b>✨ AI 번역</b>을 누르면 자동으로 채워집니다. 처음 한 번 위쪽 <b>AI 설정</b>에서 키를 넣어 주세요.</li>
+  </ul>
+  <h3>알아 두면 좋은 것</h3>
+  <ul>
+    <li>쓴 내용은 이 컴퓨터의 인터넷 창에 자동 저장됩니다. 다른 컴퓨터에서 이어 하려면 저장한 파일을 옮겨 <b>파일 열기</b>를 하세요.</li>
+    <li>내용이 많으면 그 면의 글씨가 자동으로 조금씩 작아집니다. 너무 작아지면 위에 주황색 안내가 뜨니, 그때는 글을 줄여 주세요.</li>
+    <li>표지 그림은 "표지" 칸에서 사진을 골라 바꿀 수 있습니다. 비워 두면 기본 그림이 들어갑니다.</li>
+    <li>교회 주소·비전·선교지·예배 시간표처럼 잘 안 바뀌는 것은 맨 아래 <b>고정 정보</b>에 있습니다.</li>
+  </ul>
+</div></div>
+
+
+<script>
+const KEY = 'yegrin-bulletin-v1';
+const DAYS = ['주일', '월', '화', '수', '목', '금', '토'];
+
+/* 디자인: 색·글꼴 묶음. art는 표지 기본 그림 색 */
+const SERIF = '"Noto Serif KR", "Batang", serif', GARA = '"Cormorant Garamond", serif', SANS = '"Pretendard", "Malgun Gothic", sans-serif';
+const THEMES = {
+  forest: { name: '숲', desc: '짙은 초록·금색, 명조', v: { g: '#1f4a37', g2: '#2f6b4f', gl: '#e7f1ea', cream: '#faf7f1', gold: '#a9823c', goldl: '#f1d9a2', line: '#e3dccd', blue: '#2b86c5', leaf: '#7ab648', serif: SERIF, en: GARA },
+    art: { s1: '#f6efe0', s2: '#e7f1ea', sun: '#f1d9a2', ray: '#e3c98a', cross: '#a9823c', h1: '#7ab648', h2: '#2f6b4f', h3: '#1f4a37' } },
+  sky: { name: '하늘', desc: '로고 파랑·연두, 고딕', v: { g: '#1d5f8f', g2: '#2b86c5', gl: '#e6f2fa', cream: '#f4f9fc', gold: '#5b9a2e', goldl: '#cfe6b8', line: '#d8e4ec', blue: '#2b86c5', leaf: '#7ab648', serif: SANS, en: SANS },
+    art: { s1: '#eef6fb', s2: '#dcedf8', sun: '#fff3c4', ray: '#bcdcf0', cross: '#2b86c5', h1: '#b5dc8e', h2: '#7ab648', h3: '#2b86c5' } },
+  classic: { name: '클래식', desc: '먹색·자주, 흑백 인쇄용', v: { g: '#222222', g2: '#6b1f2a', gl: '#f0ebe3', cream: '#f8f5ef', gold: '#6b1f2a', goldl: '#d9c4b8', line: '#d9d2c5', blue: '#222222', leaf: '#6b1f2a', serif: SERIF, en: GARA },
+    art: { s1: '#f3efe8', s2: '#e6e0d6', sun: '#ffffff', ray: '#cfc6b6', cross: '#6b1f2a', h1: '#b9b0a2', h2: '#6f675c', h3: '#2e2a26' } },
+  sunset: { name: '노을', desc: '가을빛 갈색·주황, 명조', v: { g: '#6b3a22', g2: '#a8562e', gl: '#f7ebe1', cream: '#fcf6f0', gold: '#c0812f', goldl: '#f0d6b0', line: '#eadccd', blue: '#a8562e', leaf: '#d08a3a', serif: SERIF, en: GARA },
+    art: { s1: '#fbefd9', s2: '#f6dcc4', sun: '#ffd89a', ray: '#efc28d', cross: '#8a4a26', h1: '#e3a35c', h2: '#a8562e', h3: '#6b3a22' } }
+};
+const LAYOUTS = { art: '그림 표지', text: '글씨 표지' };
+
+/* 로고 상징: 100×100 칸에 a(주색)·b(보조색)로 그림 */
+const rays = (cx, cy, r1, r2, n) => Array.from({ length: n }, (_, i) => { const t = Math.PI * 2 * i / n + Math.PI / n; return `M${(cx + Math.cos(t) * r1).toFixed(1)} ${(cy + Math.sin(t) * r1).toFixed(1)}L${(cx + Math.cos(t) * r2).toFixed(1)} ${(cy + Math.sin(t) * r2).toFixed(1)}`; }).join('');
+const SYMBOLS = {
+  yegrin: { name: '예그린', d: (a, b) => `<g transform="translate(11.5 0) scale(.77)" fill="none" stroke-linecap="round"><path d="M57 2 C51 30, 29 58, 30 84 C31 98, 40 106, 51 107" stroke="${b}" stroke-width="3.5"/><path d="M58 40 C66 52, 79 68, 77 87 C75 100, 65 107, 53 107" stroke="${a}" stroke-width="6.5"/><path d="M38 67 C52 66, 67 59, 81 45" stroke="${a}" stroke-width="5"/><path d="M12 116 C30 110, 70 110, 88 116" stroke="${a}" stroke-width="2.4"/><path d="M24 123 C40 118, 60 118, 76 123" stroke="${b}" stroke-width="2.4"/></g>` },
+  cross: { name: '십자가', d: (a, b) => `<path d="M43 8h14v24h22v14H57v42H43V46H21V32h22z" fill="${a}"/><path d="M16 93h68" stroke="${b}" stroke-width="5" stroke-linecap="round"/>` },
+  light: { name: '빛', d: (a, b) => `<path d="${rays(50, 46, 31, 44, 12)}" stroke="${b}" stroke-width="3.5" stroke-linecap="round"/><path d="M45.5 14h9v22h17v9h-17v44h-9V45h-17v-9h17z" fill="${a}"/>` },
+  dove: { name: '비둘기', d: (a, b) => `<path d="M12 60 C26 46, 46 44, 60 50 L82 34 C80 46, 76 52, 72 56 C68 72, 50 82, 30 76 L16 86 L22 70 C17 67, 13 64, 12 60Z" fill="${a}"/><path d="M38 52 C40 32, 52 16, 70 10 C66 26, 60 40, 50 52Z" fill="${b}"/><circle cx="74" cy="42" r="2.4" fill="#fff"/><path d="M82 36 L94 40 L82 42Z" fill="${b}"/>` },
+  fish: { name: '물고기', d: (a, b) => `<path d="M8 72 C28 28, 64 24, 92 50 C64 76, 28 72, 8 28" fill="none" stroke="${a}" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/><circle cx="74" cy="46" r="4" fill="${b}"/>` },
+  bible: { name: '성경', d: (a, b) => `<path d="M50 38 C40 30, 24 29, 9 33 V84 C24 80, 40 81, 50 89Z M50 38 C60 30, 76 29, 91 33 V84 C76 80, 60 81, 50 89Z" fill="none" stroke="${a}" stroke-width="5.5" stroke-linejoin="round"/><path d="M50 4v26M41 13h18" stroke="${b}" stroke-width="6" stroke-linecap="round"/>` },
+  lamp: { name: '등불', d: (a, b) => `<path d="M10 64 C24 84, 70 84, 84 66 L94 58 C82 55, 75 59, 70 61 C55 56, 30 56, 10 64Z" fill="${a}"/><path d="M50 52 C38 42, 45 28, 52 12 C57 28, 66 40, 55 52Z" fill="${b}"/><path d="M34 90h32" stroke="${a}" stroke-width="5" stroke-linecap="round"/>` },
+  globe: { name: '선교', d: (a, b) => `<circle cx="50" cy="60" r="32" fill="none" stroke="${a}" stroke-width="5"/><ellipse cx="50" cy="60" rx="13" ry="32" fill="none" stroke="${a}" stroke-width="3"/><path d="M18 60h64M23 44h54M23 76h54" stroke="${a}" stroke-width="3"/><path d="M50 3v30M40 13h20" stroke="${b}" stroke-width="6" stroke-linecap="round"/>` },
+  church: { name: '예배당', d: (a, b) => `<path d="M50 3v18M43 10h14" stroke="${b}" stroke-width="5" stroke-linecap="round"/><path d="M50 24 L66 40 V52 L88 64 V94 H12 V64 L34 52 V40Z" fill="${a}"/><path d="M43 94V76a7 7 0 0 1 14 0v18Z" fill="${b}"/>` },
+  leaf: { name: '새싹', d: (a, b) => `<path d="M46 8h8v84h-8zM30 30h40v8H30z" fill="${a}"/><path d="M46 74 C30 74, 18 64, 14 50 C30 49, 42 58, 46 74Z M54 74 C70 74, 82 64, 86 50 C70 49, 58 58, 54 74Z" fill="${b}"/>` },
+  heart: { name: '사랑', d: (a, b) => `<path d="M50 90 C20 68, 6 50, 16 31 C26 13, 44 17, 50 30 C56 17, 74 13, 84 31 C94 50, 80 68, 50 90Z" fill="none" stroke="${b}" stroke-width="5.5" stroke-linejoin="round"/><path d="M46 30h8v42h-8zM34 42h32v8H34z" fill="${a}"/>` }
+};
+const FONTS = {
+  serif: { name: '명조', css: '"Noto Serif KR", serif', w: 900 },
+  sans: { name: '고딕', css: '"Pretendard", "Malgun Gothic", sans-serif', w: 800 },
+  bold: { name: '굵은 제목체', css: '"Black Han Sans", sans-serif', w: 400 },
+  soft: { name: '부드러운 명조', css: '"Gowun Batang", serif', w: 700 }
+};
+const LOGO_LAYOUTS = { side: '옆으로', stack: '위아래', badge: '원형 배지' };
+const PAIRS = [['#2b86c5', '#7ab648', '#1f4a37'], ['#1f4a37', '#a9823c', '#1f4a37'], ['#6b1f2a', '#a9823c', '#2b2b2b'], ['#1d5f8f', '#f2b134', '#1d3557'], ['#7a4bb0', '#e0a43a', '#3b2a55'], ['#a8562e', '#d08a3a', '#6b3a22'], ['#222222', '#888888', '#222222']];
+const DENOMS = ['기독교대한감리회', '대한예수교장로회(통합)', '대한예수교장로회(합동)', '대한예수교장로회(고신)', '대한예수교장로회(합신)', '대한예수교장로회(백석)', '한국기독교장로회', '기독교대한성결교회', '예수교대한성결교회', '기독교한국침례회', '기독교대한하나님의성회', '대한기독교나사렛성결회', '대한성공회', '기독교한국루터회', '구세군', '독립교회'];
+
+const DEFAULT = {
+  design: { theme: 'forest', cover: 'art', season: 'auto' },
+  church: { name: '예그린교회', slogan: '예수님을 그리워하는 교회', denom: '기독교대한감리회', denomImg: '' },
+  brand: { mode: 'make', symbol: 'yegrin', c1: '#2b86c5', c2: '#7ab648', ink: '#1f4a37', font: 'serif', layout: 'side', image: '' },
+  date: '2026-11-01',
+  issue: '',
+  cover: {
+    title: '말씀을 대하는 결심',
+    titleEn: 'Resolved to Follow God’s Word',
+    verse: '에스라가 여호와의 율법을 연구하여 준행하며 율례와 규례를 이스라엘에게 가르치기로 결심하였었더라',
+    verseRef: '에스라 7:10',
+    image: ''
+  },
+  worship: {
+    times: '주일 오전 8:50 · 10:50',
+    note: '헌금은 헌금함에 자유롭게 내주세요.',
+    order: [
+      { a: '경배와 찬양', c: '', w: '다같이', hi: false },
+      { a: '사도신경', c: '', w: '다같이', hi: false },
+      { a: '예그린소식', c: '', w: '사회자', hi: false },
+      { a: '성경봉독', c: '에스라 7장 1-10절', w: '', hi: false },
+      { a: '설교', c: '말씀을 대하는 결심', w: '고용진 목사', hi: true },
+      { a: '결단찬양', c: '', w: '다같이', hi: false },
+      { a: '축도', c: '', w: '고용진 목사', hi: false }
+    ],
+    aftTime: '주일 오후 1:00',
+    aftTitle: '기도하는 목장 모임'
+  },
+  weekday: [
+    { n: '새벽예배', t: '화–금 오전 5:30', c: '"호세아, 요엘" 강해\n설교 | 고용진 목사' },
+    { n: '수요예배', t: '수요일 오후 7:30', c: '데살로니가전후서와 목회서신\n설교 | 고용진 목사' },
+    { n: '금요성령집회', t: '금요일 오후 8:30', c: '한반도를 위한 기도회' }
+  ],
+  meetings: '[전도모임] 토요일 오전 11시\n[성전 청소] 토요일 오전 10시\n[에벤에셀 중창단] 주일 오후 2:30\n[북한을 위한 기도회] 수요일 오전 10:30 (격주)',
+  reading: ['눅21-22', '눅23-24', '요1-3', '요4-5', '요6-7', '요8-9', '요10-11'],
+  news: [
+    { t: '환영의 말씀', b: '- 예그린교회에 오신 여러분을 진심으로 환영합니다.' },
+    { t: '예배 안내', b: '- 오늘은 성찬식이 있습니다. 십자가를 만나는 예배가 되기를 소망합니다.\n- 11월 6일 금요성령집회는 한반도를 위한 기도회로 진행합니다.' },
+    { t: '추수감사주일 안내', b: '- 11월 22일(주일)은 추수감사주일입니다.\n- 추수감사절 감사노트를 나눠드렸습니다. 11월 9일부터 21일까지 2주간의 감사주간을 보냅니다. 감사를 훈련(챌린지)할 수 있는 시간이 되시기 바랍니다.' },
+    { t: '2차 새생명 축제 안내', b: '- 일시: 12월 25일(금) 11시 성탄절 예배\n- 예수님이 가장 기뻐하실 영혼 구원의 선물을 드리는 성탄 예배가 되길 소망합니다.' },
+    { t: '「스크루테이프의 편지」 연극 배우·스태프 모집', b: '- 공연: 12월 25일(금) 새생명축제 / 모집: 배우 및 스태프 10명 내외\n- 연극을 통해 복음의 메시지를 전하고, 초청된 분들이 예수님을 알아가는 귀한 시간이 되기를 소망합니다. 성도님들의 많은 관심과 참여 바랍니다.\n- 신청 및 문의: 정하람 간사' },
+    { t: '교적 사진 촬영', b: '- 교적 정리가 마무리 단계에 있습니다. 아직 사진 촬영을 하지 못하신 성도님들께서는 촬영에 협조해 주시기 바랍니다.\n- 문의 및 촬영: 신창하 성도' }
+  ],
+  serve: [
+    { g: '섬김이', c: '황정자목장', m: '오용숙목장\n김경훈목장' },
+    { g: '섬김이', c: '정용운목장', m: '성정임목장\n허병진목장' },
+    { g: '섬김이', c: '성정임목장', m: '박금현목장\n이재인목장\n정세영목장' },
+    { g: '섬김이', c: '박금현목장', m: '정용운목장\n신창하목장\n이영순목장' }
+  ],
+  mokjang: {
+    title: '기도하는 목장',
+    titleEn: 'Oikos Church',
+    notes: '',
+    steps: '교제 — 1주일 동안의 안부를 물으며 자신의 삶을 간단히 나눕니다.\n찬양\n말씀 나눔(15분) — 에스라 7:1-10\n한 사람이 요약된 말씀을 읽고, 질문은 시간 안에 짧게 나눕니다.',
+    summary: '에스라는 하나님의 말씀을 깊이 연구하고, 그 말씀을 자신의 삶에서 실천하며, 이스라엘 백성에게 가르쳤던 사람이다. 당시 백성은 바벨론 포로 생활을 마치고 예루살렘으로 돌아왔지만, 성전이 재건되었다고 해서 신앙까지 온전히 회복된 것은 아니었다. 하나님을 향한 신앙과 말씀을 중심으로 살아가는 삶이 회복되어야 했다. 에스라는 이러한 시대에 하나님의 말씀을 가르치며 백성들의 신앙을 회복하는 일에 쓰임 받고자 결심하였다.\n\n말씀을 연구하는 것이 중요하다. 성경 읽기 횟수와 신앙의 성숙도는 동일하지 않다. 우리는 말씀을 통해 하나님의 뜻을 깊이 알아가고 하나님을 더 가까이 알아가려는 열정을 가져야 한다. 연구하기를 멈추지 말고, 배우기를 멈추지 말자. 또한 말씀을 준행해야 한다. 말씀을 많이 아는 것과 말씀대로 살아가는 것은 다르다. 말씀을 나 자신에게 적용시키며, 말씀 그대로 살아 보자.\n\n그리고 말씀을 나 혼자 간직하는 데서 멈추지 말아야 한다. 느헤미야 8장에서 백성들은 에스라와 레위인들을 통해 말씀을 듣고 깨달았으며, 자신의 모습을 돌아보고 말씀에 기록된 것을 실천했다. 우리도 말씀을 배우고 삶으로 살아내며, 자녀와 목장 식구, 믿음의 동역자들에게 전달하여 다른 사람을 세우는 사람이 되자.',
+    questions: '나는 하나님의 말씀을 얼마나 깊이 알아가려고 노력하고 있습니까?\n최근 하나님의 말씀을 통해 나의 생각이나 행동을 바꾼 경험이 있습니까? 말씀을 알고 있는 것과 실제로 준행하는 것 사이에서 나에게 필요한 변화는 무엇인지 나누어 봅시다.\n나는 누구에게 하나님의 말씀을 전달하고 세워 주는 사람이 되고 싶습니까? 가족이나 목장 식구, 주변 사람들 가운데 내가 말씀으로 섬기고 싶은 사람을 생각해 봅시다.',
+    prayer: '- 개인 기도제목 나눔 및 기도 (한 번에 한 명씩 기도합니다)\n- 감사하는 목장이 되기 위하여'
+  },
+  fixed: {
+    tgWeek: '4',
+    vision: 'Worshiping Church | 예배하는 교회\nOikos Church | 기도하는 목장 교회\nReaching Out Church | 구제·봉사하는 교회\nLife Giving Church | 선교·전도하는 교회\nDiscipling Church | 제자 삼는 교회',
+    missions: '인도 - 명로봉\n필리핀 - 김영규, 김은혜\n파퓨아뉴기니 - 문성, 이민아\n일본 - 장욱재, 이가혜\n북한 - 이순실(한국성결교회)\n오픈도어선교회',
+    newcomer: '방문자\n새가족 등록\n새가족 교육\n선교회·속회 편성\n제자훈련',
+    groups: '1여선교회 | 20~59년생\n2여선교회 | 60~70년생\n3여선교회 | 71년생 이후\n1남선교회 | 20~69년생\n2남선교회 | 70년생 이후',
+    times1: '1부 | 8:50 | 본당\n2부 | 10:50 | 본당',
+    times2: '유치부 | 11:00 | 교육관(4층)\n아동부 | 11:00 | 소예배실\n청소년부 | 13:20 | 교육관(4층)\n청년부 | 13:20 | 교육관(4층)',
+    times3: '새벽예배(화–금) | 5:30 | 본당\n수요예배 | 19:30 | 본당\n금요성령집회 | 20:30 | 본당',
+    directions: '**전철** 인천지하철 2호선 아시아드경기장역 3번 출구 (도보 3분)\n**주차** 건물 뒤 주차장을 이용해 주세요. (빌라 주차는 삼가 주시기 바랍니다)',
+    address: '인천 서구 연희동 683-4 3층',
+    phone: '032-561-0623',
+    web: 'www.yegrinch.com',
+    pastor: '고용진 목사',
+    staff: '정하람 간사'
+  }
+};
+
+let S;
+try { S = JSON.parse(localStorage.getItem(KEY)) || null; } catch (e) { S = null; }
+S = merge(structuredClone(DEFAULT), S || {});
+
+function merge(base, over) {
+  for (const k in over) {
+    if (over[k] && typeof over[k] === 'object' && !Array.isArray(over[k]) && base[k] && typeof base[k] === 'object' && !Array.isArray(base[k])) merge(base[k], over[k]);
+    else base[k] = over[k];
+  }
+  return base;
+}
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const inl = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
+const getP = (o, p) => p.split('.').reduce((a, k) => a == null ? a : a[k], o);
+function setP(o, p, v) { const ks = p.split('.'); let a = o; for (let i = 0; i < ks.length - 1; i++) a = a[ks[i]]; a[ks[ks.length - 1]] = v; }
+
+function lines(text) {
+  return String(text || '').split('\n').map(l => {
+    const t = l.trim();
+    if (!t) return '<div class="ln"></div>';
+    const m = t.match(/^[-•*·]\s*(.*)$/);
+    return m ? `<div class="li">${inl(m[1])}</div>` : `<div>${inl(t)}</div>`;
+  }).join('');
+}
+const rows = text => String(text || '').split('\n').map(l => l.trim()).filter(Boolean);
+const cells = l => l.split('|').map(s => s.trim());
+
+function sunday() { const [y, m, d] = S.date.split('-').map(Number); return new Date(y, m - 1, d); }
+function addDays(dt, n) { const x = new Date(dt); x.setDate(x.getDate() + n); return x; }
+const md = dt => `${dt.getMonth() + 1}/${dt.getDate()}`;
+const ymd = dt => `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, '0')}-${String(dt.getDate()).padStart(2, '0')}`;
+const fullDate = dt => `${dt.getFullYear()}. ${dt.getMonth() + 1}. ${dt.getDate()}.`;
+
+/* ───────── 표지 기본 그림 ───────── */
+const baseArt = (a = (THEMES[S.design.theme] || THEMES.forest).art) => `<svg viewBox="0 0 600 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${a.s1}"/><stop offset=".75" stop-color="${a.s2}"/></linearGradient>
+    <radialGradient id="sun" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="${a.sun}"/><stop offset=".55" stop-color="${a.sun}" stop-opacity=".55"/><stop offset="1" stop-color="${a.sun}" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="600" height="300" fill="url(#sky)"/>
+  <circle cx="300" cy="150" r="150" fill="url(#sun)"/>
+  <g stroke="${a.ray}" stroke-width="1.2" opacity=".55">
+    ${Array.from({ length: 13 }, (_, i) => { const t = Math.PI * (i + 1) / 14; return `<line x1="${300 - Math.cos(t) * 70}" y1="${150 - Math.sin(t) * 70}" x2="${300 - Math.cos(t) * 260}" y2="${150 - Math.sin(t) * 260}"/>`; }).join('')}
+  </g>
+  <g transform="translate(288 64)" stroke="${a.cross}" stroke-width="5" stroke-linecap="round"><line x1="12" y1="0" x2="12" y2="78"/><line x1="0" y1="22" x2="24" y2="22"/></g>
+  <path d="M0 205 C120 170, 220 160, 330 185 S520 200, 600 175 V300 H0Z" fill="${a.h1}" opacity=".55"/>
+  <path d="M0 238 C140 205, 260 215, 360 232 S520 236, 600 214 V300 H0Z" fill="${a.h2}"/>
+  <path d="M0 268 C150 246, 330 256, 450 266 S560 270, 600 258 V300 H0Z" fill="${a.h3}"/>
+  <path d="M60 276 C150 266, 230 266, 300 274" stroke="${a.sun}" stroke-width="1.4" fill="none" opacity=".6"/>
+  <path d="M320 284 C390 276, 470 276, 540 283" stroke="${a.sun}" stroke-width="1.4" fill="none" opacity=".45"/>
+  <g fill="none" stroke="${a.h3}" stroke-width="1.6" stroke-linecap="round" opacity=".55"><path d="M120 70 q8 -7 16 0 q8 -7 16 0"/><path d="M160 92 q6 -5 12 0 q6 -5 12 0"/><path d="M450 84 q7 -6 14 0 q7 -6 14 0"/></g>
+</svg>`;
+
+/* ───────── 교회 절기: 날짜로 자동 계산 + 절기마다 색·표지 그림 ───────── */
+function easterOf(y) { // 그레고리력 부활절 계산
+  const a = y % 19, b = Math.floor(y / 100), c = y % 100, d = Math.floor(b / 4), e = b % 4, f = Math.floor((b + 8) / 25), g = Math.floor((b - f + 1) / 3);
+  const h = (19 * a + b - d - g + 15) % 30, i = Math.floor(c / 4), k = c % 4, l = (32 + 2 * e + 2 * i - h - k) % 7, m = Math.floor((a + 11 * h + 22 * l) / 451);
+  const n = h + l - 7 * m + 114;
+  return new Date(y, Math.floor(n / 31) - 1, (n % 31) + 1);
+}
+const dayDiff = (a, b) => Math.round((a - b) / 864e5);
+// 주일 날짜 → { key, label }  (없으면 null)
+function seasonOf(d) {
+  const y = d.getFullYear(), mo = d.getMonth() + 1, dt = d.getDate();
+  const e = dayDiff(d, easterOf(y));
+  if (e === 0) return { key: 'easter', label: '부활절' };
+  if (e === 49) return { key: 'pentecost', label: '성령강림절' };
+  if (e === -7) return { key: 'lent', label: '종려주일' };
+  if (e >= -46 && e < 0) return { key: 'lent', label: `사순절 ${Math.ceil((e + 46) / 7)}주` };
+  if (mo === 1 && dt <= 7) return { key: 'newyear', label: '신년주일' };
+  if (mo === 7 && dt <= 7) return { key: 'harvest', label: '맥추감사주일' };
+  if (mo === 11 && Math.ceil(dt / 7) === +(S.fixed.tgWeek || 3)) return { key: 'thanks', label: '추수감사주일' };
+  const xmas = new Date(y, 11, 25), adv4 = addDays(xmas, -(xmas.getDay() || 7)), adv1 = addDays(adv4, -21);
+  if (d >= adv1 && d < xmas) return { key: 'advent', label: `대림절 ${dayDiff(d, adv1) / 7 + 1}주`, week: dayDiff(d, adv1) / 7 + 1 };
+  if (mo === 12 && dt >= 25) return { key: 'christmas', label: '성탄절' };
+  return null;
+}
+function activeSeason() {
+  const s = S.design.season || 'auto';
+  if (s === 'none') return null;
+  if (s === 'auto') return seasonOf(sunday());
+  const auto = seasonOf(sunday());
+  return { key: s, label: auto && auto.key === s ? auto.label : SEASONS[s].name, week: auto && auto.key === s ? auto.week : 4 };
+}
+
+let seed = 1;
+const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+const starsSVG = (n, maxY, col) => { seed = 7; return Array.from({ length: n }, () => `<circle cx="${(rnd() * 600).toFixed(0)}" cy="${(rnd() * maxY).toFixed(0)}" r="${(0.6 + rnd() * 1.4).toFixed(1)}" fill="${col}" opacity="${(0.5 + rnd() * 0.5).toFixed(2)}"/>`).join(''); };
+const wheat = (x, y, h, rot, col) => `<g transform="translate(${x} ${y}) rotate(${rot})"><path d="M0 0 Q2 ${-h / 2} 0 ${-h}" stroke="${col}" stroke-width="2" fill="none"/>${Array.from({ length: 6 }, (_, i) => { const yy = -h + 6 + i * 7; return `<ellipse cx="-3.2" cy="${yy}" rx="2.6" ry="5.5" transform="rotate(-28 -3.2 ${yy})" fill="${col}"/><ellipse cx="3.2" cy="${yy}" rx="2.6" ry="5.5" transform="rotate(28 3.2 ${yy})" fill="${col}"/>`; }).join('')}<ellipse cx="0" cy="${-h - 1}" rx="2.4" ry="5.5" fill="${col}"/></g>`;
+const flame = (x, y, s, c1, c2) => `<path d="M${x} ${y} C${x - 14 * s} ${y - 18 * s}, ${x - 7 * s} ${y - 40 * s}, ${x} ${y - 62 * s} C${x + 7 * s} ${y - 40 * s}, ${x + 14 * s} ${y - 18 * s}, ${x} ${y}Z" fill="${c1}"/><path d="M${x} ${y - 3 * s} C${x - 7 * s} ${y - 14 * s}, ${x - 3 * s} ${y - 28 * s}, ${x} ${y - 38 * s} C${x + 3 * s} ${y - 28 * s}, ${x + 7 * s} ${y - 14 * s}, ${x} ${y - 3 * s}Z" fill="${c2}"/>`;
+const grad = (id, c1, c2, c3) => `<linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c1}"/>${c3 ? `<stop offset=".62" stop-color="${c2}"/><stop offset="1" stop-color="${c3}"/>` : `<stop offset="1" stop-color="${c2}"/>`}</linearGradient>`;
+const glow = (id, c) => `<radialGradient id="${id}"><stop offset="0" stop-color="${c}"/><stop offset=".45" stop-color="${c}" stop-opacity=".45"/><stop offset="1" stop-color="${c}" stop-opacity="0"/></radialGradient>`;
+const svgWrap = body => `<svg viewBox="0 0 600 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${body}</svg>`;
+const T = (g, g2, gl, cream, gold, goldl, line, blue, leaf) => ({ g, g2, gl, cream, gold, goldl, line, blue, leaf, serif: SERIF, en: GARA });
+
+const SEASONS = {
+  advent: { name: '대림절', en: 'Advent', greet: '오실 주님을 기다리며', v: T('#3d2a63', '#5b4590', '#efeaf6', '#f8f6fb', '#a8823a', '#e8d6ad', '#e0d9ea', '#5b4590', '#8a6fbf'),
+    art: s => svgWrap(`<defs>${grad('sk', '#221c45', '#4a3d80')}${glow('fl', '#ffd884')}</defs><rect width="600" height="300" fill="url(#sk)"/>${starsSVG(60, 180, '#fff')}
+      ${[[205, 238, '#7a55b5'], [268, 222, '#7a55b5'], [332, 222, '#d98bb0'], [395, 238, '#7a55b5']].map(([x, y, c], i) => `${i < (s.week || 1) ? `<circle cx="${x}" cy="${y - 92}" r="34" fill="url(#fl)"/>${flame(x, y - 74, 0.42, '#ffcf5a', '#fff3c4')}` : ''}<rect x="${x - 10}" y="${y - 74}" width="20" height="74" rx="3" fill="${c}"/><rect x="${x - 10}" y="${y - 74}" width="6" height="74" rx="3" fill="#fff" opacity=".18"/><line x1="${x}" y1="${y - 74}" x2="${x}" y2="${y - 80}" stroke="#2a2340" stroke-width="2"/>`).join('')}
+      <ellipse cx="300" cy="244" rx="160" ry="30" fill="none" stroke="#2c6a47" stroke-width="24"/><ellipse cx="300" cy="244" rx="160" ry="30" fill="none" stroke="#3f8a5a" stroke-width="10" stroke-dasharray="6 9"/>
+      ${Array.from({ length: 14 }, (_, i) => { const t = i / 14 * Math.PI * 2; return `<circle cx="${(300 + Math.cos(t) * 160).toFixed(0)}" cy="${(244 + Math.sin(t) * 30).toFixed(0)}" r="4" fill="#c23a3a"/>`; }).join('')}`) },
+  christmas: { name: '성탄절', en: 'Christmas', greet: '임마누엘, 하나님이 우리와 함께', v: T('#8b1e2d', '#1f5a3d', '#f7ece9', '#fcf8f4', '#b8892f', '#efd9a7', '#eadcd2', '#8b1e2d', '#1f5a3d'),
+    art: () => svgWrap(`<defs>${grad('sk', '#0e1f3a', '#284a72')}${glow('st', '#ffe7a3')}</defs><rect width="600" height="300" fill="url(#sk)"/>${starsSVG(70, 200, '#fff')}
+      <path d="M300 92 L238 252 L362 252Z" fill="#ffe7a3" opacity=".13"/><circle cx="300" cy="70" r="70" fill="url(#st)"/>
+      <path d="M300 22 L309 61 L348 70 L309 79 L300 118 L291 79 L252 70 L291 61Z" fill="#ffe08a"/><path d="M300 46 L304 66 L324 70 L304 74 L300 94 L296 74 L276 70 L296 66Z" fill="#fff7d6"/>
+      <path d="M0 238 C120 210, 220 222, 300 236 S480 214, 600 230 V300 H0Z" fill="#1b365c"/>
+      <path d="M232 256 L300 204 L368 256Z" fill="#5a3b26"/><rect x="246" y="254" width="108" height="34" fill="#6e4a2f"/><path d="M286 288 V266 a14 14 0 0 1 28 0 V288Z" fill="#ffd27a"/>
+      <path d="M0 268 C150 252, 330 262, 450 270 S560 272, 600 264 V300 H0Z" fill="#12274a"/>`) },
+  newyear: { name: '신년', en: 'New Year', greet: '새해, 새 은혜', v: T('#1f3b63', '#2f5d8f', '#e8eef6', '#f6f8fb', '#c08a2e', '#f2d9a6', '#d9e1ea', '#2f5d8f', '#c08a2e'),
+    art: () => svgWrap(`<defs>${grad('sk', '#2b4a78', '#f3b880', '#fde6c2')}${grad('sea', '#2a4c78', '#132a48')}${glow('sn', '#ffe3a1')}</defs><rect width="600" height="300" fill="url(#sk)"/>
+      <circle cx="300" cy="200" r="120" fill="url(#sn)"/><circle cx="300" cy="200" r="46" fill="#ffd27e"/><rect y="200" width="600" height="100" fill="url(#sea)"/>
+      ${[0, 1, 2, 3, 4, 5].map(i => `<rect x="${300 - (40 - i * 6)}" y="${208 + i * 13}" width="${(40 - i * 6) * 2}" height="3" rx="1.5" fill="#ffd27e" opacity="${0.8 - i * 0.12}"/>`).join('')}
+      <g fill="none" stroke="#1f3b63" stroke-width="1.8" stroke-linecap="round" opacity=".6"><path d="M150 90 q8 -7 16 0 q8 -7 16 0"/><path d="M190 112 q6 -5 12 0 q6 -5 12 0"/><path d="M430 100 q7 -6 14 0 q7 -6 14 0"/></g>`) },
+  lent: { name: '사순절', en: 'Lent', greet: '십자가의 길을 따라', v: T('#4b2a6b', '#6d4b8f', '#efe8f4', '#f8f5fa', '#8a6d3b', '#e2d3b5', '#e0d6e6', '#4b2a6b', '#8a6d9f'),
+    art: () => svgWrap(`<defs>${grad('sk', '#f1e9f3', '#c9b6d8')}${glow('sn', '#fff2e0')}</defs><rect width="600" height="300" fill="url(#sk)"/><circle cx="300" cy="150" r="140" fill="url(#sn)"/>
+      <path d="M0 250 C120 230, 200 160, 300 150 S470 220, 600 240 V300 H0Z" fill="#6d4b8f" opacity=".55"/><path d="M0 272 C140 252, 220 196, 300 184 S470 244, 600 262 V300 H0Z" fill="#4b2a6b"/>
+      ${[[300, 184, 1], [240, 204, .72], [360, 204, .72]].map(([x, y, s]) => `<g fill="#2e1a44"><rect x="${x - 4 * s}" y="${y - 100 * s}" width="${8 * s}" height="${100 * s}"/><rect x="${x - 26 * s}" y="${y - 78 * s}" width="${52 * s}" height="${8 * s}"/></g>`).join('')}`) },
+  easter: { name: '부활절', en: 'Easter', greet: '그리스도께서 다시 살아나셨습니다', v: T('#2e5d3a', '#6a8f3a', '#f3f7e8', '#fffbf0', '#c99a2e', '#f6e2a8', '#ebe3cf', '#c99a2e', '#6a8f3a'),
+    art: () => svgWrap(`<defs>${grad('sk', '#fff9e8', '#fbe5ad')}${glow('sn', '#fff1b8')}</defs><rect width="600" height="300" fill="url(#sk)"/><circle cx="360" cy="150" r="170" fill="url(#sn)"/>
+      <g stroke="#f1cf73" stroke-width="2" opacity=".6"><path d="${rays(360, 150, 60, 230, 18)}"/></g>
+      <path d="M0 232 C120 200, 260 196, 380 214 S540 226, 600 210 V300 H0Z" fill="#a9cd84"/>
+      <path d="M118 262 C122 196, 168 168, 222 168 C276 168, 312 200, 318 262Z" fill="#bcae95"/><ellipse cx="214" cy="236" rx="30" ry="34" fill="#3d352b"/><circle cx="292" cy="246" r="28" fill="#a89a82" stroke="#8d806a" stroke-width="2"/>
+      <path d="M0 262 C150 244, 330 252, 450 262 S560 266, 600 256 V300 H0Z" fill="#6a9a4a"/>
+      ${[[470, 262, 0], [505, 268, 1], [440, 272, 1]].map(([x, y, k]) => `<path d="M${x} ${y} Q${x - 4} ${y - 30} ${x + 2} ${y - 56}" stroke="#4f7d34" stroke-width="3" fill="none"/>${[0, 72, 144, 216, 288].map(r => `<ellipse cx="${x + 2}" cy="${y - 68}" rx="5" ry="13" transform="rotate(${r + k * 20} ${x + 2} ${y - 60})" fill="#fffdf4" stroke="#e7d9a6" stroke-width="1"/>`).join('')}<circle cx="${x + 2}" cy="${y - 60}" r="3.5" fill="#f2c94c"/>`).join('')}`) },
+  pentecost: { name: '성령강림절', en: 'Pentecost', greet: '성령이 임하시면 권능을 받고', v: T('#a3281c', '#c8532a', '#fbece4', '#fff8f2', '#c98a1f', '#f6d9a4', '#efdcd0', '#a3281c', '#e07a2f'),
+    art: () => svgWrap(`<defs>${grad('sk', '#fff1df', '#f4ab80')}${glow('sn', '#fff6dc')}</defs><rect width="600" height="300" fill="url(#sk)"/><circle cx="300" cy="90" r="150" fill="url(#sn)"/>
+      <g stroke="#fff3d6" stroke-width="2.4" opacity=".7"><path d="${rays(300, 90, 50, 260, 16)}"/></g>
+      <g transform="translate(250 20) scale(1.05) rotate(14 50 50)">${SYMBOLS.dove.d('#ffffff', '#f6d27a')}</g>
+      ${[70, 150, 230, 300, 370, 450, 530].map((x, i) => flame(x, 292, 0.9 + (i % 2) * 0.35, ['#c8331e', '#e0662a', '#d8481f'][i % 3], '#ffd166')).join('')}`) },
+  harvest: { name: '맥추감사절', en: 'Harvest', greet: '첫 열매를 드리며 감사합니다', v: T('#5b4a1f', '#8a6a24', '#f6efdc', '#fdfaf1', '#b8892f', '#efdca8', '#e9dfc6', '#8a6a24', '#a8b14a'),
+    art: () => svgWrap(`<defs>${grad('sk', '#f7f2de', '#f9e3a8')}${glow('sn', '#fff3c2')}</defs><rect width="600" height="300" fill="url(#sk)"/><circle cx="300" cy="140" r="150" fill="url(#sn)"/><circle cx="300" cy="150" r="34" fill="#ffe08a"/>
+      <path d="M0 210 C150 196, 450 196, 600 210 V300 H0Z" fill="#e3c06a"/>
+      ${Array.from({ length: 34 }, (_, i) => wheat(8 + i * 18, 300, 70 + ((i * 37) % 40), ((i * 13) % 14) - 7, i % 2 ? '#c89b3c' : '#b0822a')).join('')}`) },
+  thanks: { name: '추수감사절', en: 'Thanksgiving', greet: '범사에 감사하라', v: T('#7a3b1e', '#a65a2a', '#f8ece0', '#fdf7f0', '#c08a2e', '#f2d6a6', '#ecdccb', '#a65a2a', '#8a9a3a'),
+    art: () => svgWrap(`<defs>${grad('sk', '#fcf1e1', '#f3d2a2')}${glow('sn', '#fff0cf')}</defs><rect width="600" height="300" fill="url(#sk)"/><circle cx="300" cy="140" r="170" fill="url(#sn)"/>
+      ${[-40, -26, -13, 0, 13, 26, 40].map(r => wheat(300, 236, 120, r, '#c9973a')).join('')}
+      <path d="M0 270 H600 V300 H0Z" fill="#d9b382"/>
+      <g>${[[262, 214, '#6b3d6e'], [276, 222, '#7a4a7d'], [250, 226, '#6b3d6e'], [266, 234, '#7a4a7d'], [254, 240, '#5f3461'], [270, 246, '#6b3d6e'], [262, 256, '#7a4a7d']].map(([x, y, c]) => `<circle cx="${x}" cy="${y}" r="9" fill="${c}"/>`).join('')}<path d="M262 206 q6 -10 16 -12" stroke="#5b7a2e" stroke-width="3" fill="none"/></g>
+      <circle cx="335" cy="232" r="20" fill="#c4472f"/><circle cx="329" cy="226" r="5" fill="#fff" opacity=".35"/><path d="M335 213 q2 -8 9 -10" stroke="#5b4a1f" stroke-width="2.5" fill="none"/><ellipse cx="346" cy="206" rx="7" ry="3.5" transform="rotate(-25 346 206)" fill="#6f8f2e"/>
+      <path d="M372 252 c-14 0 -18 -14 -14 -24 c3 -8 2 -16 10 -20 c8 4 7 12 10 20 c4 10 0 24 -14 24Z" transform="translate(6 0)" fill="#c9b44a"/>
+      <path d="M200 244 C200 290, 400 290, 400 244Z" fill="#9a6532"/><path d="M196 244 H404" stroke="#7a4d24" stroke-width="8" stroke-linecap="round"/>
+      ${[0, 1, 2].map(i => `<path d="M${214 + i * 2} ${256 + i * 10} C260 ${262 + i * 10}, 340 ${262 + i * 10}, ${386 - i * 2} ${256 + i * 10}" stroke="#7a4d24" stroke-width="2" fill="none" opacity=".7"/>`).join('')}`) }
+};
+
+const theme = () => { const s = activeSeason(); return s ? { v: SEASONS[s.key].v } : (THEMES[S.design.theme] || THEMES.forest); };
+const art = () => { const s = activeSeason(); return s ? SEASONS[s.key].art(s) : baseArt(); };
+
+function symbolSVG(key, a, b, badge) {
+  const s = SYMBOLS[key] || SYMBOLS.cross;
+  return badge
+    ? `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="50" fill="${a}"/><g transform="translate(21 21) scale(.58)">${s.d('#ffffff', b)}</g></svg>`
+    : `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">${s.d(a, b)}</svg>`;
+}
+const markSVG = (br = S.brand) => symbolSVG(br.symbol, br.c1, br.c2, br.layout === 'badge');
+/* 교회 이름·슬로건까지 묶은 로고 */
+function logoHTML(br = S.brand) {
+  const ch = S.church;
+  if (br.mode === 'image' && br.image) return `<span class="lg-img" style="background-image:url('${br.image}')"></span>`;
+  const f = FONTS[br.font] || FONTS.serif;
+  return `<div class="lg ${br.layout === 'stack' ? 'stack' : ''}"><span class="lg-sym">${markSVG(br)}</span>
+    <span class="lg-tx"><span class="lg-nm" style="font-family:${f.css.replace(/"/g, "'")};font-weight:${f.w};color:${br.ink}">${esc(ch.name)}</span>${ch.slogan ? `<span class="lg-sl" style="color:${br.ink}">${esc(ch.slogan)}</span>` : ''}</span></div>`;
+}
+const shortName = () => S.church.name.replace(/교회$/, '').trim() || S.church.name;
+
+function applyTheme() {
+  const z = $('#zoomer');
+  for (const [k, v] of Object.entries(theme().v)) z.style.setProperty('--' + k, v);
+}
+
+/* ───────── 주보 그리기 ───────── */
+function renderCover() {
+  const f = S.fixed, c = S.cover, sun = sunday();
+  const vis = rows(f.vision).map(l => { const [en, ko] = cells(l); return `<span class="L">${esc(en.charAt(0))}</span><div class="t">${esc(en.slice(1))}<small>${esc(ko || '')}</small></div>`; }).join('');
+  const mis = rows(f.missions).map(l => { const m = l.match(/^(.+?)\s*-\s*(.+)$/); return m ? `<div><b>${esc(m[1])}</b> ${esc(m[2])}</div>` : `<div><b>${esc(l)}</b></div>`; }).join('');
+  const flow = rows(f.newcomer).map(s => `<span class="s">${esc(s)}</span>`).join('<span class="a">›</span>');
+  const ss = activeSeason(), sd = ss && SEASONS[ss.key];
+  const tag = sd ? `<div class="season">${esc(ss.label)}<i>${sd.en}</i></div>` : '';
+  const word = `<div class="c-word">
+      <div class="lab">${sd ? esc(sd.greet) : '오늘의 말씀'}</div>
+      <h1>${inl(c.title)}</h1>
+      ${c.titleEn ? `<div class="en">${esc(c.titleEn)}</div>` : ''}
+      ${c.verse || c.verseRef ? `<div class="vs">${c.verse ? `“${inl(c.verse)}”` : ''}<b>${esc(c.verseRef)}</b></div>` : ''}
+    </div>`;
+  const middle = S.design.cover === 'text'
+    ? `<div class="c-big"><span class="wm">${S.brand.mode === 'image' ? '' : markSVG()}</span>${tag}${word}</div>`
+    : `<div class="c-art" style="${c.image ? `background-image:url('${c.image}')` : ''}">${c.image ? '' : art()}${tag}</div>${word}`;
+  return `
+    <div class="c-top"><span class="den">${S.church.denomImg ? `<i style="background-image:url('${S.church.denomImg}')"></i>` : ''}${esc(S.church.denom)}</span><span><b>${fullDate(sun)} 주일</b>${S.issue ? ` · 제 ${esc(S.issue)}호` : ''}</span></div>
+    <div class="c-brand ${S.brand.layout === 'stack' ? 'stack' : ''}">${logoHTML()}</div>
+    ${middle}
+    <div class="c-info">
+      <div><h4>${esc(shortName())} 비전</h4><div class="vis">${vis}</div></div>
+      <div class="mis"><h4>함께하는 선교지</h4>${mis}</div>
+      <div><h4>새가족 등록 안내</h4><div class="flow">${flow}</div></div>
+    </div>
+    <div class="c-foot">
+      <div class="who">담임목사 <b>${esc(f.pastor)}</b><br>섬기는 이 <b>${esc(f.staff)}</b></div>
+      <div class="addr">${esc(f.address)}<br>${esc(f.phone)} · ${esc(f.web)}</div>
+    </div>`;
+}
+
+function renderBack() {
+  const m = S.mokjang;
+  const steps = rows(m.steps).map(s => `<div>${inl(s)}</div>`).join('');
+  const sums = String(m.summary || '').split(/\n\s*\n/).map(s => s.trim()).filter(Boolean)
+    .map((s, i) => `<div class="sum"><div class="k"><small>요약</small>${i + 1}</div><div>${inl(s).replace(/\n/g, '<br>')}</div></div>`).join('');
+  const qs = rows(m.questions).map((q, i) => `<div class="q"><b>Q${i + 1}</b><div>${inl(q)}</div></div>`).join('');
+  return `
+    <div class="hd"><h2>${esc(m.title)}</h2><span class="en">${esc(m.titleEn)}</span></div>
+    <div class="st">목장 순서</div>
+    <div class="mj-steps">${steps}</div>
+    ${sums ? `<div class="st">말씀 요약</div>${sums}` : ''}
+    ${qs ? `<div class="qbox"><div class="st">나눔 질문</div>${qs}</div>` : ''}
+    ${m.prayer ? `<div class="st">중보기도</div>${lines(m.prayer)}` : ''}`;
+}
+
+const tbl = (title, t) => `<table><caption>${title}</caption>${rows(t).map(l => `<tr>${cells(l).map(x => `<td>${esc(x)}</td>`).join('')}</tr>`).join('')}</table>`;
+
+function renderWorship() {
+  const w = S.worship, f = S.fixed, sun = sunday();
+  const ord = w.order.map(o => `<div class="ord${o.hi ? ' hi' : ''}"><span class="a">${esc(o.a)}</span><span class="c">${inl(o.c)}</span><span class="w">${esc(o.w)}</span></div>`).join('');
+  const wk = S.weekday.map(x => `<div class="wk"><div class="t"><b>${esc(x.n)}</b><span>${esc(x.t)}</span></div>${lines(x.c)}</div>`).join('');
+  const meet = rows(S.meetings).map(l => { const m = l.match(/^\[(.+?)\]\s*(.*)$/); return m ? `<div><b>${esc(m[1])}</b>${inl(m[2])}</div>` : `<div>${inl(l)}</div>`; }).join('');
+  const head = S.reading.map((_, i) => { const d = addDays(sun, i); return `<th class="${i === 0 ? 'sun' : ''}">${md(d)}(${DAYS[i]})</th>`; }).join('');
+  const body = S.reading.map(r => `<td>${esc(r)}</td>`).join('');
+  return `
+    <div class="hd"><h2>예배안내</h2><span class="en">Worship</span></div>
+    <div class="wcard">
+      <div class="wh"><b>주일예배</b><span>${esc(w.times)}</span></div>
+      ${w.note ? `<div class="note">${inl(w.note)}</div>` : ''}
+      ${ord}
+      <div class="aft"><b>오후예배 <small style="font-weight:500;color:var(--muted)">${esc(w.aftTime)}</small></b><span>${inl(w.aftTitle)}</span></div>
+    </div>
+    <div class="cols">
+      <div><div class="st">주중예배</div>${wk}</div>
+      <div><div class="st">모임안내</div><div class="meet">${meet}</div></div>
+    </div>
+    <div class="grow"></div>
+    <div class="st">${sun.getFullYear()}년 성경읽기 진도</div>
+    <table class="rd"><tr>${head}</tr><tr>${body}</tr></table>
+    <div class="st">예배 시간 · 오시는 길</div>
+    <div class="times">${tbl('주일예배', f.times1)}${tbl('주일학교', f.times2)}${tbl('주중예배', f.times3)}</div>
+    <div class="dir">${rows(f.directions).map(l => `<div>${inl(l)}</div>`).join('')}</div>`;
+}
+
+function renderNews() {
+  const f = S.fixed, sun = sunday();
+  const news = S.news.filter(n => n.t || n.b).map((n, i) => `<div class="news"><span class="no">${String(i + 1).padStart(2, '0')}</span><div class="tt">${inl(n.t)}</div><div class="bd">${lines(n.b)}</div></div>`).join('');
+  const sv = S.serve;
+  const th = sv.map((_, i) => `<th>${md(addDays(sun, i * 7))}</th>`).join('');
+  const tr = (lab, k) => `<tr><th>${lab}</th>${sv.map(x => `<td>${esc(x[k]).replace(/\n/g, '<br>')}</td>`).join('')}</tr>`;
+  const grp = rows(f.groups).map(l => { const [a, b] = cells(l); return `<div><b>${esc(a)}</b><span>${esc(b || '')}</span></div>`; }).join('');
+  return `
+    <div class="hd"><h2>교회소식</h2><span class="en">News</span></div>
+    ${news}
+    <div class="grow"></div>
+    <div class="st">섬김 안내</div>
+    <div class="svwrap">
+      <table class="sv"><thead><tr><th></th>${th}</tr></thead><tbody>${tr('안내', 'g')}${tr('청소', 'c')}${tr('식사<br>설거지', 'm')}</tbody></table>
+      <div class="grp"><div style="border:0;padding-top:0"><b style="color:var(--g)">선교회 안내</b></div>${grp}</div>
+    </div>`;
+}
+
+const PANELS = [['fBack', renderBack, '1면 왼쪽(목장 순서지)'], ['fCover', renderCover, '앞표지'], ['fWorship', renderWorship, '2면 왼쪽(예배안내)'], ['fNews', renderNews, '2면 오른쪽(교회소식)']];
+
+function fit(el) {
+  let s = 1;
+  el.style.setProperty('--s', s);
+  while (el.scrollHeight > el.clientHeight + 1 && s > 0.62) { s = +(s - 0.02).toFixed(2); el.style.setProperty('--s', s); }
+  return s;
+}
+
+function render() {
+  applyTheme();
+  const small = [];
+  for (const [id, fn, name] of PANELS) {
+    const el = document.getElementById(id);
+    el.innerHTML = fn();
+    const s = fit(el);
+    if (s < 0.84) small.push(`${name} ${Math.round(s * 100)}%`);
+    if (el.scrollHeight > el.clientHeight + 1) small.push(`${name} 글이 넘쳐 잘림`);
+  }
+  const w = $('#warn');
+  w.textContent = small.length ? `내용이 많아 글씨가 많이 작아졌어요: ${small.join(', ')}. 해당 칸의 글을 조금 줄여 주세요.` : '';
+  w.classList.toggle('on', small.length > 0);
+  $('#ttl').innerHTML = `${fullDate(sunday())} 주보<small id="saved"></small>`;
+  $('#sideLogo').innerHTML = S.brand.mode === 'image' && S.brand.image ? `<span class="lg-img" style="height:34px;background-image:url('${S.brand.image}')"></span>` : markSVG();
+  $('#sideName').textContent = `${S.church.name} 주보 만들기`;
+  document.title = `${S.church.name} 주보 만들기`;
+  const lp = $('#lgPrev'); if (lp) lp.innerHTML = logoHTML();
+  scale();
+}
+
+function scale() {
+  const st = $('#stage'), z = $('#zoomer');
+  const k = Math.min(1, (st.clientWidth - 44) / 1123);
+  z.style.transform = `scale(${k})`;
+  $('#zwrap').style.height = z.offsetHeight * k + 'px';
+}
+addEventListener('resize', scale);
+
+let saveT;
+function save() {
+  clearTimeout(saveT);
+  saveT = setTimeout(() => {
+    archivePut().catch(() => {});
+    try { localStorage.setItem(KEY, JSON.stringify(S)); const t = new Date(); const el = $('#saved'); if (el) el.textContent = `자동 저장 ${t.getHours()}:${String(t.getMinutes()).padStart(2, '0')}`; }
+    catch (e) { if (e.name === 'QuotaExceededError') toast('자동 저장 공간이 부족해요. 표지 사진을 더 작은 것으로 바꾸거나 파일로 저장해 주세요.'); }
+  }, 400);
+}
+let rT;
+function changed() { clearTimeout(rT); rT = setTimeout(() => { render(); save(); }, 120); }
+
+/* ───────── 왼쪽 입력 칸 ───────── */
+const inp = (k, label, ph = '') => `<label class="f"><span>${label}</span><input type="text" data-k="${k}" value="${esc(getP(S, k))}" placeholder="${esc(ph)}"></label>`;
+const area = (k, label, r = 3, hint = '') => `<label class="f"><span>${label}</span>${hint ? `<div class="hint">${hint}</div>` : ''}<textarea data-k="${k}" rows="${r}">${esc(getP(S, k))}</textarea></label>`;
+const tools = (list, i, n) => `<span class="mini"><button data-act="up" data-list="${list}" data-i="${i}" title="위로" ${i === 0 ? 'disabled' : ''}>▲</button><button data-act="down" data-list="${list}" data-i="${i}" title="아래로" ${i === n - 1 ? 'disabled' : ''}>▼</button><button class="x" data-act="del" data-list="${list}" data-i="${i}" title="지우기">✕</button></span>`;
+const sec = (id, title, sub, body, open) => `<details class="sec" data-sec="${id}" ${open ? 'open' : ''}><summary><span>${title}${sub ? `<small>${sub}</small>` : ''}</span></summary><div class="sec-body">${body}</div></details>`;
+
+function buildForm() {
+  const open = new Set([...document.querySelectorAll('details.sec[open]')].map(d => d.dataset.sec));
+  const first = !document.querySelector('details.sec');
+  const isOpen = id => first ? id === 'design' || id === 'basic' || id === 'cover' : open.has(id);
+  const themes = Object.entries(THEMES).map(([k, t]) => `<label><input type="radio" name="theme" data-design="theme" value="${k}" ${S.design.theme === k ? 'checked' : ''}>
+      <span class="sw">${[t.v.g, t.v.g2, t.v.gold, t.v.gl].map(c => `<i style="background:${c}"></i>`).join('')}</span><span>${t.name}<small>${t.desc}</small></span></label>`).join('');
+  const br = S.brand, ch = S.church;
+  const radio = (name, key, val, cur, label) => `<label><input type="radio" name="${name}" data-brand="${key}" value="${val}" ${cur === val ? 'checked' : ''}>${label}</label>`;
+  const syms = Object.entries(SYMBOLS).map(([k, s]) => `<label><input type="radio" name="sym" data-brand="symbol" value="${k}" ${br.symbol === k ? 'checked' : ''}>${symbolSVG(k, br.c1, br.c2, false)}${s.name}</label>`).join('');
+  const pairs = PAIRS.map((p, i) => `<button data-act="pair" data-i="${i}" title="이 색 조합 쓰기">${p.map(c => `<i style="background:${c}"></i>`).join('')}</button>`).join('');
+  const denomOpts = DENOMS.map(d => `<option ${ch.denom === d ? 'selected' : ''}>${d}</option>`).join('') + `<option value="__" ${DENOMS.includes(ch.denom) ? '' : 'selected'}>직접 쓰기</option>`;
+  const churchBody = `
+      <div class="grid2">${inp('church.name', '교회 이름')}${inp('church.slogan', '슬로건 (비워도 됨)')}</div>
+      <label class="f"><span>교단</span><select data-denom>${denomOpts}</select></label>
+      ${DENOMS.includes(ch.denom) ? '' : inp('church.denom', '교단 이름 직접 쓰기')}
+      <label class="f"><span>교단 심볼</span><div class="imgbox"><div class="thumb" style="width:56px;background-size:contain;background-repeat:no-repeat;${ch.denomImg ? `background-image:url('${ch.denomImg}')` : ''}"></div>
+        <div><button class="btn2" data-act="denomImg">심볼 파일 올리기</button> ${ch.denomImg ? '<button class="btn2" data-act="noDenomImg">빼기</button>' : ''}</div></div></label>
+      <div class="hint">교단 공식 마크는 교단마다 저작권이 있어 직접 그려 넣지 않았어요. 교단 홈페이지에서 받은 마크 파일(PNG 권장)을 올리면 표지 맨 위 교단 이름 옆에 들어갑니다.</div>
+      <input type="file" id="fDenom" accept="image/*" hidden>
+      <label class="f" style="margin-top:12px"><span>교회 로고</span></label>
+      <div class="layouts">${radio('lmode', 'mode', 'make', br.mode, '로고 만들기')}${radio('lmode', 'mode', 'image', br.mode, '로고 파일 올리기')}</div>
+      ${br.mode === 'image' ? `
+        <div class="imgbox" style="margin-top:8px"><div class="thumb" style="background-size:contain;background-repeat:no-repeat;${br.image ? `background-image:url('${br.image}')` : ''}"></div>
+          <div><button class="btn2" data-act="logoImg">로고 파일 고르기</button><div class="hint" style="margin-top:4px">교회 이름이 들어간 가로형 로고가 가장 잘 어울려요. 배경이 투명한 PNG를 권해요.</div></div></div>
+        <input type="file" id="fLogo" accept="image/*" hidden>` : `
+        <label class="f"><span>상징</span></label><div class="syms">${syms}</div>
+        <label class="f"><span>색</span></label>
+        <div class="colors"><label>주색 <input type="color" data-brand="c1" value="${br.c1}"></label><label>보조색 <input type="color" data-brand="c2" value="${br.c2}"></label><label>글자색 <input type="color" data-brand="ink" value="${br.ink}"></label></div>
+        <div class="pairs">${pairs}</div>
+        <label class="f"><span>글꼴</span></label><div class="layouts">${Object.entries(FONTS).map(([k, f]) => radio('lfont', 'font', k, br.font, `<span style="font-family:${f.css.replace(/"/g, "'")};font-weight:${f.w}">${f.name}</span>`)).join('')}</div>
+        <label class="f"><span>배치</span></label><div class="layouts three">${Object.entries(LOGO_LAYOUTS).map(([k, n]) => radio('llay', 'layout', k, br.layout, n)).join('')}</div>`}
+      <div class="lgprev" id="lgPrev">${logoHTML()}</div>
+      <button class="btn2" data-act="logoPng" style="margin-top:6px">로고를 그림 파일(PNG)로 저장</button>`;
+  const layouts = Object.entries(LAYOUTS).map(([k, n]) => `<label><input type="radio" name="layout" data-design="cover" value="${k}" ${S.design.cover === k ? 'checked' : ''}>${n}</label>`).join('');
+  const sun = sunday();
+  const w = S.worship;
+
+  const order = w.order.map((o, i) => `<div class="orow">
+      <input data-k="worship.order.${i}.a" value="${esc(o.a)}" placeholder="순서">
+      <input data-k="worship.order.${i}.c" value="${esc(o.c)}" placeholder="내용(없으면 비움)">
+      <input data-k="worship.order.${i}.w" value="${esc(o.w)}" placeholder="맡은 이">
+      <span class="tools"><button data-act="up" data-list="worship.order" data-i="${i}" title="위로">▲</button><button data-act="down" data-list="worship.order" data-i="${i}" title="아래로">▼</button><button data-act="del" data-list="worship.order" data-i="${i}" title="지우기">✕</button></span>
+    </div>`).join('');
+  const hiSel = `<label class="chk" style="margin-top:6px">강조할 순서(보통 설교): <select data-hi>${w.order.map((o, i) => `<option value="${i}" ${o.hi ? 'selected' : ''}>${esc(o.a || '(빈 칸)')}</option>`).join('')}<option value="-1" ${w.order.some(o => o.hi) ? '' : 'selected'}>없음</option></select></label>`;
+
+  const weekday = S.weekday.map((x, i) => `<div class="item"><div class="item-top"><span>주중예배 ${i + 1}</span>${tools('weekday', i, S.weekday.length)}</div>
+      <div class="grid2">${inp(`weekday.${i}.n`, '이름')}${inp(`weekday.${i}.t`, '시간')}</div>${area(`weekday.${i}.c`, '내용', 2)}</div>`).join('');
+
+  const reading = S.reading.map((_, i) => { const d = addDays(sun, i); return `<label class="f"><span>${md(d)} ${DAYS[i]}</span><input data-k="reading.${i}" value="${esc(S.reading[i])}"></label>`; }).join('');
+
+  const news = S.news.map((n, i) => `<div class="item"><div class="item-top"><span>소식 ${i + 1}</span>${tools('news', i, S.news.length)}</div>
+      ${inp(`news.${i}.t`, '제목')}${area(`news.${i}.b`, '내용', 3)}</div>`).join('');
+
+  const serve = S.serve.map((x, i) => `<div class="item"><div class="item-top"><span>${md(addDays(sun, i * 7))} 주일</span></div>
+      <div class="grid2">${inp(`serve.${i}.g`, '안내')}${inp(`serve.${i}.c`, '청소')}</div>${area(`serve.${i}.m`, '식사·설거지 (한 줄에 한 목장)', 2)}</div>`).join('');
+
+  $('#form').innerHTML =
+    sec('church', '교회 · 교단 · 로고', '', churchBody, isOpen('church')) +
+    sec('design', '디자인', '색·절기·표지 모양', `
+      <label class="f"><span>절기 디자인</span>
+        <select data-season>
+          <option value="auto" ${(S.design.season || 'auto') === 'auto' ? 'selected' : ''}>자동 (날짜에 맞춰 절기 디자인)</option>
+          <option value="none" ${S.design.season === 'none' ? 'selected' : ''}>절기 디자인 쓰지 않기</option>
+          ${Object.entries(SEASONS).map(([k, s]) => `<option value="${k}" ${S.design.season === k ? 'selected' : ''}>${s.name} 디자인으로 고정</option>`).join('')}
+        </select></label>
+      <div class="hint">${(() => { const a = seasonOf(sunday()); return a ? `이번 주일(${fullDate(sunday())})은 <b>${a.label}</b>이에요.` : `이번 주일(${fullDate(sunday())})은 절기가 아니라 아래 평소 색으로 나와요.`; })()}
+        자동으로 바뀌는 절기: 대림절(1~4주, 촛불이 한 주에 하나씩 켜짐) · 성탄절 · 신년주일 · 사순절 · 종려주일 · 부활절 · 성령강림절 · 맥추감사주일(7월 첫 주일) · 추수감사주일</div>
+      <label class="f"><span>우리 교회 추수감사주일</span><select data-k-sel="fixed.tgWeek">${[3, 4].map(n => `<option value="${n}" ${+S.fixed.tgWeek === n ? 'selected' : ''}>11월 ${n === 3 ? '셋째' : '넷째'} 주일</option>`).join('')}</select></label>
+      <label class="f" style="margin-top:12px"><span>평소 색과 글꼴</span></label><div class="themes">${themes}</div>
+      <label class="f" style="margin-top:10px"><span>표지 모양</span></label><div class="layouts">${layouts}</div>
+      <div class="hint" style="margin-top:6px">글씨 표지는 그림 없이 설교 제목을 크게 보여 줍니다. 흑백 프린터로 뽑을 때는 "클래식"이 가장 또렷합니다.</div>`, isOpen('design')) +
+    sec('basic', '기본', '날짜', `
+      <div class="grid2"><label class="f"><span>주일 날짜</span><input type="date" data-k="date" value="${esc(S.date)}"></label>${inp('issue', '호수 (비워도 됨)', '예: 812')}</div>
+      <div class="hint">날짜를 바꾸면 성경읽기 요일과 섬김표 날짜가 함께 바뀝니다.</div>`, isOpen('basic')) +
+    sec('cover', '표지', '설교 제목·말씀', `
+      ${inp('cover.title', '설교 제목')}
+      <label class="f"><span>영어 제목 (비워도 됨)</span><div style="display:flex;gap:6px"><input type="text" data-k="cover.titleEn" value="${esc(S.cover.titleEn)}"><button class="btn2" data-act="ai" style="flex:none;font-weight:700;color:var(--g)" title="설교 제목을 AI가 영어로 옮깁니다">✨ AI 번역</button></div></label>
+      <div class="hint" id="aiMsg">${aiKey() ? '설교 제목을 쓰고 ✨ AI 번역을 누르면 영어 제목이 채워집니다.' : 'AI 번역을 쓰려면 위쪽 <b>AI 설정</b>에서 키를 한 번 넣어 주세요.'}</div>
+      <label class="chk"><input type="checkbox" data-autoai ${S.autoAI ? 'checked' : ''}> 설교 제목을 다 쓰면 자동으로 번역하기</label>
+      ${area('cover.verse', '오늘의 말씀 구절 (비워도 됨)', 3)}${inp('cover.verseRef', '구절 위치', '예: 에스라 7:10')}
+      <label class="f"><span>표지 그림</span><div class="imgbox"><div class="thumb" style="${S.cover.image ? `background-image:url('${S.cover.image}')` : ''}"></div>
+        <div><button class="btn2" data-act="img">사진 고르기</button> ${S.cover.image ? '<button class="btn2" data-act="noimg">기본 그림으로</button>' : '<div class="hint" style="margin-top:4px">지금은 기본 그림이에요.</div>'}</div></div></label>
+      <input type="file" id="fImg" accept="image/*" hidden>
+      <label class="chk"><input type="checkbox" data-sync ${S.syncTitle !== false ? 'checked' : ''}> 설교 제목을 예배 순서의 "설교" 칸에도 똑같이 넣기</label>`, isOpen('cover')) +
+    sec('worship', '주일예배 순서', '', `
+      ${inp('worship.times', '예배 시간')}${inp('worship.note', '안내 한 줄 (비워도 됨)')}
+      <div class="orow ohead"><span>순서</span><span>내용</span><span>맡은 이</span><span></span></div>${order}
+      <button class="add" data-act="add" data-list="worship.order">+ 순서 추가</button>${hiSel}
+      <div class="grid2" style="margin-top:6px">${inp('worship.aftTime', '오후예배 시간')}${inp('worship.aftTitle', '오후예배 내용')}</div>`, isOpen('worship')) +
+    sec('weekday', '주중예배 · 모임', '', `${weekday}<button class="add" data-act="add" data-list="weekday">+ 주중예배 추가</button>
+      ${area('meetings', '모임안내', 5, '한 줄에 하나씩. [모임 이름] 시간 처럼 쓰면 이름이 굵게 나옵니다.')}`, isOpen('weekday')) +
+    sec('reading', '성경읽기 진도', '', `<div class="grid7">${reading}</div>`, isOpen('reading')) +
+    sec('news', '교회소식', `${S.news.length}개`, `${news}<button class="add" data-act="add" data-list="news">+ 소식 추가</button>
+      <div class="hint" style="margin-top:6px">내용은 줄 맨 앞에 - 를 쓰면 점 목록이 됩니다.</div>`, isOpen('news')) +
+    sec('serve', '섬김 안내', '4주', `${serve}<div class="hint">"다음 주 주보"를 누르면 한 칸씩 앞으로 당겨지고 마지막 주가 비워집니다.</div>`, isOpen('serve')) +
+    sec('mokjang', '목장 순서지', '뒷면', `
+      <div class="grid2">${inp('mokjang.title', '제목')}${inp('mokjang.titleEn', '영어 작은 제목')}</div>
+      <div class="item" style="background:#fffdf6;border-color:var(--goldl)">
+        ${area('mokjang.notes', '✨ 설교 원고 (주보에는 안 나와요)', 7, '설교 원고 전체를 붙여 넣거나 원고 파일을 올려 주세요. 한글(hwp) 파일은 열어서 Ctrl+A → Ctrl+C로 복사해 여기에 붙여 넣으면 됩니다.')}
+        <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:-2px 0 8px">
+          <button class="btn2" data-act="mjFile">원고 파일 올리기 (Word·PDF·txt)</button>
+          ${mjPdf ? `<span class="hint" style="margin:0">📄 ${esc(mjPdf.name)} 첨부됨</span><button class="btn2" data-act="mjNoFile">빼기</button>` : ''}
+          <input type="file" id="fMj" accept=".docx,.pdf,.txt,application/pdf,text/plain,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden>
+        </div>
+        <button class="btn2" data-act="mj" style="width:100%;font-weight:700;color:var(--g)">✨ 원고를 목장용 요약 · 나눔 질문으로 만들기</button>
+        <div class="hint" id="mjMsg" style="margin-top:6px">${aiKey() ? '원고를 읽고 목장에서 함께 읽을 말씀 요약 3개와 나눔 질문 3개를 채웁니다.' : 'AI를 쓰려면 위쪽 <b>AI 설정</b>에서 키를 한 번 넣어 주세요.'}</div>
+      </div>
+      ${area('mokjang.steps', '목장 순서', 4, '한 줄에 한 순서. 번호는 자동으로 붙습니다.')}
+      ${area('mokjang.summary', '말씀 요약', 10, '빈 줄로 나누면 요약 1, 요약 2…가 됩니다.')}
+      ${area('mokjang.questions', '나눔 질문', 5, '한 줄에 한 질문. Q1, Q2…는 자동으로 붙습니다.')}
+      ${area('mokjang.prayer', '중보기도', 3)}`, isOpen('mokjang')) +
+    sec('fixed', '고정 정보', '잘 안 바뀌는 것', `
+      <div class="grid2">${inp('fixed.pastor', '담임목사')}${inp('fixed.staff', '섬기는 이')}</div>
+      ${inp('fixed.address', '주소')}<div class="grid2">${inp('fixed.phone', '전화')}${inp('fixed.web', '홈페이지')}</div>
+      ${area('fixed.vision', '비전 (영어 | 한글)', 5)}
+      ${area('fixed.missions', '함께하는 선교지 (나라 - 이름)', 5)}
+      ${area('fixed.newcomer', '새가족 등록 단계 (한 줄에 하나)', 5)}
+      ${area('fixed.groups', '선교회 안내 (이름 | 나이)', 5)}
+      ${area('fixed.times1', '예배 시간 – 주일예배 (이름 | 시간 | 장소)', 2)}
+      ${area('fixed.times2', '예배 시간 – 주일학교', 4)}
+      ${area('fixed.times3', '예배 시간 – 주중예배', 3)}
+      ${area('fixed.directions', '오시는 길', 2)}
+      <button class="btn2" data-act="reset" style="margin-top:8px;color:#b3261e">처음 예시로 되돌리기</button>`, isOpen('fixed'));
+}
+
+$('#form').addEventListener('input', e => {
+  const t = e.target;
+  if (t.dataset.brand) { S.brand[t.dataset.brand] = t.value; return changed(); }
+  if (t.dataset.k) {
+    setP(S, t.dataset.k, t.value);
+    if (t.dataset.k === 'cover.title' && S.syncTitle !== false) {
+      const o = S.worship.order.find(o => o.hi) || S.worship.order.find(o => o.a.trim() === '설교');
+      if (o) { o.c = t.value; const el = document.querySelector(`[data-k="worship.order.${S.worship.order.indexOf(o)}.c"]`); if (el) el.value = t.value; }
+    }
+    if (t.dataset.k === 'date') { buildForm(); }
+    changed();
+  }
+});
+$('#form').addEventListener('change', e => {
+  const t = e.target;
+  if (t.matches('[data-hi]')) { S.worship.order.forEach((o, i) => o.hi = i === +t.value); changed(); }
+  if (t.matches('[data-sync]')) { S.syncTitle = t.checked; save(); }
+  if (t.matches('[data-autoai]')) { S.autoAI = t.checked; save(); }
+  if (t.dataset.k === 'cover.title' && S.autoAI && aiKey() && t.value.trim()) translateTitle();
+  if (t.dataset.design) { S.design[t.dataset.design] = t.value; changed(); }
+  if (t.matches('[data-season]')) { S.design.season = t.value; changed(); }
+  if (t.dataset.kSel) { setP(S, t.dataset.kSel, t.value); buildForm(); changed(); }
+  if (t.dataset.brand) { S.brand[t.dataset.brand] = t.value; buildForm(); changed(); }
+  if (t.matches('[data-denom]')) { S.church.denom = t.value === '__' ? '' : t.value; buildForm(); changed(); }
+  if (t.id === 'fImg' && t.files[0]) loadImage(t.files[0], 1600, 'image/jpeg', u => S.cover.image = u);
+  if (t.id === 'fDenom' && t.files[0]) loadImage(t.files[0], 400, 'image/png', u => S.church.denomImg = u);
+  if (t.id === 'fMj' && t.files[0]) { loadSermonFile(t.files[0]); t.value = ''; }
+  if (t.id === 'fLogo' && t.files[0]) loadImage(t.files[0], 1000, 'image/png', u => S.brand.image = u);
+});
+$('#form').addEventListener('click', e => {
+  const b = e.target.closest('button[data-act]');
+  if (!b) return;
+  e.preventDefault();
+  const act = b.dataset.act;
+  if (act === 'img') return $('#fImg').click();
+  if (act === 'noimg') { S.cover.image = ''; buildForm(); return changed(); }
+  if (act === 'denomImg') return $('#fDenom').click();
+  if (act === 'noDenomImg') { S.church.denomImg = ''; buildForm(); return changed(); }
+  if (act === 'logoImg') return $('#fLogo').click();
+  if (act === 'pair') { [S.brand.c1, S.brand.c2, S.brand.ink] = PAIRS[+b.dataset.i]; buildForm(); return changed(); }
+  if (act === 'logoPng') return saveLogo();
+  if (act === 'ai') return translateTitle();
+  if (act === 'mj') return draftMokjang();
+  if (act === 'mjFile') return $('#fMj').click();
+  if (act === 'mjNoFile') { mjPdf = null; return buildForm(); }
+  if (act === 'reset') {
+    if (!confirm('지금 쓴 내용을 모두 지우고 처음 예시로 되돌릴까요? (먼저 "파일로 저장"을 해 두면 안전합니다)')) return;
+    S = structuredClone(DEFAULT); buildForm(); return changed();
+  }
+  const list = getP(S, b.dataset.list), i = +b.dataset.i;
+  if (act === 'add') {
+    const blank = { 'worship.order': { a: '', c: '', w: '', hi: false }, weekday: { n: '', t: '', c: '' }, news: { t: '', b: '' } }[b.dataset.list];
+    list.push(structuredClone(blank));
+  }
+  if (act === 'del') { if (!confirm('이 항목을 지울까요?')) return; list.splice(i, 1); }
+  if (act === 'up' && i > 0) [list[i - 1], list[i]] = [list[i], list[i - 1]];
+  if (act === 'down' && i < list.length - 1) [list[i + 1], list[i]] = [list[i], list[i + 1]];
+  buildForm(); changed();
+});
+
+function loadImage(file, max, type, put) {
+  const r = new FileReader();
+  r.onload = () => {
+    const im = new Image();
+    im.onload = () => {
+      const k = Math.min(1, max / Math.max(im.width, im.height));
+      const c = document.createElement('canvas');
+      c.width = Math.round(im.width * k); c.height = Math.round(im.height * k);
+      c.getContext('2d').drawImage(im, 0, 0, c.width, c.height);
+      put(c.toDataURL(type, 0.85));
+      buildForm(); changed();
+    };
+    im.src = r.result;
+  };
+  r.readAsDataURL(file);
+}
+
+/* ───────── 위쪽 버튼 ───────── */
+function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove('on'), 3600); }
+function download(name, blob) { const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 2000); }
+
+/* ───────── 지난 주보 보관함 (IndexedDB: 사진이 들어가도 넉넉함) ───────── */
+let dbp;
+const idb = () => dbp ||= new Promise((res, rej) => {
+  const r = indexedDB.open('yegrin-bulletin', 1);
+  r.onupgradeneeded = () => { r.result.createObjectStore('archive', { keyPath: 'date' }); r.result.createObjectStore('kv'); };
+  r.onsuccess = () => res(r.result);
+  r.onerror = () => { dbp = null; rej(r.error); };
+});
+const idbReq = (store, mode, fn) => idb().then(d => new Promise((res, rej) => {
+  const r = fn(d.transaction(store, mode).objectStore(store));
+  r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error);
+}));
+const archivePut = () => idbReq('archive', 'readwrite', s => s.put({ date: S.date, savedAt: Date.now(), data: structuredClone(S) }));
+const kvGet = k => idbReq('kv', 'readonly', s => s.get(k));
+const kvSet = (k, v) => idbReq('kv', 'readwrite', s => s.put(v, k));
+
+async function showArchive() {
+  let list;
+  try { await archivePut(); list = await idbReq('archive', 'readonly', s => s.getAll()); }
+  catch (e) { return toast('이 창에서는 지난 주보를 보관할 수 없어요. 엣지나 크롬으로 파일을 열어 주세요.'); }
+  list.sort((a, b) => b.date.localeCompare(a.date));
+  const t = ms => { const d = new Date(ms); return `${d.getMonth() + 1}/${d.getDate()} ${d.getHours()}:${String(d.getMinutes()).padStart(2, '0')}`; };
+  $('#arcList').innerHTML = list.map(r => {
+    const d = r.data, [y, m, dd] = r.date.split('-').map(Number), now = r.date === S.date;
+    return `<div class="arc${now ? ' now' : ''}"><div><b>${y}. ${m}. ${dd}.</b>${esc(d.cover?.title || '(제목 없음)')}
+      <small>${now ? '지금 보는 주보 · ' : ''}마지막 수정 ${t(r.savedAt)} · 소식 ${(d.news || []).length}개</small></div>
+      <div class="arc-b">${now ? '' : `<button class="btn2" data-arc="open" data-d="${r.date}">열기</button><button class="btn2" data-arc="copy" data-d="${r.date}">이번 주로 복사</button>`}<button class="btn2" data-arc="del" data-d="${r.date}" title="지우기">✕</button></div></div>`;
+  }).join('') || '<p class="hint">아직 보관된 주보가 없어요.</p>';
+  $('#arcBox').classList.add('on');
+}
+$('#bArc').onclick = showArchive;
+$('#arcBox').onclick = async e => {
+  if (e.target.id === 'arcBox') return e.target.classList.remove('on');
+  const b = e.target.closest('[data-arc]'); if (!b) return;
+  const date = b.dataset.d, rec = await idbReq('archive', 'readonly', s => s.get(date));
+  const label = fullDate(new Date(...date.split('-').map((n, i) => i === 1 ? n - 1 : +n)));
+  if (b.dataset.arc === 'del') {
+    if (!confirm(`${label} 주보를 보관함에서 지울까요? 되돌릴 수 없어요.`)) return;
+    await idbReq('archive', 'readwrite', s => s.delete(date));
+    if (date === S.date) toast('보관함에서 지웠어요. 지금 화면의 내용은 고치면 다시 보관돼요.');
+    return showArchive();
+  }
+  if (b.dataset.arc === 'open') {
+    await archivePut();
+    S = merge(structuredClone(DEFAULT), rec.data);
+    toast(`${label} 주보를 열었어요.`);
+  } else {
+    if (!confirm(`지금 쓰는 ${fullDate(sunday())} 주보 내용을 ${label} 주보 내용으로 바꿀까요?\n날짜와 호수는 그대로 두고, 지금 내용은 보관함에 남아 있어요.`)) return;
+    await archivePut();
+    const keep = { date: S.date, issue: S.issue };
+    S = Object.assign(merge(structuredClone(DEFAULT), rec.data), keep);
+    toast(`${label} 주보 내용으로 새로 시작했어요. 바뀐 것만 고쳐 주세요.`);
+  }
+  $('#arcBox').classList.remove('on');
+  buildForm(); render(); save();
+};
+
+/* ───────── 주보 지면을 그림으로 ───────── */
+async function pageBlobs(scale) {
+  const z = $('#zoomer'), old = z.style.transform;
+  z.style.transform = 'none';
+  try {
+    await document.fonts.ready;
+    const out = [];
+    for (const id of ['p1', 'p2']) {
+      const cv = await html2canvas(document.getElementById(id), { scale, backgroundColor: '#ffffff', useCORS: true, logging: false });
+      out.push(await new Promise(r => cv.toBlob(r, 'image/jpeg', 0.9)));
+    }
+    return out;
+  } finally { z.style.transform = old; }
+}
+
+/* ───────── 홈페이지로 보내기: site\bulletin 폴더에 그림 2장 + bulletins.js ───────── */
+async function writeFile(dir, name, data) {
+  const w = await (await dir.getFileHandle(name, { create: true })).createWritable();
+  await w.write(data); await w.close();
+}
+async function publishTo(site) {
+  const bdir = await site.getDirectoryHandle('bulletin', { create: true });
+  const blobs = await pageBlobs(1.6);
+  const names = blobs.map((_, i) => `${S.date}-${i + 1}.jpg`);
+  for (let i = 0; i < blobs.length; i++) await writeFile(bdir, names[i], blobs[i]);
+  let list = [];
+  try {
+    const old = await (await (await bdir.getFileHandle('bulletins.js')).getFile()).text();
+    const m = old.match(/=\s*(\[[\s\S]*\])\s*;?\s*$/);
+    if (m) list = JSON.parse(m[1]);
+  } catch (e) { /* 처음 보내는 주보 */ }
+  const entry = {
+    date: S.date, title: S.cover.title, titleEn: S.cover.titleEn, verseRef: S.cover.verseRef,
+    news: S.news.filter(n => n.t || n.b), images: names.map(n => 'bulletin/' + n),
+    reading: S.reading  // 주일부터 7일 치 성경읽기 진도 (앱 "오늘의 성경읽기"가 씀)
+  };
+  list = [entry, ...list.filter(x => x.date !== S.date)].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 60);
+  await writeFile(bdir, 'bulletins.js', `// 주보 만들기 프로그램의 "홈페이지로 보내기"가 자동으로 씁니다. 직접 고치지 마세요.\nwindow.BULLETINS = ${JSON.stringify(list, null, 1)};\n`);
+  return list.length;
+}
+$('#bSite').onclick = async () => {
+  if (!window.showDirectoryPicker) return toast('홈페이지로 보내기는 엣지나 크롬에서 파일을 열어야 쓸 수 있어요.');
+  if (!window.html2canvas) return toast('홈페이지로 보내기는 인터넷이 연결되어 있어야 해요.');
+  let site = await kvGet('siteDir').catch(() => null);
+  if (site) {
+    const p = await site.queryPermission({ mode: 'readwrite' });
+    if (p !== 'granted' && await site.requestPermission({ mode: 'readwrite' }) !== 'granted') site = null;
+  }
+  if (!site) {
+    toast('홈페이지 폴더를 골라 주세요: 교회 홈페이지 → site');
+    try { site = await showDirectoryPicker({ id: 'yegrin-site', mode: 'readwrite' }); } catch (e) { return; }
+  }
+  try { await site.getFileHandle('news.html'); }
+  catch (e) { await kvSet('siteDir', null).catch(() => {}); return toast('고른 폴더에 news.html이 없어요. "교회 홈페이지" 안의 site 폴더를 골라 주세요.'); }
+  await kvSet('siteDir', site).catch(() => {});
+  toast('홈페이지에 올리는 중이에요…');
+  try {
+    const n = await publishTo(site);
+    toast(`홈페이지 소식 페이지에 ${fullDate(sunday())} 주보와 교회소식을 올렸어요. (보관된 주보 ${n}개)`);
+  } catch (e) { toast('홈페이지에 올리지 못했어요: ' + e.message); }
+};
+
+/* ───────── AI 번역 (Claude) ───────── */
+const AI_KEY = 'yegrin-bulletin-ai-key';
+function aiKey() { try { return localStorage.getItem(AI_KEY) || ''; } catch (e) { return ''; } }
+let sdk;
+const loadSDK = () => sdk ||= import('https://cdn.jsdelivr.net/npm/@anthropic-ai/sdk@1.3.0/+esm').then(m => m.default);
+const msgTo = id => html => { const el = document.getElementById(id); if (el) el.innerHTML = html; };
+const aiMsg = msgTo('aiMsg'), mjMsg = msgTo('mjMsg');
+
+// Claude에 한 번 묻기. 실패하면 say()로 안내하고 null을 돌려줌
+async function askClaude(say, params) {
+  const key = aiKey();
+  if (!key) { $('#aiBox').classList.add('on'); return null; }
+  let Anthropic;
+  try { Anthropic = await loadSDK(); } catch (e) { sdk = null; say('AI에 연결하지 못했어요. 인터넷 연결을 확인해 주세요.'); return null; }
+  const client = new Anthropic({ apiKey: key, dangerouslyAllowBrowser: true });
+  try {
+    const res = await client.beta.messages.create({
+      model: 'claude-opus-5-5',
+      betas: ['server-side-fallback-2026-07-01'],
+      fallbacks: 'default',
+      ...params
+    });
+    if (res.stop_reason === 'refusal') { say('AI가 이 내용은 만들지 않았어요. 직접 써 주세요.'); return null; }
+    if (res.stop_reason === 'max_tokens') { say('AI 답이 중간에 끊겼어요. 한 번 더 눌러 주세요.'); return null; }
+    return res.content.filter(b => b.type === 'text').map(b => b.text).join('').trim();
+  } catch (e) {
+    if (e instanceof Anthropic.AuthenticationError) say('API 키가 맞지 않아요. <b>AI 설정</b>에서 키를 다시 확인해 주세요.');
+    else if (e instanceof Anthropic.PermissionDeniedError) say('이 키로는 AI를 쓸 수 없어요. 콘솔에서 충전·권한을 확인해 주세요.');
+    else if (e instanceof Anthropic.RateLimitError) say('잠시 요청이 많아요. 조금 뒤에 다시 눌러 주세요.');
+    else if (e instanceof Anthropic.APIConnectionError) say('AI에 연결하지 못했어요. 인터넷 연결을 확인해 주세요.');
+    else if (e instanceof Anthropic.APIError) say(`AI 오류가 났어요 (${e.status ?? ''}). 잔액이 남아 있는지 확인해 주세요.`);
+    else say('AI가 답하지 못했어요: ' + esc(e.message));
+    return null;
+  }
+}
+const setField = (k, v) => { setP(S, k, v); const el = document.querySelector(`[data-k="${k}"]`); if (el) el.value = v; };
+
+async function translateTitle() {
+  if (!aiKey()) return $('#aiBox').classList.add('on');
+  const title = S.cover.title.trim();
+  if (!title) return aiMsg('먼저 설교 제목을 써 주세요.');
+  aiMsg('✨ 번역하는 중이에요…');
+  const out = await askClaude(aiMsg, {
+    max_tokens: 2000,
+    output_config: { effort: 'low' },
+    system: 'You translate Korean sermon titles into English for a church bulletin cover. Write a natural, dignified English title in title case that a native English-speaking church would use, keeping biblical terms in standard English Bible wording. Reply with the English title only: no quotes, no notes, no alternatives.',
+    messages: [{ role: 'user', content: `설교 제목: ${title}${S.cover.verseRef ? `\n본문: ${S.cover.verseRef}` : ''}` }]
+  });
+  if (out == null) return;
+  const en = out.split('\n')[0].replace(/^["“'‘]+|["”'’.]+$/g, '').trim();
+  if (!en) return aiMsg('번역 결과가 비어 있어요. 한 번 더 눌러 주세요.');
+  setField('cover.titleEn', en);
+  changed();
+  aiMsg('✨ 번역했어요. 마음에 안 들면 칸에서 바로 고치거나 다시 눌러 보세요.');
+}
+
+/* 목장 순서지: 목사님 설교 원고 → 말씀 요약 3개 · 나눔 질문 3개 */
+let mjPdf = null; // 올린 PDF 원고 { name, data(base64) } — 크기 때문에 주보 저장에는 넣지 않음
+const loadScript = src => new Promise((res, rej) => { const s = document.createElement('script'); s.src = src; s.onload = res; s.onerror = rej; document.head.appendChild(s); });
+const fileB64 = f => new Promise(r => { const fr = new FileReader(); fr.onload = () => r(fr.result.split(',')[1]); fr.readAsDataURL(f); });
+async function loadSermonFile(f) {
+  const name = f.name.toLowerCase();
+  try {
+    if (name.endsWith('.pdf')) {
+      if (f.size > 20e6) return mjMsg('PDF가 너무 커요(20MB 이하). 원고 글만 복사해 붙여 넣어 주세요.');
+      mjPdf = { name: f.name, data: await fileB64(f) };
+      buildForm();
+      return mjMsg(`📄 ${esc(f.name)}을(를) 붙였어요. 이제 아래 버튼을 눌러 주세요.`);
+    }
+    let text;
+    if (name.endsWith('.docx')) {
+      if (!window.mammoth) await loadScript('https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js');
+      text = (await mammoth.extractRawText({ arrayBuffer: await f.arrayBuffer() })).value;
+    } else if (name.endsWith('.txt')) text = await f.text();
+    else return mjMsg('Word(.docx), PDF, 텍스트(.txt) 파일만 올릴 수 있어요. 한글(hwp)은 열어서 복사해 붙여 넣어 주세요.');
+    text = text.replace(/\n{3,}/g, '\n\n').trim();
+    if (!text) return mjMsg('파일에서 글을 찾지 못했어요. 원고를 복사해 붙여 넣어 주세요.');
+    setField('mokjang.notes', text); changed();
+    mjMsg(`📄 ${esc(f.name)}에서 원고 ${text.length.toLocaleString()}자를 가져왔어요. 이제 아래 버튼을 눌러 주세요.`);
+  } catch (e) { mjMsg('파일을 읽지 못했어요. 원고를 복사해 붙여 넣어 주세요.'); }
+}
+
+const MJ_SYSTEM = `You turn the pastor's Sunday sermon manuscript into the weekly small-group (목장) discussion sheet printed on the back of a Korean Methodist church bulletin. Church members read the summary aloud together at their small-group meeting after the service, then talk through the questions.
+
+Write everything in Korean.
+- passage: the sermon's Bible passage as a short Korean reference, like "에스라 7:1-10".
+- summaries: exactly 3 paragraphs that condense the manuscript, following the sermon's own flow and dividing it into three natural movements. Each paragraph is 4 to 6 sentences in plain written style ending in "-다" or, for exhortations, "-자" (해라체). Keep the pastor's key phrases, emphases, illustrations and conclusions, and leave out greetings, announcements, jokes and repetition. Do not add points, quotations, stories or facts that are not in the manuscript or the Bible passage. If no manuscript is given, work only from the title and passage and stay close to the text.
+- questions: exactly 3 discussion questions in polite style (합쇼체, such as "~습니까?" and "~나누어 봅시다"), drawn from the sermon's own applications. Move from personal reflection, to recent experience, to a concrete step or a person to serve this week. Each is one or two sentences that ordinary members can answer honestly in a few minutes.
+
+Match the tone, length and wording style of the example sheet the user provides.`;
+
+async function draftMokjang() {
+  if (!aiKey()) return $('#aiBox').classList.add('on');
+  const reading = S.worship.order.find(o => /봉독|본문/.test(o.a));
+  const passage = (reading && reading.c) || S.cover.verseRef;
+  const manuscript = S.mokjang.notes.trim();
+  if (!manuscript && !mjPdf && !S.cover.title.trim()) return mjMsg('먼저 설교 원고를 붙여 넣거나 원고 파일을 올려 주세요.');
+  if ((S.mokjang.summary.trim() || S.mokjang.questions.trim()) && !confirm('지금 쓴 말씀 요약과 나눔 질문을 AI 초안으로 바꿀까요?\n지금 내용은 "지난 주보" 보관함에 남아 있어요.')) return;
+  await archivePut().catch(() => {});
+  mjMsg('✨ 원고를 읽고 요약하는 중이에요… (30초쯤 걸려요)');
+  const ex = DEFAULT.mokjang;
+  const ask =
+    `<example_sheet>\n말씀 요약:\n${ex.summary}\n\n나눔 질문:\n${ex.questions}\n</example_sheet>\n\n` +
+    `이번 주 설교\n- 제목: ${S.cover.title || '(없음)'}\n- 본문: ${passage || '(원고에서 찾아 주세요)'}` +
+    (mjPdf ? '\n- 설교 원고: 첨부한 PDF' : `\n\n<manuscript>\n${manuscript || '(원고 없음)'}\n</manuscript>`);
+  const content = mjPdf
+    ? [{ type: 'document', source: { type: 'base64', media_type: 'application/pdf', data: mjPdf.data } }, { type: 'text', text: ask }]
+    : ask;
+  const out = await askClaude(mjMsg, {
+    max_tokens: 16000,
+    output_config: {
+      effort: 'medium',
+      format: { type: 'json_schema', schema: {
+        type: 'object', additionalProperties: false, required: ['passage', 'summaries', 'questions'],
+        properties: { passage: { type: 'string' }, summaries: { type: 'array', items: { type: 'string' } }, questions: { type: 'array', items: { type: 'string' } } }
+      } }
+    },
+    system: MJ_SYSTEM,
+    messages: [{ role: 'user', content }]
+  });
+  if (out == null) return;
+  let d;
+  try { d = JSON.parse(out); } catch (e) { return mjMsg('AI 답을 읽지 못했어요. 한 번 더 눌러 주세요.'); }
+  const sums = (d.summaries || []).map(s => s.trim()).filter(Boolean);
+  const qs = (d.questions || []).map(s => s.replace(/^\s*(Q?\d+[.)]?|질문\s*\d+[.:]?)\s*/, '').trim()).filter(Boolean);
+  if (!sums.length || !qs.length) return mjMsg('초안이 비어 있어요. 한 번 더 눌러 주세요.');
+  setField('mokjang.summary', sums.join('\n\n'));
+  setField('mokjang.questions', qs.join('\n'));
+  if (d.passage) setField('mokjang.steps', S.mokjang.steps.replace(/(말씀 나눔[^\n]*?[—–-]\s*)[^\n]+/, `$1${d.passage.trim()}`));
+  changed();
+  mjMsg('✨ 초안을 채웠어요. 목사님 말씀과 다른 부분은 칸에서 바로 고쳐 주세요. 마음에 안 들면 다시 눌러도 돼요.');
+}
+$('#bAI').onclick = () => { $('#aiKeyIn').value = aiKey(); $('#aiBox').classList.add('on'); };
+$('#aiBox').onclick = e => { if (e.target.id === 'aiBox') e.target.classList.remove('on'); };
+$('#aiSave').onclick = () => {
+  const k = $('#aiKeyIn').value.trim();
+  if (!k.startsWith('sk-ant-')) return toast('키는 sk-ant- 로 시작해요. 다시 확인해 주세요.');
+  try { localStorage.setItem(AI_KEY, k); } catch (e) { return toast('이 창에서는 키를 저장할 수 없어요.'); }
+  $('#aiBox').classList.remove('on'); buildForm(); toast('AI 키를 저장했어요. 이제 ✨ AI 번역을 쓸 수 있어요.');
+};
+$('#aiDel').onclick = () => { try { localStorage.removeItem(AI_KEY); } catch (e) {} $('#aiKeyIn').value = ''; buildForm(); toast('AI 키를 지웠어요.'); };
+
+async function saveLogo() {
+  if (!window.html2canvas) return toast('그림 저장은 인터넷이 연결되어 있어야 해요.');
+  const box = document.createElement('div');
+  box.style.cssText = 'position:fixed;left:-9999px;top:0;padding:24px;font-size:24pt;font-family:var(--sans);display:inline-block';
+  box.innerHTML = logoHTML();
+  document.body.appendChild(box);
+  try {
+    await document.fonts.ready;
+    const cv = await html2canvas(box, { scale: 2, backgroundColor: null, logging: false });
+    download(`${S.church.name} 로고.png`, await new Promise(r => cv.toBlob(r, 'image/png')));
+    toast('로고 그림을 다운로드 폴더에 저장했어요. (배경 투명)');
+  } catch (e) { toast('로고를 저장하지 못했어요: ' + e.message); }
+  box.remove();
+}
+
+$('#bNext').onclick = async () => {
+  if (!confirm(`${fullDate(addDays(sunday(), 7))} 주보로 넘어갈까요?\n\n지금 주보는 "지난 주보"에 그대로 보관됩니다.`)) return;
+  await archivePut().catch(() => {});
+  S.date = ymd(addDays(sunday(), 7));
+  if (/^\d+$/.test(S.issue)) S.issue = String(+S.issue + 1);
+  S.serve = [...S.serve.slice(1), { g: '섬김이', c: '', m: '' }];
+  S.reading = S.reading.map(() => '');
+  S.mokjang.notes = ''; mjPdf = null;
+  buildForm(); render(); save();
+  document.querySelector('[data-sec="cover"]').open = true;
+  toast('날짜를 넘기고 섬김표를 당겼어요. 설교 제목·성경읽기·소식·목장 순서지를 고쳐 주세요.');
+};
+$('#bSave').onclick = () => { download(`${S.date} ${S.church.name} 주보.json`, new Blob([JSON.stringify(S, null, 1)], { type: 'application/json' })); toast('주보 파일을 저장했어요. (다운로드 폴더)'); };
+$('#bOpen').onclick = () => $('#fOpen').click();
+$('#fOpen').onchange = e => {
+  const f = e.target.files[0]; if (!f) return;
+  f.text().then(t => { S = merge(structuredClone(DEFAULT), JSON.parse(t)); buildForm(); render(); save(); toast(`${fullDate(sunday())} 주보를 불러왔어요.`); })
+    .catch(() => toast('이 파일은 열 수 없어요. "파일로 저장"으로 만든 .json 파일인지 확인해 주세요.'));
+  e.target.value = '';
+};
+$('#bPrint').onclick = () => window.print();
+$('#bHelp').onclick = () => $('#help').classList.add('on');
+$('#help').onclick = e => { if (e.target.id === 'help') e.target.classList.remove('on'); };
+$('#bImg').onclick = async () => {
+  if (!window.html2canvas) return toast('이미지 저장은 인터넷이 연결되어 있어야 해요. 대신 "인쇄 · PDF"를 써 주세요.');
+  toast('이미지를 만드는 중이에요…');
+  try {
+    (await pageBlobs(2)).forEach((blob, i) => download(`${S.date} ${S.church.name} 주보 ${i + 1}.jpg`, blob));
+    toast('이미지 2장을 다운로드 폴더에 저장했어요.');
+  } catch (e) { toast('이미지를 만들지 못했어요: ' + e.message); }
+};
+
+buildForm();
+render();
+document.fonts.ready.then(render);
+</script>
+</body>
+</html>
