@@ -2,6 +2,14 @@ window.MEDIA = {
  "lists": {
   "reading": [
    {
+    "videoId": "rcvjzLLnhy0",
+    "date": "2026-11-13",
+    "youtubeTitle": "예그린 성경통독 317일차 (26.11.13) 사도행전 1-2장",
+    "preacher": "",
+    "title": "성경통독 317일차",
+    "passage": "사도행전 1-2장"
+   },
+   {
     "videoId": "8EltVZpqcB4",
     "date": "2026-11-12",
     "youtubeTitle": "예그린 성경통독 316일차 (26.11.12) 요한복음 20-21장",
@@ -152,14 +160,6 @@ window.MEDIA = {
     "preacher": "",
     "title": "성경통독 298일차",
     "passage": "누가복음 7-8장"
-   },
-   {
-    "videoId": "bJDwRgGi8Co",
-    "date": "2026-10-24",
-    "youtubeTitle": "예그린 성경통독 297일차 (26.10.24) 누가복음 5-6장",
-    "preacher": "",
-    "title": "성경통독 297일차",
-    "passage": "누가복음 5-6장"
    }
   ],
   "sunday": [
@@ -264,6 +264,22 @@ window.MEDIA = {
    }
   ],
   "dawn": [
+   {
+    "videoId": "7usXO70HSiU",
+    "date": "2026-11-13",
+    "youtubeTitle": "2026.11.13 새벽예배(아모스 3장) 고용진 목사 예그린교회",
+    "preacher": "고용진 목사",
+    "title": "새벽예배 · 아모스 3장",
+    "passage": "아모스 3장"
+   },
+   {
+    "videoId": "XVqk23d_j-s",
+    "date": "2026-11-13",
+    "youtubeTitle": "2026.11.13 새벽예배(아모스 3장) 고용진 목사 예그린교회",
+    "preacher": "고용진 목사",
+    "title": "새벽예배 · 아모스 3장",
+    "passage": "아모스 3장"
+   },
    {
     "videoId": "TvgIHiJtGZw",
     "date": "2026-11-12",
