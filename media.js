@@ -2,6 +2,14 @@ window.MEDIA = {
  "lists": {
   "reading": [
    {
+    "videoId": "vnEzHSIzGrw",
+    "date": "2026-11-14",
+    "youtubeTitle": "예그린 성경통독 318일차 (26.11.14) 사도행전 3-5장",
+    "preacher": "",
+    "title": "성경통독 318일차",
+    "passage": "사도행전 3-5장"
+   },
+   {
     "videoId": "rcvjzLLnhy0",
     "date": "2026-11-13",
     "youtubeTitle": "예그린 성경통독 317일차 (26.11.13) 사도행전 1-2장",
@@ -152,14 +160,6 @@ window.MEDIA = {
     "preacher": "",
     "title": "성경통독 299일차",
     "passage": "누가복음 9-10장"
-   },
-   {
-    "videoId": "zl1jp2eWs2s",
-    "date": "2026-10-25",
-    "youtubeTitle": "예그린 성경통독 298일차 (26.10.25) 누가복음 7-8장",
-    "preacher": "",
-    "title": "성경통독 298일차",
-    "passage": "누가복음 7-8장"
    }
   ],
   "sunday": [
