@@ -2,6 +2,14 @@ window.MEDIA = {
  "lists": {
   "reading": [
    {
+    "videoId": "NbgQ3GLVVW8",
+    "date": "2026-11-15",
+    "youtubeTitle": "예그린 성경통독 319일차 (26.11.15) 사도행전 6-8장",
+    "preacher": "",
+    "title": "성경통독 319일차",
+    "passage": "사도행전 6-8장"
+   },
+   {
     "videoId": "vnEzHSIzGrw",
     "date": "2026-11-14",
     "youtubeTitle": "예그린 성경통독 318일차 (26.11.14) 사도행전 3-5장",
@@ -152,17 +160,18 @@ window.MEDIA = {
     "preacher": "",
     "title": "성경통독 300일차",
     "passage": "누가복음 11-12장"
-   },
-   {
-    "videoId": "qTDtmlPsk-s",
-    "date": "2026-10-26",
-    "youtubeTitle": "예그린 성경통독 299일차 (26.10.26) 누가복음 9-10장",
-    "preacher": "",
-    "title": "성경통독 299일차",
-    "passage": "누가복음 9-10장"
    }
   ],
   "sunday": [
+   {
+    "videoId": "H7PaP0y0qaA",
+    "date": "2026-11-15",
+    "youtubeTitle": "2026.11.15 \"감사하라,찬송하라,찬양하라\" (시150:1-6) 고용진 목사 예그린교회 주일2부예배",
+    "preacher": "고용진 목사",
+    "title": "감사하라,찬송하라,찬양하라",
+    "passage": "시편 150:1-6",
+    "series": ""
+   },
    {
     "videoId": "3Oc7aUJGWBo",
     "date": "2026-11-08",
