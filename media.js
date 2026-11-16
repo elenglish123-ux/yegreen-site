@@ -2,6 +2,14 @@ window.MEDIA = {
  "lists": {
   "reading": [
    {
+    "videoId": "hbZaxWgWbGM",
+    "date": "2026-11-16",
+    "youtubeTitle": "예그린 성경통독 320일차 (26.11.16) 사도행전 9-10장",
+    "preacher": "",
+    "title": "성경통독 320일차",
+    "passage": "사도행전 9-10장"
+   },
+   {
     "videoId": "NbgQ3GLVVW8",
     "date": "2026-11-15",
     "youtubeTitle": "예그린 성경통독 319일차 (26.11.15) 사도행전 6-8장",
@@ -152,14 +160,6 @@ window.MEDIA = {
     "preacher": "",
     "title": "성경통독 301일차",
     "passage": "누가복음 13-14장"
-   },
-   {
-    "videoId": "vvHsdRhBdhY",
-    "date": "2026-10-27",
-    "youtubeTitle": "예그린 성경통독 300일차 (26.10.27) 누가복음 11-12장",
-    "preacher": "",
-    "title": "성경통독 300일차",
-    "passage": "누가복음 11-12장"
    }
   ],
   "sunday": [
