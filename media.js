@@ -2,6 +2,14 @@ window.MEDIA = {
  "lists": {
   "reading": [
    {
+    "videoId": "SMt9cNz7Z_g",
+    "date": "2026-11-17",
+    "youtubeTitle": "예그린 성경통독 321일차 (26.11.17) 사도행전 11-13장",
+    "preacher": "",
+    "title": "성경통독 321일차",
+    "passage": "사도행전 11-13장"
+   },
+   {
     "videoId": "hbZaxWgWbGM",
     "date": "2026-11-16",
     "youtubeTitle": "예그린 성경통독 320일차 (26.11.16) 사도행전 9-10장",
@@ -152,14 +160,6 @@ window.MEDIA = {
     "preacher": "",
     "title": "성경통독 302일차",
     "passage": "누가복음 15-16장"
-   },
-   {
-    "videoId": "qWqOsMkVlzs",
-    "date": "2026-10-28",
-    "youtubeTitle": "예그린 성경통독 301일차 (26.10.28) 누가복음 13-14장",
-    "preacher": "",
-    "title": "성경통독 301일차",
-    "passage": "누가복음 13-14장"
    }
   ],
   "sunday": [
@@ -273,6 +273,14 @@ window.MEDIA = {
    }
   ],
   "dawn": [
+   {
+    "videoId": "okNeDu6KjcU",
+    "date": "2026-11-17",
+    "youtubeTitle": "2026.11.17 새벽예배(아모스 4장) 고용진 목사 예그린교회",
+    "preacher": "고용진 목사",
+    "title": "새벽예배 · 아모스 4장",
+    "passage": "아모스 4장"
+   },
    {
     "videoId": "7usXO70HSiU",
     "date": "2026-11-13",
