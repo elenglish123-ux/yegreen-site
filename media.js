@@ -2,6 +2,14 @@ window.MEDIA = {
  "lists": {
   "reading": [
    {
+    "videoId": "5KApFNlEt4Q",
+    "date": "2026-11-18",
+    "youtubeTitle": "예그린 성경통독 322일차 (26.11.18) 사도행전 14-15장",
+    "preacher": "",
+    "title": "성경통독 322일차",
+    "passage": "사도행전 14-15장"
+   },
+   {
     "videoId": "SMt9cNz7Z_g",
     "date": "2026-11-17",
     "youtubeTitle": "예그린 성경통독 321일차 (26.11.17) 사도행전 11-13장",
@@ -152,14 +160,6 @@ window.MEDIA = {
     "preacher": "",
     "title": "성경통독 303일차",
     "passage": "누가복음 17-18장"
-   },
-   {
-    "videoId": "gG76C5ClRS8",
-    "date": "2026-10-29",
-    "youtubeTitle": "예그린 성경통독 302일차 (26.10.29) 누가복음 15-16장",
-    "preacher": "",
-    "title": "성경통독 302일차",
-    "passage": "누가복음 15-16장"
    }
   ],
   "sunday": [
@@ -273,6 +273,14 @@ window.MEDIA = {
    }
   ],
   "dawn": [
+   {
+    "videoId": "AigxEpauA3U",
+    "date": "2026-11-18",
+    "youtubeTitle": "2026.11.18 새벽예배(아모스 5장-1) 고용진 목사 예그린교회",
+    "preacher": "고용진 목사",
+    "title": "새벽예배 · 아모스 5장-1",
+    "passage": "아모스 5장-1"
+   },
    {
     "videoId": "okNeDu6KjcU",
     "date": "2026-11-17",
@@ -419,6 +427,14 @@ window.MEDIA = {
    }
   ],
   "study": [
+   {
+    "videoId": "dom-hwE154s",
+    "date": "2026-11-18",
+    "youtubeTitle": "예그린 성경공부 39주 [영지주의 및 일반서신2] 2026.11.18",
+    "preacher": "",
+    "title": "성경공부 39주",
+    "passage": "영지주의 및 일반서신2"
+   },
    {
     "videoId": "6bV6WdlH_sE",
     "date": "2026-11-11",
