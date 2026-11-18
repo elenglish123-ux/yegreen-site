@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>사진첩 — 예그린교회</title>
+<meta name="theme-color" content="#1f4a37">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="logo-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<section class="page-head">
+  <div class="wrap">
+    <div class="eyebrow">GALLERY</div>
+    <h1>사진첩</h1>
+    <p>한 달에 한 번, 예배와 행사 사진을 골라 올립니다</p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap" id="gallery"></div>
+</section>
+
+<script src="assets/gallery.js"></script>
+<script src="assets/site.js"></script>
+<script>window.Yegreen.renderGallery(document.getElementById('gallery'));</script>
+</body>
+</html>

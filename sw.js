@@ -1,12 +1,12 @@
 // 웹앱 설치에 필요한 최소 서비스워커: 항상 최신 내용을 먼저 받고, 안 되면 저장본을 보여 줌
-const CACHE = 'yegreen-v5';
+const CACHE = 'yegreen-v6';
 
 self.addEventListener('install', (e) => {
-  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(['./', 'index.html', 'about.html', 'worship.html', 'sermons.html', 'news.html', 'community.html', 'notify.html', 'newcomer.html', 'visit.html', 'assets/style.css', 'assets/site.js', 'assets/community.js', 'assets/notify.js', 'media.js', 'icon.svg', 'icon-192.png', 'icon-512.png', 'logo-mark.svg', 'manifest.json'])));
+  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(['./', 'index.html', 'about.html', 'worship.html', 'sermons.html', 'gallery.html', 'newcomer.html', 'visit.html', 'assets/style.css', 'assets/site.js', 'assets/gallery.js', 'assets/hero.jpg', 'media.js', 'icon.svg', 'icon-192.png', 'icon-512.png', 'logo-mark.svg', 'manifest.json'])));
 });
 
 self.addEventListener('fetch', (e) => {
-  if (e.request.method !== 'GET') return;
+  if (e.request.method !== 'GET' || e.request.url.endsWith('.mp4')) return;
   e.respondWith(
     fetch(e.request)
       .then((res) => {

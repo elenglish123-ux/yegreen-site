@@ -4,8 +4,7 @@
     ['about.html', '교회 소개'],
     ['worship.html', '예배·모임'],
     ['sermons.html', '말씀 영상'],
-    ['news.html', '교회 소식'],
-    ['community.html', '커뮤니티'],
+    ['gallery.html', '사진첩'],
     ['newcomer.html', '처음 오셨나요'],
     ['visit.html', '오시는 길'],
   ];
@@ -19,7 +18,7 @@
       '<nav class="menu" id="menu">' +
         MENU.map(function (m) { return '<a href="' + m[0] + '"' + (m[0] === here ? ' class="on"' : '') + '>' + m[1] + '</a>'; }).join('') +
       '</nav>' +
-      '<div class="nav-tools"><button class="bell" id="bell" aria-label="알림 받기" title="알림 받기">🔔</button>' +
+      '<div class="nav-tools">' +
       '<button class="burger" aria-label="메뉴 열기"><span></span><span></span><span></span></button></div>' +
     '</div>';
   document.body.prepend(header);
@@ -33,7 +32,7 @@
     '<div class="wrap">' +
       '<div><b>예그린교회</b><br>기독교대한감리회 · 담임목사 고용진<br>인천 서구 연희동 683-4 3층 · <a href="tel:032-561-0623">032-561-0623</a></div>' +
       '<div class="links">' + MENU.map(function (m) { return '<a href="' + m[0] + '">' + m[1] + '</a>'; }).join('') +
-      '<a href="https://www.youtube.com/@yegrin" target="_blank" rel="noopener">유튜브</a><a href="notify.html">알림 보내기(담당자)</a></div>' +
+      '<a href="https://www.youtube.com/@yegrin" target="_blank" rel="noopener">유튜브</a><a href="https://elenglish123-ux.github.io/yegreen-app/" target="_blank" rel="noopener">교인 앱</a></div>' +
     '</div>';
   document.body.append(footer);
 
@@ -108,12 +107,7 @@
     return m ? m[0] : '';
   };
 
-  // 알림: 지금은 이 기기에서만 동작. 성도 전체 발송은 https 주소와 발송 서버를 연결한 뒤 가능
-  var canPush = window.isSecureContext && 'Notification' in window && 'serviceWorker' in navigator;
-  var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
-  var isInstalled = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
-  var bell = header.querySelector('#bell');
-
+  // 알림·교회 소식·주보·나눔은 등록 교인 앱에서만 (목사님 결정 2026-11-18)
   function toast(text) {
     var old = document.querySelector('.toast');
     if (old) old.remove();
@@ -124,55 +118,26 @@
     document.body.append(t);
     setTimeout(function () { t.remove(); }, 4500);
   }
-  function banner(msg) {
-    var old = document.querySelector('.push-banner');
-    if (old) old.remove();
-    var b = document.createElement('div');
-    b.className = 'push-banner';
-    b.innerHTML = '<button class="push-card"><img src="icon-192.png" alt=""><div><b>' + esc(msg.title) + '</b><p>' + esc(msg.body) + '</p></div></button>';
-    b.querySelector('button').addEventListener('click', function () { location.href = msg.url || 'index.html'; });
-    document.body.append(b);
-    setTimeout(function () { b.remove(); }, 7000);
-  }
-  // 시스템 알림을 띄우면 true, 화면 안 배너로 대신하면 false
-  function notify(msg) {
-    if (!canPush || Notification.permission !== 'granted') { banner(msg); return Promise.resolve(false); }
-    return navigator.serviceWorker.ready.then(function (reg) {
-      return reg.showNotification(msg.title, { body: msg.body, icon: 'icon-192.png', badge: 'icon-192.png', data: { url: msg.url } });
-    }).then(function () { return true; }).catch(function () { banner(msg); return false; });
-  }
   window.Yegreen.toast = toast;
-  window.Yegreen.notify = notify;
 
-  if (canPush && Notification.permission === 'granted') bell.classList.add('on');
-  bell.addEventListener('click', function () {
-    if (isIOS && !isInstalled) { toast('아이폰은 공유 버튼 → "홈 화면에 추가"로 앱을 설치한 뒤 알림을 켤 수 있어요.'); return; }
-    if (!canPush) { toast('알림은 교회 앱 주소(https)가 생긴 뒤에 켤 수 있어요.'); return; }
-    if (Notification.permission === 'denied') { toast('알림이 차단되어 있어요. 브라우저 설정에서 허용해 주세요.'); return; }
-    Notification.requestPermission().then(function (result) {
-      if (result !== 'granted') { toast('알림을 켜지 않았어요. 언제든 종 모양을 눌러 켤 수 있어요.'); return; }
-      bell.classList.add('on');
-      notify({ title: '예그린교회 알림이 켜졌어요', body: '예배와 교회 소식을 알려 드릴게요.', url: 'news.html' });
-    });
-  });
+  // 사진첩 (assets/gallery.js) — limit: 보여 줄 묶음 수
+  window.Yegreen.renderGallery = function (el, limit) {
+    if (!el) return;
+    var G = (window.GALLERY || []).slice(0, limit || 99);
+    if (!G.length) {
+      el.innerHTML = '<div class="gallery-empty"><b>한 달에 한 번, 예배와 행사 사진을 골라 올립니다</b>첫 사진을 준비하고 있어요.</div>';
+      return;
+    }
+    el.innerHTML = G.map(function (al) {
+      var m = al.month.split('-');
+      var ph = limit === 1 ? al.photos.slice(0, 6) : al.photos;
+      return '<div class="album"><div class="album-head"><span>' + m[0] + '년 ' + Number(m[1]) + '월</span><b>' + esc(al.title || '') + '</b></div>' +
+        '<div class="photos' + (limit === 1 ? ' cols3' : '') + '">' + ph.map(function (u) {
+          return '<a href="' + esc(u) + '" target="_blank" rel="noopener" style="background-image:url(&quot;' + esc(u) + '&quot;)" aria-label="사진 크게 보기"></a>';
+        }).join('') + '</div></div>';
+    }).join('');
+  };
 
-  // 앱 설치 안내 (안드로이드 크롬)
-  var bar = document.createElement('div');
-  bar.className = 'install';
-  bar.innerHTML = '<img src="logo-mark.svg" alt="" style="height:36px"><p><b>예그린교회 앱</b><br>홈 화면에 추가하면 앱처럼 쓸 수 있어요</p>' +
-    '<button class="btn" id="installBtn">설치</button><button class="x" aria-label="닫기">✕</button>';
-  document.body.append(bar);
-  var deferred;
-  window.addEventListener('beforeinstallprompt', function (e) {
-    e.preventDefault();
-    deferred = e;
-    bar.classList.add('show');
-  });
-  bar.querySelector('#installBtn').addEventListener('click', function () {
-    if (deferred) { deferred.prompt(); deferred = null; }
-    bar.classList.remove('show');
-  });
-  bar.querySelector('.x').addEventListener('click', function () { bar.classList.remove('show'); });
   if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
     navigator.serviceWorker.register('sw.js');
   }

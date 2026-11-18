@@ -3,35 +3,41 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>예그린교회 — 예수님을 그리워하는 교회</title>
-<meta name="description" content="인천 서구 연희동 예그린교회(기독교대한감리회) — 예배 안내, 주일설교, 교회 소식">
-<meta name="theme-color" content="#1f4a37">
+<title>예그린교회 — 죄에서 멀어져 자유케 되는 교회</title>
+<meta name="description" content="인천 서구 연희동 예그린교회(기독교대한감리회) — 죄에서 멀어져 자유케 되는 교회. 예배 안내, 주일설교, 오시는 길">
+<meta name="theme-color" content="#10241b">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="logo-mark.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-512.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&display=swap">
 <link rel="stylesheet" href="assets/style.css">
 </head>
-<body>
+<body class="home">
 
-<section class="hero">
+<!-- 첫 화면: 교회 한 문장 + 예그린 영상 (목사님 결정 H1-A, H2) -->
+<section class="cover">
+  <video class="cover-bg" autoplay muted loop playsinline preload="auto" poster="assets/hero.jpg" aria-hidden="true">
+    <source src="assets/hero.mp4" type="video/mp4">
+  </video>
+  <div class="cover-shade"></div>
+  <div class="cover-text">
+    <p class="cover-eyebrow">YEGREEN CHURCH</p>
+    <h1>죄에서 멀어져<br>자유케 되는 교회</h1>
+    <p class="cover-sub">예그린교회 · 예수님을 그리워하는 교회</p>
+    <p class="cover-time">주일예배 오전 10:50 · 인천 서구 연희동</p>
+  </div>
+  <a class="cover-down" href="#first" aria-label="아래로">내려서 더 보기<b>⌄</b></a>
+</section>
+
+<!-- 바로 아래: 꼭 필요한 정보 (H1 "정보는 위로") -->
+<section class="block first" id="first">
   <div class="wrap">
-    <div>
-      <div class="eyebrow">YEGREEN CHURCH</div>
-      <h1>예그린교회에 오신 것을<br><em>환영합니다</em></h1>
-      <p>예수님을 그리워하는 교회 · 기독교대한감리회</p>
-      <div class="quick">
-        <a href="worship.html">예배 시간<small>주일·수요·금요·새벽</small></a>
-        <a href="sermons.html">말씀 영상<small>주일설교·새벽예배</small></a>
-        <a href="newcomer.html">처음 오셨나요?<small>새가족 안내</small></a>
-        <a href="visit.html">오시는 길<small>지도·주차·헌금</small></a>
-      </div>
-    </div>
-    <div class="events">
-      <div class="label">다가오는 일정</div>
-      <a class="event" href="news.html"><div class="day"><b>22</b><small>11월 · 주일</small></div><div><h3>추수감사주일</h3><p>11월 9일~21일 감사주간, 감사노트 챌린지</p></div></a>
-      <a class="event" href="news.html"><div class="day"><b>25</b><small>12월 · 금</small></div><div><h3>2차 새생명축제 · 성탄절 예배</h3><p>오전 11시 · 연극 『스크루테이프의 편지』</p></div></a>
-      <a class="event" href="worship.html#meetings"><div class="day"><b>매주</b><small>금 오후</small></div><div><h3>금요성령집회</h3><p>오후 8시 30분 · 본당</p></div></a>
+    <div class="essentials">
+      <a href="worship.html"><span>🕊</span><b>예배 시간</b><small>주일 오전 8:50 · 10:50</small></a>
+      <a href="visit.html"><span>📍</span><b>오시는 길</b><small>아시아드경기장역 3번 출구</small></a>
+      <a href="about.html#greeting"><span>✝</span><b>담임목사 소개</b><small>고용진 목사</small></a>
+      <a href="sermons.html"><span>▶</span><b>말씀 영상</b><small>주일설교 · 새벽예배</small></a>
     </div>
   </div>
 </section>
@@ -39,36 +45,7 @@
 <section class="block">
   <div class="wrap">
     <div class="head-row">
-      <div><div class="eyebrow2">SERMON</div><h2>이번 주 말씀</h2></div>
-      <a class="more" href="sermons.html">지난 설교</a>
-    </div>
-    <div class="sermon">
-      <div class="video"><iframe id="sermonVideo" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
-      <div>
-        <div class="series" id="sermonSeries"></div>
-        <div class="title" id="sermonTitle"></div>
-        <div class="meta" id="sermonMeta"></div>
-        <a class="btn" id="sermonYoutube" target="_blank" rel="noopener">유튜브에서 보기</a>
-        <div class="prev" id="prevSermons"></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="block alt">
-  <div class="wrap">
-    <div class="head-row">
-      <div><div class="eyebrow2">DAILY</div><h2>매일의 말씀</h2></div>
-      <a class="more" href="sermons.html">말씀 영상 전체</a>
-    </div>
-    <div class="grid3" id="daily"></div>
-  </div>
-</section>
-
-<section class="block">
-  <div class="wrap">
-    <div class="head-row">
-      <div><div class="eyebrow2">WORSHIP</div><h2>예배 안내</h2></div>
+      <div><div class="eyebrow2">WORSHIP</div><h2>예배 시간</h2></div>
       <a class="more" href="worship.html">예배·모임 전체</a>
     </div>
     <div class="wcards">
@@ -84,53 +61,110 @@
 
 <section class="block alt">
   <div class="wrap">
-    <div class="head-row">
-      <div><div class="eyebrow2">NEWS</div><h2>교회 소식</h2></div>
-      <a class="more" href="news.html">소식 전체</a>
-    </div>
-    <div class="grid3" id="homeNews">
-      <a class="card news-item" href="news.html"><div class="date">11월 22일(주일)</div><h3>추수감사주일</h3><p>11월 9일부터 21일까지 2주간 감사주간을 보냅니다.</p></a>
-      <a class="card news-item" href="news.html"><div class="date">12월 25일(금) 오전 11시</div><h3>2차 새생명축제</h3><p>영혼 구원의 선물을 드리는 성탄 예배로 준비합니다.</p></a>
-      <a class="card news-item" href="news.html"><div class="date">모집 중</div><h3>연극 배우·스태프 모집</h3><p>『스크루테이프의 편지』 · 문의 정하람 간사</p></a>
+    <div class="pastor">
+      <div class="pastor-pic"><img src="logo-mark.svg" alt=""></div>
+      <div>
+        <div class="eyebrow2">PASTOR</div>
+        <h2>담임목사 고용진</h2>
+        <p class="lead">예그린교회는 2017년 8월 인천방주교회에서 분립 개척된 기독교대한감리회 교회입니다. 말씀 앞에서 죄에서 멀어지고, 예수님 안에서 참 자유를 누리는 교회를 꿈꿉니다.</p>
+        <a class="btn ghost" href="about.html#greeting">인사말 보기</a>
+      </div>
     </div>
   </div>
 </section>
 
 <section class="block">
   <div class="wrap">
-    <div class="cta">
-      <div><h2>처음 오셨나요?</h2><p>예그린교회는 새로 오신 분을 진심으로 환영합니다. 예배 안내부터 새가족 등록까지 차근차근 알려 드려요.</p></div>
-      <a class="btn light" href="newcomer.html">새가족 안내 보기</a>
+    <div class="head-row">
+      <div><div class="eyebrow2">VISION</div><h2>예그린교회 비전 · WORLD</h2></div>
+      <a class="more" href="about.html#vision">교회 소개</a>
+    </div>
+    <div class="vision">
+      <div><span>W</span><b>Worshiping Church</b>예배하는 교회</div>
+      <div><span>O</span><b>Oikos Church</b>기도하는 목장 교회</div>
+      <div><span>R</span><b>Reaching Out Church</b>구제·봉사하는 교회</div>
+      <div><span>L</span><b>Life Giving Church</b>선교·전도하는 교회</div>
+      <div><span>D</span><b>Discipling Church</b>제자 삼는 교회</div>
+    </div>
+  </div>
+</section>
+
+<section class="block alt">
+  <div class="wrap">
+    <div class="head-row">
+      <div><div class="eyebrow2">SERMON</div><h2>최근 설교</h2></div>
+      <a class="more" href="https://www.youtube.com/@yegrin" target="_blank" rel="noopener">유튜브 채널</a>
+    </div>
+    <div class="grid4" id="recent"></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="head-row">
+      <div><div class="eyebrow2">GALLERY</div><h2>사진첩</h2></div>
+      <a class="more" href="gallery.html">사진첩 전체</a>
+    </div>
+    <div id="homeGallery"></div>
+  </div>
+</section>
+
+<section class="block alt">
+  <div class="wrap grid2 two-info">
+    <div>
+      <div class="eyebrow2">MISSION</div>
+      <h2>함께하는 선교</h2>
+      <div class="mission">
+        <div>인도</div><div>필리핀</div><div>파푸아뉴기니</div><div>일본</div><div>북한</div>
+      </div>
+    </div>
+    <div>
+      <div class="eyebrow2">OFFERING</div>
+      <h2>헌금 안내</h2>
+      <div class="card">
+        <p style="color:var(--muted)">헌금은 예배 때 헌금함에 자유롭게 드립니다.</p>
+        <p style="margin-top:8px"><b>온라인 헌금</b> <span class="todo">[헌금 계좌 — 교회에 확인]</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="eyebrow2">LOCATION</div>
+    <h2>오시는 길</h2>
+    <div class="grid2" style="align-items:start">
+      <div class="map"><iframe title="예그린교회 지도" loading="lazy" src="https://maps.google.com/maps?q=%EC%9D%B8%EC%B2%9C%20%EC%84%9C%EA%B5%AC%20%EC%97%B0%ED%9D%AC%EB%8F%99%20683-4&z=16&output=embed"></iframe></div>
+      <div class="card info">
+        <dl>
+          <dt>주소</dt><dd>인천 서구 연희동 683-4 3층</dd>
+          <dt>전철</dt><dd>인천 2호선 아시아드경기장역 3번 출구, 걸어서 3분</dd>
+          <dt>주차</dt><dd>건물 뒤 주차장 (빌라 주차는 삼가 주세요)</dd>
+          <dt>전화</dt><dd><a href="tel:032-561-0623">032-561-0623</a></dd>
+        </dl>
+        <div class="btns">
+          <a class="btn" href="https://map.naver.com/p/search/%EC%9D%B8%EC%B2%9C%20%EC%84%9C%EA%B5%AC%20%EC%97%B0%ED%9D%AC%EB%8F%99%20683-4" target="_blank" rel="noopener">네이버 지도</a>
+          <a class="btn ghost" href="https://map.kakao.com/?q=%EC%9D%B8%EC%B2%9C%20%EC%84%9C%EA%B5%AC%20%EC%97%B0%ED%9D%AC%EB%8F%99%20683-4" target="_blank" rel="noopener">카카오맵</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <script src="media.js"></script>
-<script src="bulletin/bulletins.js"></script>
+<script src="assets/gallery.js"></script>
 <script src="assets/site.js"></script>
 <script>
   (function () {
-    var Y = window.Yegreen, L = Y.lists;
-    var sunday = L.sunday || [];
-    Y.showSermon(sunday[0], 'sunday');
-    document.getElementById('prevSermons').innerHTML = sunday.slice(1, 4).map(function (s) {
-      return '<a href="sermons.html?v=' + s.videoId + '"><b>' + Y.esc(s.title) + '</b><span>' + Y.shortDate(s.date) + '</span></a>';
+    var Y = window.Yegreen;
+    // 최근 설교 4편 — 누르면 유튜브 (목사님 결정 H3)
+    var sunday = (Y.lists.sunday || []).slice(0, 4);
+    document.getElementById('recent').innerHTML = sunday.map(function (s) {
+      return '<a class="vcard" href="https://www.youtube.com/watch?v=' + s.videoId + '" target="_blank" rel="noopener">' +
+        '<div class="thumb" style="background-image:url(https://i.ytimg.com/vi/' + s.videoId + '/hqdefault.jpg)"></div>' +
+        '<div class="txt"><h3>' + Y.esc(s.title) + '</h3><p>' + [Y.shortDate(s.date), s.passage].filter(Boolean).map(Y.esc).join(' · ') + '</p></div></a>';
     }).join('');
-    document.getElementById('daily').innerHTML = ['dawn', 'reading', 'study'].filter(function (k) { return L[k] && L[k][0]; })
-      .map(function (k) { return Y.card(L[k][0], k); }).join('');
-    document.querySelectorAll('#daily .vcard').forEach(function (b) {
-      b.addEventListener('click', function () { location.href = 'sermons.html?v=' + b.dataset.id; });
-    });
-    // 교회 소식: 가장 최근 주보의 소식 3개 (주보 만들기 → 홈페이지로 보내기)
-    var B = Y.bulletins[0];
-    if (B) {
-      var news = B.news.filter(function (n) { return !/환영/.test(n.t); }).slice(0, 3);
-      if (news.length) document.getElementById('homeNews').innerHTML = news.map(function (n) {
-        var first = Y.newsLines(n.b)[0] || '';
-        if (first.length > 60) first = first.slice(0, 58) + '…';
-        return '<a class="card news-item" href="news.html"><div class="date">' + Y.esc(Y.newsTag(n) || Y.koDate(B.date)) + '</div><h3>' + Y.inl(n.t) + '</h3><p>' + Y.inl(first) + '</p></a>';
-      }).join('');
-    }
+    Y.renderGallery(document.getElementById('homeGallery'), 1);
   })();
 </script>
 </body>
