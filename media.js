@@ -2,6 +2,14 @@ window.MEDIA = {
  "lists": {
   "reading": [
    {
+    "videoId": "5yJ8Llbycik",
+    "date": "2026-11-19",
+    "youtubeTitle": "예그린 성경통독 323일차 (26.11.19) 사도행전 16-17장",
+    "preacher": "",
+    "title": "성경통독 323일차",
+    "passage": "사도행전 16-17장"
+   },
+   {
     "videoId": "5KApFNlEt4Q",
     "date": "2026-11-18",
     "youtubeTitle": "예그린 성경통독 322일차 (26.11.18) 사도행전 14-15장",
@@ -152,14 +160,6 @@ window.MEDIA = {
     "preacher": "",
     "title": "성경통독 304일차",
     "passage": "누가복음 19-20장"
-   },
-   {
-    "videoId": "lnmPO_bgLz0",
-    "date": "2026-10-30",
-    "youtubeTitle": "예그린 성경통독 303일차 (26.10.30) 누가복음 17-18장",
-    "preacher": "",
-    "title": "성경통독 303일차",
-    "passage": "누가복음 17-18장"
    }
   ],
   "sunday": [
@@ -273,6 +273,22 @@ window.MEDIA = {
    }
   ],
   "dawn": [
+   {
+    "videoId": "Jb4Qjzomyxo",
+    "date": "2026-11-19",
+    "youtubeTitle": "2026.11.19 새벽예배(아모스 5장-2) 고용진 목사 예그린교회",
+    "preacher": "고용진 목사",
+    "title": "새벽예배 · 아모스 5장-2",
+    "passage": "아모스 5장-2"
+   },
+   {
+    "videoId": "Xww0R4JVZVo",
+    "date": "2026-11-19",
+    "youtubeTitle": "2026.11.19 새벽예배(아모스 5장-2) 고용진 목사 예그린교회",
+    "preacher": "고용진 목사",
+    "title": "새벽예배 · 아모스 5장-2",
+    "passage": "아모스 5장-2"
+   },
    {
     "videoId": "AigxEpauA3U",
     "date": "2026-11-18",
@@ -416,14 +432,6 @@ window.MEDIA = {
     "preacher": "고용진 목사",
     "title": "새벽예배 · 호세아 7장",
     "passage": "호세아 7장"
-   },
-   {
-    "videoId": "_01Q-Nt_8qI",
-    "date": "2026-10-09",
-    "youtubeTitle": "2026.10.09 새벽예배(호세아 6장) 고용진 목사 예그린교회",
-    "preacher": "고용진 목사",
-    "title": "새벽예배 · 호세아 6장",
-    "passage": "호세아 6장"
    }
   ],
   "study": [
