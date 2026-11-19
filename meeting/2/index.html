@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=820">
+<meta name="robots" content="noindex,nofollow">
+<title>예그린교회 2차 미팅안</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+@page { size: A4; margin: 0; }
+:root { --green:#2f6b4f; --green-d:#1f4a37; --green-l:#e7f1ea; --gold:#c9a45c; --gold-l:#fff6e2; --ink:#222; --muted:#6f6a60; --line:#e3ddd2; }
+* { box-sizing:border-box; margin:0; padding:0; }
+body { font-family:Pretendard,sans-serif; color:var(--ink); font-size:9.6pt; line-height:1.5; word-break:keep-all; }
+.page { width:210mm; height:297mm; padding:14mm 15mm 12mm; position:relative; overflow:hidden; page-break-after:always; }
+.eyebrow { font-size:8pt; font-weight:700; color:var(--gold); letter-spacing:.15em; }
+h1 { font-size:21pt; color:var(--green-d); margin:1mm 0 1mm; }
+h2 { font-size:13pt; color:var(--green-d); margin:4.5mm 0 2mm; display:flex; align-items:baseline; gap:3mm; }
+h2 small { font-size:9pt; color:var(--muted); font-weight:500; }
+.meta { display:flex; gap:6mm; color:var(--muted); font-size:9.5pt; margin-bottom:3mm; }
+.meta b { color:var(--ink); }
+.goal { background:var(--green-d); color:#fff; border-radius:4mm; padding:4mm 5mm; font-size:10.5pt; }
+.goal b { color:#f1d9a2; }
+table { width:100%; border-collapse:collapse; }
+th { text-align:left; font-size:8.5pt; color:var(--muted); background:#faf8f4; padding:1.8mm 2.5mm; border-bottom:1.5px solid var(--line); }
+td { padding:1.3mm 2.5mm; border-bottom:1px solid #eee9e0; vertical-align:top; }
+td.k { font-weight:800; color:var(--green-d); white-space:nowrap; }
+td.m { white-space:nowrap; color:var(--gold); font-weight:800; }
+.tag { display:inline-block; font-size:7.8pt; font-weight:700; border-radius:3mm; padding:0 2mm; background:var(--green-l); color:var(--green); }
+.tag.gold { background:var(--gold-l); color:#8a6a2a; }
+.shots { display:grid; grid-template-columns:2.15fr 1fr 1fr 1fr; gap:3mm; align-items:start; }
+.shots figure { margin:0; }
+.shots img { width:100%; border-radius:2.5mm; border:1px solid var(--line); display:block; }
+.shots img.ph { aspect-ratio:390/400; object-fit:cover; object-position:top; }
+.shots figcaption { font-size:8pt; color:var(--muted); text-align:center; margin-top:1mm; }
+.links { display:flex; gap:3mm; margin-top:3mm; font-size:8.5pt; }
+.links div { flex:1; background:#faf8f4; border-radius:2.5mm; padding:2mm 3mm; }
+.links b { display:block; color:var(--green-d); }
+i.cb { display:inline-block; width:3.4mm; height:3.4mm; border:1.3px solid #555; border-radius:.8mm; vertical-align:-.6mm; margin-right:1.2mm; }
+.perm td, .perm th { text-align:center; }
+.perm td:first-child, .perm th:first-child { text-align:left; }
+.perm td.now { color:var(--muted); font-size:8pt; text-align:left; }
+.q { border:1px solid var(--line); border-radius:3mm; padding:2.8mm 3.5mm; margin-bottom:2.5mm; }
+.q b.t { color:var(--green-d); font-size:10pt; }
+.q .op { display:flex; flex-wrap:wrap; gap:1.5mm 5mm; margin-top:1.5mm; }
+.two { display:grid; grid-template-columns:1fr 1fr; gap:3mm; }
+.w { display:inline-block; border-bottom:1px solid #999; min-width:30mm; height:4mm; vertical-align:bottom; }
+.note { font-size:8.3pt; color:var(--muted); margin-top:1.5mm; }
+.foot { position:absolute; left:15mm; right:15mm; bottom:8mm; display:flex; justify-content:space-between; font-size:7.5pt; color:#aaa; border-top:1px solid #eee; padding-top:2mm; }
+.adm { display:grid; grid-template-columns:1.9fr 1fr; gap:4mm; align-items:start; }
+.adm img, img.wide { width:100%; border-radius:2.5mm; border:1px solid var(--line); display:block; }
+.adm ul { list-style:none; font-size:8.6pt; display:grid; gap:1.4mm; }
+.adm li { background:#faf8f4; border-radius:2mm; padding:1.4mm 2.5mm; color:var(--muted); }
+.adm li b { color:var(--green-d); margin-right:1.5mm; }
+.flowline { display:flex; align-items:center; gap:1.5mm; font-size:8.4pt; color:var(--gold); font-weight:800; margin-bottom:2.5mm; flex-wrap:wrap; }
+.flowline span { background:var(--green-l); color:var(--green-d); border-radius:3mm; padding:1mm 2.6mm; }
+.cap { font-size:8.3pt; color:var(--muted); margin-top:1.5mm; }
+.phones { display:grid; grid-template-columns:1fr 1fr; gap:2mm; }
+.phones img { width:100%; aspect-ratio:390/500; object-fit:cover; object-position:top; border-radius:2.5mm; border:1px solid var(--line); }
+.dpc { display:grid; grid-template-columns:1fr 1fr; gap:3mm; }
+.dpc img { width:100%; aspect-ratio:1366/700; object-fit:cover; object-position:top; border-radius:2mm; border:1px solid var(--line); display:block; }
+.dph { display:grid; grid-template-columns:repeat(4,1fr); gap:3mm 3mm; }
+.dph img { width:100%; aspect-ratio:390/610; object-fit:cover; object-position:top; border-radius:2.5mm; border:1px solid var(--line); display:block; }
+.dpc figure, .dph figure { margin:0; }
+.dpc figcaption, .dph figcaption { font-size:7.8pt; color:var(--muted); text-align:center; margin-top:1mm; line-height:1.35; }
+figcaption b { color:var(--green-d); }
+.rn { border:1px solid var(--line); border-radius:3mm; padding:3mm 3.5mm; margin-top:3mm; display:grid; grid-template-columns:2.7fr 1fr; gap:2mm 4mm; align-items:start; }
+.rn .rh { grid-column:1/-1; margin-bottom:0; }
+.rh { font-size:11.5pt; color:var(--green-d); margin-bottom:2mm; display:flex; align-items:center; gap:2mm; }
+.rh small { font-size:8.5pt; color:var(--muted); font-weight:500; }
+.rh .no { background:var(--green-d); color:#fff; border-radius:2mm; padding:.3mm 2.2mm; font-size:9pt; font-weight:800; }
+.rn img { width:100%; display:block; border-radius:2mm; background:#fff; }
+.rt { display:grid; gap:2mm; font-size:8.8pt; }
+.rt b { color:var(--green-d); }
+.rt .pl { color:#2f6b4f; font-weight:600; }
+.rt .mi { color:#8a6a2a; font-weight:600; }
+table.cmp td, table.cmp th { font-size:8.8pt; }
+table.cmp th { color:var(--green-d); }
+@media screen { body { background:#ece8e1; } .page { margin:0 auto 6mm; background:#fff; box-shadow:0 2px 10px rgba(0,0,0,.08); } .dl { display:block; width:210mm; margin:4mm auto; text-align:right; font-size:10pt; } .dl a { background:#1f4a37; color:#fff; padding:2mm 4mm; border-radius:2mm; text-decoration:none; font-weight:700; } }
+@media print { .dl { display:none; } }
+</style></head><body>
+<div class="dl"><a href="yegrin-meeting2.pdf" download>PDF로 받기 · 인쇄</a></div>
+
+<section class="page">
+  <div class="eyebrow">YEGRIN CHURCH · 2ND MEETING</div>
+  <h1>예그린교회 홈페이지·앱 2차 미팅안</h1>
+  <div class="meta"><span>일시 <b>11월 21일(토) 예정</b></span><span>참석 <b>담임목사님 · 정하람 간사님 · Olivia</b></span><span>시간 <b>90분</b></span></div>
+  <div class="goal">이번 미팅의 목표 — <b>① 결정 반영 확인</b> · <b>② 관리자 화면·영상 만들기 미리보기</b> · <b>③ 라잇나우미디어 활용 방향</b> · <b>④ 운영 준비와 오픈 계획</b></div>
+
+  <h2>안건</h2>
+  <table>
+    <tr><th style="width:10mm"></th><th style="width:58mm">안건</th><th>내용</th><th style="width:14mm">시간</th></tr>
+    <tr><td class="k">1</td><td><b>결정 반영 확인</b></td><td>바뀐 홈페이지·앱을 휴대폰으로 함께 보기 (첫 화면 영상, 한 문장, 등록 교인 가입, 기도 공간)</td><td class="m">15분</td></tr>
+    <tr><td class="k">2</td><td><b>관리자 화면 미리보기</b></td><td>PC·휴대폰 관리 메뉴 · <b>설교 영상·쇼츠 만들기</b> · <b>AI 도우미</b> (3쪽) <span class="tag gold">권한은 다 만든 뒤에</span></td><td class="m">15분</td></tr>
+    <tr><td class="k">3</td><td><b>라잇나우미디어 브리핑</b></td><td>목사님 브리핑 → 우리 앱에 넣는 <b>3가지 안</b>(4·5쪽) → 방식 정하기</td><td class="m">15분</td></tr>
+    <tr><td class="k">4</td><td><b>주보 → 홈페이지·앱 연결</b></td><td>주보 만들기로 이번 주 주보 입력 → 「보내기」 한 번에 앱 주보·광고·성경읽기 진도까지 (간사님 실습)</td><td class="m">10분</td></tr>
+    <tr><td class="k">5</td><td><b>사진첩 · 첫 화면 영상</b></td><td>한 달 1번 사진 고르는 방법 · 성도 얼굴이 나오는 사진·영상 공개 기준</td><td class="m">5분</td></tr>
+    <tr><td class="k">6</td><td><b>운영 준비</b></td><td>교인 로그인·알림을 위한 <b>서버</b>(무료로 시작) · <b>도메인</b>(1년 약 2만 원) · 교회 계정으로 옮기기 · 개인정보 동의 문구</td><td class="m">10분</td></tr>
+    <tr><td class="k">7</td><td><b>오픈 계획</b></td><td>목자 시범 사용(2주) → 전체 오픈 · 성도 설치 도우미 날 · 광고 시간·주보 QR 안내 · 문자 공지 함께 보내는 기간</td><td class="m">15분</td></tr>
+    <tr><td class="k">8</td><td><b>준비물 · 다음 일정</b></td><td>교회에서 준비할 자료, 3차 미팅 날짜</td><td class="m">5분</td></tr>
+  </table>
+
+  <h2>1차 결정 → 반영한 것 <small>11/18 공개 주소에 올림</small></h2>
+  <table>
+    <tr><th style="width:34mm">결정</th><th>반영</th></tr>
+    <tr><td class="k">H1 · H2 첫 화면</td><td>「죄에서 멀어져 자유케 되는 교회」 + 예그린 영상(2026 전교인수련회 예배 장면 17초), 필요한 정보는 바로 아래</td></tr>
+    <tr><td class="k">H3 · H4 · H5</td><td>교회 소식·광고·주보는 앱으로 · 최근 설교 4편 · 사진첩(한 달 1번) · 선교는 나라 이름만</td></tr>
+    <tr><td class="k">A1 등록 교인만</td><td>앱을 열면 가입부터, 정하람 간사님 승인 후 열림</td></tr>
+    <tr><td class="k">A2 앱 기능</td><td>말씀 은혜 나눔 · 선교 소식 · 감사 챌린지(기간에만) · 성경읽기 함께 읽은 수(숫자만) · <b>나만의 기도 공간</b>(휴대폰에만, 아무도 못 봄)</td></tr>
+    <tr><td class="k">새로 만든 것</td><td>관리자 화면(휴대폰·PC) · 설교 영상·쇼츠 만들기 · AI 도우미 · 목장방 「이번 주 목장 영상」(라잇나우미디어 링크)</td></tr>
+  </table>
+
+  <h2>주소 <small>휴대폰으로 함께 열어 보기</small></h2>
+  <div class="links">
+    <div><b>홈페이지</b>elenglish123-ux.github.io/yegreen-site</div>
+    <div><b>앱</b>elenglish123-ux.github.io/yegreen-app</div>
+    <div><b>PC 관리자</b>…/yegreen-app/admin.html</div>
+  </div>
+  <div class="foot"><span>예그린교회 홈페이지·앱 2차 미팅안</span><span>1</span></div>
+</section>
+
+<section class="page">
+  <div class="eyebrow">DECISIONS · APPLIED</div>
+  <h1 style="font-size:17pt">목사님 결정 반영 화면 <small style="font-size:9.5pt;color:var(--muted);font-weight:500">11/18 공개 주소에 올린 시안</small></h1>
+
+  <h2>💻 홈페이지 <small>PC</small></h2>
+  <div class="dpc">
+    <figure><img src="d_pc_cover.png" alt=""><figcaption><b>H1·H2</b> 첫 화면: 예그린 영상 + 「죄에서 멀어져 자유케 되는 교회」</figcaption></figure>
+    <figure><img src="d_pc_sermon.png" alt=""><figcaption><b>H3·H5</b> 최근 설교 4편(누르면 유튜브) · 사진첩(한 달 1번)</figcaption></figure>
+  </div>
+
+  <h2>📱 휴대폰 홈페이지 · 교인 앱</h2>
+  <div class="dph">
+    <figure><img src="d_m_cover.png" alt=""><figcaption><b>H1·H2</b> 휴대폰 첫 화면</figcaption></figure>
+    <figure><img src="d_m_first.png" alt=""><figcaption><b>H1</b> 꼭 필요한 정보는 바로 아래</figcaption></figure>
+    <figure><img src="d_a1.png" alt=""><figcaption><b>A1</b> 등록 교인만 · 간사님 승인</figcaption></figure>
+    <figure><img src="d_a2.png" alt=""><figcaption><b>H4</b> 소식·주보는 앱 홈에</figcaption></figure>
+    <figure><img src="d_a5.png" alt=""><figcaption><b>A2</b> 말씀 은혜 나눔</figcaption></figure>
+    <figure><img src="d_a7.png" alt=""><figcaption><b>A2</b> 감사 챌린지 (기간에만)</figcaption></figure>
+    <figure><img src="d_a8.png" alt=""><figcaption><b>A2</b> 나만의 기도 공간 (아무도 못 봄)</figcaption></figure>
+    <figure><img src="d_a9.png" alt=""><figcaption><b>H5</b> 선교: 나라 이름만</figcaption></figure>
+  </div>
+  <div class="foot"><span>예그린교회 홈페이지·앱 2차 미팅안</span><span>2</span></div>
+</section>
+
+<section class="page">
+  <div class="eyebrow">ADMIN · PREVIEW</div>
+  <h1 style="font-size:17pt">관리자 화면 미리보기 <small style="font-size:9.5pt;color:var(--muted);font-weight:500">누가 어떤 메뉴를 쓸지는 다 만든 뒤에 정해요</small></h1>
+
+  <h2>💻 PC 관리자 <small>엘영어 관리사이트처럼 · 앱과 같은 데이터</small></h2>
+  <div class="adm">
+    <img src="c_pc.png" alt="">
+    <ul>
+      <li><b>한눈에 보기</b> 할 일·최근 활동</li>
+      <li><b>가입 승인</b> 목장 배정 (정하람 간사님)</li>
+      <li><b>교인·권한 · 목장 관리</b></li>
+      <li><b>알림 보내기</b> 휴대폰 미리보기·예약</li>
+      <li><b>주보·광고</b> 주보 프로그램에서 들어옴</li>
+      <li><b>선교 소식 · 목장 영상</b></li>
+      <li><b>감사 챌린지</b> 기간 열고 닫기</li>
+      <li><b>나눔 관리</b> 신고된 글</li>
+      <li><b>성경읽기 현황</b> 숫자만</li>
+    </ul>
+  </div>
+
+  <h2>🎞 설교 영상 만들기 <small>예배 영상 → 설교만 잘라 → 썸네일·제목·더보기 → 유튜브 자동 업로드</small></h2>
+  <div class="flowline"><span>① 영상 넣기</span>→<span>② 설교 구간 자동 찾기</span>→<span>③ 썸네일 고르기</span>→<span>④ 제목·더보기(AI 요약)</span>→<span>⑤ 유튜브 올리기</span></div>
+  <img class="wide" src="c_thumb.png" alt="">
+  <p class="cap">썸네일은 <b>지금 예그린 유튜브 썸네일 4가지 스타일</b>(파란 시리즈 · 밝은 회색 · 베이지 · 찢어진 종이) 중에서 골라요.</p>
+
+  <div class="two" style="margin-top:3mm;grid-template-columns:1.55fr 1fr">
+    <div><h2 style="margin-top:0">📱 쇼츠 만들기 <small>설교에서 30~59초 3개</small></h2>
+      <img class="wide" src="c_shorts.png" alt="" style="max-height:54mm;object-fit:cover;object-position:top">
+      <p class="cap">마음에 남는 문장을 큰 자막으로 · 다음 날부터 하루 1개 저녁 7시 예약 · 설명란에 「전체 설교 보기」 링크</p></div>
+    <div><h2 style="margin-top:0">💬 AI 도우미 <small>「너만의 패파」처럼</small></h2>
+      <div class="phones"><img src="m_admin.png" alt=""><img src="m_helper.png" alt=""></div>
+      <p class="cap">왼쪽: 휴대폰 관리자 · 오른쪽: 성도용 예그린 도우미</p></div>
+  </div>
+  <p class="note">※ 지금은 시안이라 실제로 자르거나 올리지 않아요. 진행하면 교회 PC에 작은 프로그램을 깔아 처리하고, 유튜브 업로드 권한은 목사님·간사님이 한 번 허락해요.</p>
+  <div class="foot"><span>예그린교회 홈페이지·앱 2차 미팅안</span><span>3</span></div>
+</section>
+
+<section class="page">
+  <div class="eyebrow">RIGHTNOW MEDIA · 3 IDEAS</div>
+  <h1 style="font-size:17pt">라잇나우 「교회 홈페이지처럼」을 우리 홈페이지·앱으로 한다면</h1>
+  <p class="note" style="margin:0 0 1mm;font-size:8.8pt">라잇나우는 교회 이름으로 꾸민 영상 서재 페이지를 줘요. 그 페이지를 따로 쓰지 않고, <b>예그린 홈페이지·앱이 대문</b>이 되고 라잇나우 영상을 그 안에 담는 3가지 방법이에요. 세 안 모두 라잇나우 구독이 필요하고, 영상은 처음 한 번 라잇나우에 가입한 뒤 라잇나우 앱에서 재생돼요.</p>
+
+  <div class="rn">
+    <div class="rh"><span class="no">1안</span><b>바로가기형</b> <small>가장 빠르고 간단</small></div>
+    <img src="rn1.png" alt="">
+    <div class="rt">
+      <p><b>홈페이지</b> 「말씀 영상」 아래 <b>예그린 영상 서재</b> 배너 → 라잇나우 교회 서재로 이동</p>
+      <p><b>앱</b> 말씀 탭에 「서재」 → 처음 한 번 가입 안내 3단계 → 라잇나우 앱 열기</p>
+      <p class="pl">👍 1주면 완성 · 간사님이 따로 할 일 없음</p>
+      <p class="mi">🤔 무엇을 볼지는 성도가 라잇나우에서 직접 찾아야 해요</p>
+    </div>
+  </div>
+
+  <div class="rn">
+    <div class="rh"><span class="no">2안</span><b>예그린 영상 서재</b> <small>예그린 이름으로 보이는 서재</small></div>
+    <img src="rn2.png" alt="">
+    <div class="rt">
+      <p><b>홈페이지</b> 메뉴에 「영상 서재」: 목사님이 고른 라잇나우 시리즈 + <b>예그린 설교 시리즈</b>를 주제별로 (새가족·결혼·가정·다음세대·직장)</p>
+      <p><b>앱</b> 말씀 탭 「서재」: 이달의 추천, 목사님 한 줄, 이어 보기·저장</p>
+      <p class="pl">👍 설교와 라잇나우가 한곳에 · 성도가 고르기 쉬워요</p>
+      <p class="mi">🤔 관리자 화면에서 한 달 1번 추천을 바꿔 줘야 해요</p>
+    </div>
+  </div>
+
+  <h2>세 안 모두 필요한 것</h2>
+  <div class="two">
+    <div class="q"><b class="t">교회에서</b>
+      <div class="op" style="flex-direction:column;gap:1.2mm">
+        <span>· 라잇나우 구독 (전 교인 또는 목자 먼저)</span>
+        <span>· 성도 가입용 <b>교회 초대 링크</b> 받기</span>
+        <span>· 처음 한 번 가입을 도와줄 분 (설치 도우미 날)</span>
+      </div></div>
+    <div class="q"><b class="t">Olivia가</b>
+      <div class="op" style="flex-direction:column;gap:1.2mm">
+        <span>· 홈페이지·앱에 서재·목장 화면 만들기</span>
+        <span>· 관리자 화면 「목장 영상」에서 영상 링크·추천 바꾸기</span>
+        <span>· 영상 하나로 바로 가는 링크가 되는지 확인</span>
+      </div></div>
+  </div>
+  <div class="foot"><span>예그린교회 홈페이지·앱 2차 미팅안</span><span>4</span></div>
+</section>
+
+<section class="page">
+  <div class="eyebrow">RIGHTNOW MEDIA · 3 IDEAS</div>
+  <div class="rn" style="grid-template-columns:1fr">
+    <div class="rh"><span class="no">3안</span><b>목장 과정형</b> <small>목장 모임과 바로 연결</small></div>
+    <img src="rn3.png" alt="" style="width:82%;margin:0 auto">
+    <div class="rt" style="grid-template-columns:1fr 1fr;gap:1.2mm 6mm">
+      <p><b>홈페이지</b> 「예배·모임」에 이번 학기 목장 과정 소개 (예: 6주 과정, 주차별 주제)</p>
+      <p><b>앱</b> 목장방에 주차표: 이번 주 영상 → 나눔 질문 → 목자가 「모임 했어요」 체크</p>
+      <p><b>관리자</b> 목장별 진행 현황을 한눈에 (몇 주차까지 했는지)</p>
+      <p class="pl">👍 모든 목장이 같은 영상·같은 질문 · 지금 시안의 「이번 주 목장 영상」을 넓힌 것</p>
+      <p class="mi">🤔 학기마다 과정을 고르고 나눔 질문을 준비해야 해요</p>
+    </div>
+  </div>
+
+  <h2>세 안 비교</h2>
+  <table class="cmp">
+    <tr><th></th><th>1안 바로가기형</th><th>2안 예그린 영상 서재</th><th>3안 목장 과정형</th></tr>
+    <tr><td class="k">만드는 기간</td><td>약 1주</td><td>약 2~3주</td><td>약 2~3주</td></tr>
+    <tr><td class="k">교회에서 할 일</td><td>없음</td><td>한 달 1번 추천 고르기</td><td>학기마다 과정·질문 정하기</td></tr>
+    <tr><td class="k">성도가 쓰기</td><td>라잇나우에서 직접 찾기</td><td>추천을 보고 바로 고르기</td><td>목장에서 함께 보기</td></tr>
+    <tr><td class="k">목장 연결</td><td>—</td><td>추천에 「목장에서 함께」 표시</td><td>주차·질문·목자 체크</td></tr>
+    <tr><td class="k">설교 영상과</td><td>따로</td><td>한곳에 (주제별)</td><td>따로</td></tr>
+  </table>
+  <div class="goal" style="margin-top:4mm;font-size:9.8pt">Olivia 제안 — <b>1안으로 바로 시작</b>하고, 목장에서 반응이 좋으면 <b>3안</b>(목장 과정)으로, 영상이 쌓이면 <b>2안</b>(서재)까지 넓혀요. 세 안은 함께 쓸 수 있어요.</div>
+  <p class="note">※ 화면 속 시리즈 이름은 예시예요. 실제로는 목사님이 라잇나우에서 고르신 영상으로 바뀌어요.</p>
+  <div class="foot"><span>예그린교회 홈페이지·앱 2차 미팅안</span><span>5</span></div>
+</section>
+
+<section class="page">
+  <div class="eyebrow">DECISIONS</div>
+  <h1 style="font-size:17pt">2차 미팅에서 정할 것 <small style="font-size:9.5pt;color:var(--muted);font-weight:500">체크해 주세요</small></h1>
+
+  <h2>① 라잇나우미디어 <small>목사님 브리핑 후 확인</small></h2>
+  <div class="q">
+    <div class="op" style="flex-direction:column;gap:1.8mm;margin-top:0">
+      <span><i class="cb"></i>성도 가입 방법: 교회 초대 링크가 있나요? <span class="w" style="min-width:60mm"></span></span>
+      <span><i class="cb"></i>영상 하나로 <b>바로 가는 링크</b>를 만들 수 있나요? &nbsp; 예 / 아니요</span>
+      <span><i class="cb"></i>한국어 자막·한국어 콘텐츠가 충분한가요? &nbsp; 예 / 아니요</span>
+      <span><b>구독 방식</b> &nbsp; <i class="cb"></i>전 교인 (101~200명 월 14만 원) &nbsp; <i class="cb"></i>목자만 먼저 (소그룹 요금 문의) &nbsp; <i class="cb"></i>보류</span>
+      <span><b>넣는 방법</b> &nbsp; <i class="cb"></i>1안 바로가기 &nbsp; <i class="cb"></i>2안 예그린 영상 서재 &nbsp; <i class="cb"></i>3안 목장 과정 &nbsp; <i class="cb"></i>1안부터 차례로</span>
+      <span><b>쓰는 곳</b> &nbsp; <i class="cb"></i>목장 영상 &nbsp; <i class="cb"></i>새가족 과정 &nbsp; <i class="cb"></i>영상 서재 메뉴 &nbsp; <i class="cb"></i>주일학교·가정</span>
+    </div>
+  </div>
+
+  <h2>② 영상 만들기 · AI 도우미</h2>
+  <div class="q">
+    <div class="op" style="flex-direction:column;gap:1.8mm;margin-top:0">
+      <span><b>설교 영상 자동 만들기</b> &nbsp; <i class="cb"></i>진행 &nbsp; <i class="cb"></i>나중에 &nbsp;&nbsp; · 지금 썸네일·업로드 하시는 분 <span class="w" style="min-width:34mm"></span></span>
+      <span><b>쇼츠도 함께</b> &nbsp; <i class="cb"></i>진행 &nbsp; <i class="cb"></i>나중에 &nbsp;&nbsp; · 올리는 때 &nbsp; <i class="cb"></i>하루 1개 &nbsp; <i class="cb"></i>월·수·금</span>
+      <span><b>AI 도우미 실제 연결</b> &nbsp; <i class="cb"></i>진행 &nbsp; <i class="cb"></i>나중에 <span class="note" style="margin:0">(AI 사용료가 조금 들어요 · 성도 기도·글은 읽지 않음)</span></span>
+    </div>
+  </div>
+
+  <h2>③ 운영 준비 · 오픈 계획</h2>
+  <div class="two">
+    <div class="q"><b class="t">운영 준비</b>
+      <div class="op" style="flex-direction:column;gap:1.5mm">
+        <span><b>서버</b> &nbsp; <i class="cb"></i>Firebase(구글) &nbsp; <i class="cb"></i>Supabase &nbsp; <i class="cb"></i>Olivia가 정하기</span>
+        <span><b>도메인</b> &nbsp; <i class="cb"></i>yegrin.or.kr &nbsp; <i class="cb"></i>다른 이름 <span class="w" style="min-width:22mm"></span></span>
+        <span><b>계정</b> &nbsp; <i class="cb"></i>교회 구글 계정 만들어 옮기기 &nbsp; <i class="cb"></i>나중에</span>
+        <span><b>로그인</b> &nbsp; <i class="cb"></i>카카오 &nbsp; <i class="cb"></i>휴대폰 번호 &nbsp; <i class="cb"></i>둘 다</span>
+      </div></div>
+    <div class="q"><b class="t">오픈 계획</b>
+      <div class="op" style="flex-direction:column;gap:1.5mm">
+        <span><b>시범 사용</b> &nbsp; <i class="cb"></i>목자만 2주 &nbsp; <i class="cb"></i>바로 전체</span>
+        <span><b>설치 도우미</b> &nbsp; 날짜 <span class="w" style="min-width:24mm"></span> 돕는 분 <span class="w" style="min-width:18mm"></span></span>
+        <span><b>문자 공지</b> &nbsp; <i class="cb"></i>앱과 1~2달 같이 &nbsp; <i class="cb"></i>바로 앱만</span>
+        <span><b>오픈 날짜</b> &nbsp; <span class="w" style="min-width:40mm"></span></span>
+      </div></div>
+  </div>
+
+  <h2>④ 확인 · 준비물</h2>
+  <div class="two">
+    <div class="q"><b class="t">확인해 주세요</b>
+      <div class="op" style="flex-direction:column;gap:1.5mm">
+        <span><i class="cb"></i>첫 화면 영상(성도 얼굴 나옴) 써도 될까요?</span>
+        <span><i class="cb"></i>사진첩 첫 사진: 12월에 11월분부터</span>
+        <span><i class="cb"></i>사진·영상 공개 기준 (얼굴 나오는 사진)</span>
+      </div></div>
+    <div class="q"><b class="t">교회에서 준비할 것</b>
+      <div class="op" style="flex-direction:column;gap:1.5mm">
+        <span><i class="cb"></i>담임목사님 사진 · 짧은 인사말</span>
+        <span><i class="cb"></i>헌금 계좌 공개 여부</span>
+        <span><i class="cb"></i>목장 명단 · 목자 이름</span>
+        <span><i class="cb"></i>목사님 배경 없는 사진(PNG) — 썸네일·쇼츠용</span>
+      </div></div>
+  </div>
+  <div class="q" style="margin-top:0"><b class="t">다음 일정</b> &nbsp; 3차 미팅 <span class="w"></span> &nbsp; · &nbsp; 그때까지 Olivia: 서버 연결 · 실제 로그인·알림 · 영상 만들기 프로그램(진행 시)</div>
+  <p class="note" style="margin-top:4mm">※ 관리자 권한(누가 어떤 메뉴를 쓸지)과 관리자가 볼 수 있는 교인 정보는 홈페이지·앱을 다 만든 뒤에 정해요.</p>
+  <div class="foot"><span>예그린교회 홈페이지·앱 2차 미팅안</span><span>6</span></div>
+</section>
+</body></html>
