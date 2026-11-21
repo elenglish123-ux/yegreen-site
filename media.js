@@ -2,6 +2,14 @@ window.MEDIA = {
  "lists": {
   "reading": [
    {
+    "videoId": "IiZDpNxpYC8",
+    "date": "2026-11-21",
+    "youtubeTitle": "예그린 성경통독 325일차 (26.11.21) 사도행전 20-21장",
+    "preacher": "",
+    "title": "성경통독 325일차",
+    "passage": "사도행전 20-21장"
+   },
+   {
     "videoId": "91SLa-haYj8",
     "date": "2026-11-20",
     "youtubeTitle": "예그린 성경통독 324일차 (26.11.20) 사도행전 18-19장",
@@ -152,14 +160,6 @@ window.MEDIA = {
     "preacher": "",
     "title": "성경통독 306일차",
     "passage": "누가복음 23-24장"
-   },
-   {
-    "videoId": "aRjqolCZgcE",
-    "date": "2026-11-01",
-    "youtubeTitle": "예그린 성경통독 305일차 (26.11.01) 누가복음 21-22장",
-    "preacher": "",
-    "title": "성경통독 305일차",
-    "passage": "누가복음 21-22장"
    }
   ],
   "sunday": [
