@@ -5,8 +5,8 @@
 <meta name="robots" content="noindex">
 <title>예그린교회 새 로고 투표</title>
 <meta property="og:title" content="예그린교회 새 로고 투표">
-<meta property="og:description" content="마음에 드는 로고에 ♥를 눌러 주세요 (여러 개 가능)">
-<meta property="og:image" content="https://elenglish123-ux.github.io/yegreen-site/vote/img/01.jpg">
+<meta property="og:description" content="심볼과 글씨를 따로, 마음에 드는 것에 ♥ (여러 개 가능)">
+<meta property="og:image" content="https://elenglish123-ux.github.io/yegreen-site/vote/img2/01.jpg">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
 <style>
 :root{--g:#1F4D3A;--g2:#2f6b4f;--bg:#F5F3EE;--card:#fff;--line:#e3e0d8;--muted:#6b716d;--heart:#e0465e}
@@ -15,6 +15,8 @@ body{margin:0;background:var(--bg);color:#1c1f1d;font-family:'Noto Sans KR',syst
 .wrap{max-width:980px;margin:0 auto;padding:24px 16px 120px}
 h1{margin:0;color:var(--g);font-weight:900;font-size:clamp(24px,6vw,34px);letter-spacing:-.02em}
 .lead{color:var(--muted);margin:6px 0 18px;font-size:15px}
+h2{margin:26px 0 4px;font-size:20px;color:var(--g)}
+.sub{color:var(--muted);font-size:14px;margin:0 0 10px}
 .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 @media(max-width:720px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .it{background:var(--card);border:2px solid var(--line);border-radius:16px;overflow:hidden;display:grid;cursor:pointer;transition:border-color .15s,box-shadow .15s;-webkit-tap-highlight-color:transparent}
@@ -39,39 +41,46 @@ h1{margin:0;color:var(--g);font-weight:900;font-size:clamp(24px,6vw,34px);letter
 </head><body>
 <main class="wrap">
   <h1>예그린교회 새 로고 투표</h1>
-  <p class="lead">마음에 드는 로고에 <b style="color:var(--heart)">♥</b>를 눌러 주세요. <b>여러 개 골라도 돼요.</b> 다 고르셨으면 아래 <b>투표하기</b>를 눌러 주세요. 나중에 바꾸고 다시 눌러도 돼요.</p>
-  <div class="grid" id="grid"></div>
+  <p class="lead"><b>심볼(그림)</b>과 <b>글씨</b>를 따로 골라요. 마음에 드는 것에 <b style="color:var(--heart)">♥</b>를 눌러 주세요. <b>여러 개 골라도 돼요.</b> 다 고르셨으면 아래 <b>투표하기</b>를 눌러 주세요. 모양이 정해지면 색을 입혀 한 번 더 투표해요.</p>
+  <div id="grid"></div>
 </main>
 <div class="bar"><div class="in"><div class="msg" id="msg">♥를 눌러 골라 주세요</div><button class="go" id="go" disabled>투표하기</button></div></div>
 <div class="toast" id="toast"></div>
 <script>
 // 투표 서버(구글 앱스 스크립트 웹 앱) 주소
 var API = 'https://script.google.com/macros/s/AKfycbyaZFDWbgJU160vzbutcKDSTzNNvwKSWZc-JOxOrOJdjfLxgPfUrI1G9TxMG4OISkxaXg/exec';
-var NAMES = ["Y + 잎 (최종안)","예그린 캘리그라피","유리 물방울","YEGRIN 굵은 글자","나무 십자가","물방울","YEGRIN 예그린교회","YE GRIN 레트로","물방울 + yegrin","초록 글자 + 잎","앱 아이콘 4종","금색 잎 나무","물방울 십자가","잎 달린 물방울","한글 레터링","붓글씨 예그린","Y + 잎 아이콘","Y + 잎 줄기 십자가","Y + 빛나는 십자가","열린 문","네 개의 창"];
+var GROUPS = [{"t": "① 심볼", "d": "그림 모양만 골라 주세요", "items": [{"id": 1, "n": "Y + 잎", "label": "심볼 1"}, {"id": 2, "n": "Y + 잎 줄기 십자가", "label": "심볼 2"}, {"id": 3, "n": "Y + 빛나는 십자가", "label": "심볼 3"}, {"id": 4, "n": "유리 물방울", "label": "심볼 4"}, {"id": 5, "n": "물방울", "label": "심볼 5"}, {"id": 6, "n": "물방울 십자가", "label": "심볼 6"}, {"id": 7, "n": "잎 달린 물방울", "label": "심볼 7"}, {"id": 8, "n": "물방울 속 나무", "label": "심볼 8"}, {"id": 9, "n": "나무 십자가", "label": "심볼 9"}, {"id": 10, "n": "금색 잎 나무", "label": "심볼 10"}, {"id": 11, "n": "열린 문", "label": "심볼 11"}, {"id": 12, "n": "네 개의 창", "label": "심볼 12"}]}, {"t": "② 글씨 · 한글", "d": "", "items": [{"id": 13, "n": "예그린교회 (본고딕)", "label": "글씨 1"}, {"id": 14, "n": "예그린 캘리그라피", "label": "글씨 2"}, {"id": 15, "n": "붓글씨 예그린", "label": "글씨 3"}, {"id": 16, "n": "한글 레터링", "label": "글씨 4"}, {"id": 17, "n": "YEGRIN + 예그린교회", "label": "글씨 5"}, {"id": 18, "n": "초록 글자 + 잎", "label": "글씨 6"}]}, {"t": "③ 글씨 · 영어", "d": "", "items": [{"id": 19, "n": "YEGRIN CHURCH", "label": "글씨 7"}, {"id": 20, "n": "YEGRIN 굵은 글자", "label": "글씨 8"}, {"id": 21, "n": "YE GRIN 레트로", "label": "글씨 9"}, {"id": 22, "n": "yegrin 소문자", "label": "글씨 10"}, {"id": 23, "n": "yegrin 둥근 글자", "label": "글씨 11"}, {"id": 24, "n": "Yegrin 세리프", "label": "글씨 12"}, {"id": 25, "n": "yegrin 손글씨", "label": "글씨 13"}]}];
 function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
+var KP='yg-vote2-picks',KD='yg-vote2-done',KS='yg-vote2-sent';
 var device=store('yg-vote-device'); if(!device){device=Math.random().toString(36).slice(2)+Date.now().toString(36); store('yg-vote-device',device)}
-var picks=[]; try{picks=JSON.parse(store('yg-vote-picks')||'[]')}catch(e){picks=[]}
-var voted=store('yg-vote-done')==='1', sentKey=store('yg-vote-sent')||'';
+var picks=[]; try{picks=JSON.parse(store(KP)||'[]')}catch(e){picks=[]}
+var voted=store(KD)==='1', sentKey=store(KS)||'';
 var grid=document.getElementById('grid'), go=document.getElementById('go'), msg=document.getElementById('msg');
-NAMES.forEach(function(n,i){
-  var no=i+1, el=document.createElement('figure'); el.className='it'; el.dataset.no=no; el.style.margin='0';
-  el.innerHTML='<img src="img/'+String(no).padStart(2,'0')+'.jpg" alt="'+no+'번 '+n+'" loading="lazy"><div class="cap"><span class="no">'+no+'</span><span class="nm">'+n+'<span class="cnt"></span></span><button class="hb" type="button" aria-label="'+no+'번 고르기">♡</button></div><div class="res"><i></i></div>';
-  el.addEventListener('click',function(){var k=picks.indexOf(no); if(k>-1)picks.splice(k,1); else picks.push(no); store('yg-vote-picks',JSON.stringify(picks)); render()});
-  grid.appendChild(el);
+GROUPS.forEach(function(g){
+  var h=document.createElement('h2'); h.textContent=g.t; grid.appendChild(h);
+  if(g.d){var p=document.createElement('p'); p.className='sub'; p.textContent=g.d; grid.appendChild(p)}
+  var box=document.createElement('div'); box.className='grid'; grid.appendChild(box);
+  g.items.forEach(function(it){
+    var no=it.id, el=document.createElement('figure'); el.className='it'; el.dataset.no=no; el.style.margin='0';
+    el.innerHTML='<img src="img2/'+String(no).padStart(2,'0')+'.jpg" alt="'+it.label+' '+it.n+'" loading="lazy"><div class="cap"><span class="no">'+it.label.split(' ')[1]+'</span><span class="nm">'+it.n+'<span class="cnt"></span></span><button class="hb" type="button" aria-label="'+it.label+' 고르기">♡</button></div><div class="res"><i></i></div>';
+    el.addEventListener('click',function(){var k=picks.indexOf(no); if(k>-1)picks.splice(k,1); else picks.push(no); store(KP,JSON.stringify(picks)); render()});
+    box.appendChild(el);
+  });
 });
 function render(){
-  [].forEach.call(grid.children,function(el){var on=picks.indexOf(+el.dataset.no)>-1; el.classList.toggle('on',on); el.querySelector('.hb').textContent=on?'♥':'♡'; el.querySelector('.hb').setAttribute('aria-pressed',on)});
+  [].forEach.call(grid.querySelectorAll('.it'),function(el){var on=picks.indexOf(+el.dataset.no)>-1; el.classList.toggle('on',on); el.querySelector('.hb').textContent=on?'♥':'♡'; el.querySelector('.hb').setAttribute('aria-pressed',on)});
   var key=picks.slice().sort(function(a,b){return a-b}).join(',');
   var changed=key!==sentKey;
   go.disabled=!picks.length||(voted&&!changed);
   go.textContent=voted?(changed?'다시 투표하기':'투표 완료'):'투표하기';
-  msg.innerHTML=picks.length?('<b>'+picks.length+'개</b> 골랐어요'+(voted&&!changed?' · 고마워요!':'')):'♥를 눌러 골라 주세요';
+  var ns=picks.filter(function(n){return n<=12}).length, nt=picks.length-ns;
+  msg.innerHTML=picks.length?('심볼 <b>'+ns+'</b> · 글씨 <b>'+nt+'</b>개 골랐어요'+(voted&&!changed?' · 고마워요!':'')):'♥를 눌러 골라 주세요';
 }
 function toast(t){var e=document.getElementById('toast'); e.textContent=t; e.style.display='block'; setTimeout(function(){e.style.display='none'},2200)}
 function showResults(r){
-  if(!r||!r.counts)return; var max=1; for(var k in r.counts)max=Math.max(max,r.counts[k]);
+  if(!r||!r.counts)return; var mx=function(a,b){var m=1;for(var k=a;k<=b;k++)m=Math.max(m,r.counts[k]||0);return m}, m1=mx(1,12), m2=mx(13,25);
   grid.classList.add('showres');
-  [].forEach.call(grid.children,function(el){var c=r.counts[el.dataset.no]||0; el.querySelector('.res i').style.width=(c/max*100)+'%'; el.querySelector('.cnt').textContent=c+'표'});
+  [].forEach.call(grid.querySelectorAll('.it'),function(el){var c=r.counts[el.dataset.no]||0, max=(+el.dataset.no<=12?m1:m2); el.querySelector('.res i').style.width=(c/max*100)+'%'; el.querySelector('.cnt').textContent=c+'표'});
   msg.innerHTML=msg.innerHTML+' <span style="color:#6b716d;font-size:13px">(지금까지 '+r.voters+'명 참여)</span>';
 }
 go.addEventListener('click',function(){
@@ -79,7 +88,7 @@ go.addEventListener('click',function(){
   go.disabled=true; go.textContent='보내는 중…';
   fetch(API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({device:device,picks:picks})})
    .then(function(r){return r.json()}).then(function(r){
-     voted=true; store('yg-vote-done','1'); sentKey=picks.slice().sort(function(a,b){return a-b}).join(','); store('yg-vote-sent',sentKey);
+     voted=true; store(KD,'1'); sentKey=picks.slice().sort(function(a,b){return a-b}).join(','); store(KS,sentKey);
      render(); showResults(r); toast('투표했어요. 고마워요!');
    }).catch(function(){toast('보내지 못했어요. 잠시 뒤 다시 눌러 주세요'); render()});
 });
