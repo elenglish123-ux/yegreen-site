@@ -29,6 +29,7 @@ h2{margin:26px 0 4px;font-size:20px;color:var(--g)}
 .it.on .hb{color:var(--heart)}
 .res{height:6px;background:#efede7;border-radius:3px;margin:0 10px 10px;overflow:hidden;display:none}
 .res i{display:block;height:100%;background:var(--g2);width:0;transition:width .6s}
+.mean{margin:-4px 0 0;padding:0 12px 12px;font-size:13px;color:var(--muted);line-height:1.45}
 .cnt{font-size:12px;color:var(--muted);font-weight:500;display:none}
 .showres .res,.showres .cnt{display:block}
 .bar{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.97);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom))}
@@ -41,7 +42,7 @@ h2{margin:26px 0 4px;font-size:20px;color:var(--g)}
 </head><body>
 <main class="wrap">
   <h1>예그린교회 새 로고 투표</h1>
-  <p class="lead"><b>심볼(그림)</b>과 <b>글씨</b>를 따로 골라요. 마음에 드는 것에 <b style="color:var(--heart)">♥</b>를 눌러 주세요. <b>여러 개 골라도 돼요.</b> 다 고르셨으면 아래 <b>투표하기</b>를 눌러 주세요. 모양이 정해지면 색을 입혀 한 번 더 투표해요.</p>
+  <p class="lead"><b>심볼(그림)</b>과 <b>글씨</b>를 따로 골라요. 마음에 드는 것에 <b style="color:var(--heart)">♥</b>를 눌러 주세요. <b>여러 개 골라도 돼요.</b> 다 고르셨으면 아래 <b>투표하기</b>를 눌러 주세요. 모양이 정해지면 색을 입혀 한 번 더 투표해요.<br><span style="font-size:14px">🌿 <b>예그린</b>은 "<b>예</b>수님을 <b>그리</b>워하는"이라는 뜻이에요. 로고마다 담은 뜻을 짧게 적어 두었어요.</span></p>
   <div id="grid"></div>
 </main>
 <div class="bar"><div class="in"><div class="msg" id="msg">♥를 눌러 골라 주세요</div><button class="go" id="go" disabled>투표하기</button></div></div>
@@ -49,7 +50,7 @@ h2{margin:26px 0 4px;font-size:20px;color:var(--g)}
 <script>
 // 투표 서버(구글 앱스 스크립트 웹 앱) 주소
 var API = 'https://script.google.com/macros/s/AKfycbyaZFDWbgJU160vzbutcKDSTzNNvwKSWZc-JOxOrOJdjfLxgPfUrI1G9TxMG4OISkxaXg/exec';
-var GROUPS = [{"t": "① 심볼", "d": "그림 모양만 골라 주세요", "items": [{"id": 1, "n": "Y + 잎", "label": "심볼 1"}, {"id": 2, "n": "Y + 잎 줄기 십자가", "label": "심볼 2"}, {"id": 3, "n": "Y + 빛나는 십자가", "label": "심볼 3"}, {"id": 4, "n": "유리 물방울", "label": "심볼 4"}, {"id": 5, "n": "물방울", "label": "심볼 5"}, {"id": 6, "n": "물방울 십자가", "label": "심볼 6"}, {"id": 7, "n": "잎 달린 물방울", "label": "심볼 7"}, {"id": 8, "n": "물방울 속 나무", "label": "심볼 8"}, {"id": 9, "n": "나무 십자가", "label": "심볼 9"}, {"id": 10, "n": "금색 잎 나무", "label": "심볼 10"}, {"id": 11, "n": "열린 문", "label": "심볼 11"}, {"id": 12, "n": "네 개의 창", "label": "심볼 12"}]}, {"t": "② 글씨 · 한글", "d": "", "items": [{"id": 13, "n": "예그린교회 (본고딕)", "label": "글씨 1"}, {"id": 14, "n": "예그린 캘리그라피", "label": "글씨 2"}, {"id": 15, "n": "붓글씨 예그린", "label": "글씨 3"}, {"id": 16, "n": "한글 레터링", "label": "글씨 4"}, {"id": 17, "n": "YEGRIN + 예그린교회", "label": "글씨 5"}, {"id": 18, "n": "초록 글자 + 잎", "label": "글씨 6"}]}, {"t": "③ 글씨 · 영어", "d": "", "items": [{"id": 19, "n": "YEGRIN CHURCH", "label": "글씨 7"}, {"id": 20, "n": "YEGRIN 굵은 글자", "label": "글씨 8"}, {"id": 21, "n": "YE GRIN 레트로", "label": "글씨 9"}, {"id": 22, "n": "yegrin 소문자", "label": "글씨 10"}, {"id": 23, "n": "yegrin 둥근 글자", "label": "글씨 11"}, {"id": 24, "n": "Yegrin 세리프", "label": "글씨 12"}, {"id": 25, "n": "yegrin 손글씨", "label": "글씨 13"}]}];
+var GROUPS = [{"t": "① 심볼", "d": "그림 모양만 골라 주세요", "items": [{"id": 1, "n": "Y + 잎", "label": "심볼 1", "m": "예그린의 Y, 두 손 들어 예배하는 사람과 새 생명의 잎"}, {"id": 2, "n": "Y + 잎 줄기 십자가", "label": "심볼 2", "m": "예배하는 Y 줄기에 십자가, 잎은 자라나는 믿음"}, {"id": 3, "n": "Y + 빛나는 십자가", "label": "심볼 3", "m": "두 손 든 예배자 위에 빛나는 십자가"}, {"id": 4, "n": "유리 물방울", "label": "심볼 4", "m": "은혜의 물방울 속 십자가, 지금 로고를 이어 받음"}, {"id": 5, "n": "물방울", "label": "심볼 5", "m": "은혜의 물방울과 십자가를 단순하게"}, {"id": 6, "n": "물방울 십자가", "label": "심볼 6", "m": "생명수 안에 새긴 십자가"}, {"id": 7, "n": "잎 달린 물방울", "label": "심볼 7", "m": "은혜를 받아 새싹이 돋는 모습"}, {"id": 8, "n": "물방울 속 나무", "label": "심볼 8", "m": "생명수 가에 심은 나무 (시편 1편)"}, {"id": 9, "n": "나무 십자가", "label": "심볼 9", "m": "줄기가 십자가인 나무, 시냇가에 심은 나무"}, {"id": 10, "n": "금색 잎 나무", "label": "심볼 10", "m": "열매 맺는 나무, 금색 잎은 하나님의 영광"}, {"id": 11, "n": "열린 문", "label": "심볼 11", "m": "누구나 들어오는 열린 교회의 문"}, {"id": 12, "n": "네 개의 창", "label": "심볼 12", "m": "세상을 향한 창, 한 칸에 비치는 빛"}]}, {"t": "② 글씨 · 한글", "d": "", "items": [{"id": 13, "n": "예그린교회 (본고딕)", "label": "글씨 1", "m": "반듯하고 또렷해 어디서나 잘 읽혀요"}, {"id": 14, "n": "예그린 캘리그라피", "label": "글씨 2", "m": "붓끝의 따뜻함, 린의 획이 십자가"}, {"id": 15, "n": "붓글씨 예그린", "label": "글씨 3", "m": "힘 있는 붓글씨, 마지막 획이 십자가"}, {"id": 16, "n": "한글 레터링", "label": "글씨 4", "m": "회의 세로획이 십자가가 되는 맞춤 글씨"}, {"id": 17, "n": "YEGRIN + 예그린교회", "label": "글씨 5", "m": "영문과 한글을 함께, G 안의 십자가"}, {"id": 18, "n": "초록 글자 + 잎", "label": "글씨 6", "m": "I 위의 점이 새싹 잎"}]}, {"t": "③ 글씨 · 영어", "d": "", "items": [{"id": 19, "n": "YEGRIN CHURCH", "label": "글씨 7", "m": "Y + 잎 로고와 짝을 이루는 깔끔한 영문"}, {"id": 20, "n": "YEGRIN 굵은 글자", "label": "글씨 8", "m": "굵고 힘 있게, G 속 십자가"}, {"id": 21, "n": "YE GRIN 레트로", "label": "글씨 9", "m": "밝고 젊은 느낌, 빛나는 십자가"}, {"id": 22, "n": "yegrin 소문자", "label": "글씨 10", "m": "둥글고 친근한 소문자"}, {"id": 23, "n": "yegrin 둥근 글자", "label": "글씨 11", "m": "i 위 점은 금색 물방울, g 속 십자가"}, {"id": 24, "n": "Yegrin 세리프", "label": "글씨 12", "m": "품위 있는 세리프, Y 안의 십자가"}, {"id": 25, "n": "yegrin 손글씨", "label": "글씨 13", "m": "한 붓 손글씨, 끝획이 십자가"}]}];
 function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
 var KP='yg-vote2-picks',KD='yg-vote2-done',KS='yg-vote2-sent';
 var device=store('yg-vote-device'); if(!device){device=Math.random().toString(36).slice(2)+Date.now().toString(36); store('yg-vote-device',device)}
@@ -62,7 +63,7 @@ GROUPS.forEach(function(g){
   var box=document.createElement('div'); box.className='grid'; grid.appendChild(box);
   g.items.forEach(function(it){
     var no=it.id, el=document.createElement('figure'); el.className='it'; el.dataset.no=no; el.style.margin='0';
-    el.innerHTML='<img src="img2/'+String(no).padStart(2,'0')+'.jpg" alt="'+it.label+' '+it.n+'" loading="lazy"><div class="cap"><span class="no">'+it.label.split(' ')[1]+'</span><span class="nm">'+it.n+'<span class="cnt"></span></span><button class="hb" type="button" aria-label="'+it.label+' 고르기">♡</button></div><div class="res"><i></i></div>';
+    el.innerHTML='<img src="img2/'+String(no).padStart(2,'0')+'.jpg" alt="'+it.label+' '+it.n+'" loading="lazy"><div class="cap"><span class="no">'+it.label.split(' ')[1]+'</span><span class="nm">'+it.n+'<span class="cnt"></span></span><button class="hb" type="button" aria-label="'+it.label+' 고르기">♡</button></div><p class="mean">'+it.m+'</p><div class="res"><i></i></div>';
     el.addEventListener('click',function(){var k=picks.indexOf(no); if(k>-1)picks.splice(k,1); else picks.push(no); store(KP,JSON.stringify(picks)); render()});
     box.appendChild(el);
   });
