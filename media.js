@@ -2,6 +2,14 @@ window.MEDIA = {
  "lists": {
   "reading": [
    {
+    "videoId": "ZICU9Dxis6E",
+    "date": "2026-11-22",
+    "youtubeTitle": "예그린 성경통독 326일차 (26.11.22) 사도행전 22-24장",
+    "preacher": "",
+    "title": "성경통독 326일차",
+    "passage": "사도행전 22-24장"
+   },
+   {
     "videoId": "IiZDpNxpYC8",
     "date": "2026-11-21",
     "youtubeTitle": "예그린 성경통독 325일차 (26.11.21) 사도행전 20-21장",
@@ -152,17 +160,18 @@ window.MEDIA = {
     "preacher": "",
     "title": "성경통독 307일차",
     "passage": "요한복음 1-3장"
-   },
-   {
-    "videoId": "i6WC0JTRnyc",
-    "date": "2026-11-02",
-    "youtubeTitle": "예그린 성경통독 306일차 (26.11.02) 누가복음 23-24장",
-    "preacher": "",
-    "title": "성경통독 306일차",
-    "passage": "누가복음 23-24장"
    }
   ],
   "sunday": [
+   {
+    "videoId": "0meXWjbpxw0",
+    "date": "2026-11-22",
+    "youtubeTitle": "2026.11.22 \"감사로 삶을 가득 채우라\" (창21:14-19) 고용진 목사 예그린교회 주일2부예배",
+    "preacher": "고용진 목사",
+    "title": "감사로 삶을 가득 채우라",
+    "passage": "창세기 21:14-19",
+    "series": ""
+   },
    {
     "videoId": "H7PaP0y0qaA",
     "date": "2026-11-15",
