@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>예그린교회 새 로고 투표</title>
+<meta property="og:title" content="예그린교회 새 로고 투표">
+<meta property="og:description" content="마음에 드는 로고에 ♥를 눌러 주세요 (여러 개 가능)">
+<meta property="og:image" content="https://elenglish123-ux.github.io/yegreen-site/vote/img/01.jpg">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
+<style>
+:root{--g:#1F4D3A;--g2:#2f6b4f;--bg:#F5F3EE;--card:#fff;--line:#e3e0d8;--muted:#6b716d;--heart:#e0465e}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:#1c1f1d;font-family:'Noto Sans KR',system-ui,sans-serif;line-height:1.5}
+.wrap{max-width:980px;margin:0 auto;padding:24px 16px 120px}
+h1{margin:0;color:var(--g);font-weight:900;font-size:clamp(24px,6vw,34px);letter-spacing:-.02em}
+.lead{color:var(--muted);margin:6px 0 18px;font-size:15px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media(max-width:720px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.it{background:var(--card);border:2px solid var(--line);border-radius:16px;overflow:hidden;display:grid;cursor:pointer;transition:border-color .15s,box-shadow .15s;-webkit-tap-highlight-color:transparent}
+.it.on{border-color:var(--heart);box-shadow:0 0 0 2px var(--heart)}
+.it img{width:100%;aspect-ratio:1;object-fit:contain;background:#fff;display:block}
+.cap{display:flex;align-items:center;gap:8px;padding:10px 10px 12px;border-top:1px solid #efede7}
+.no{flex:none;width:28px;height:28px;border-radius:50%;background:var(--g);color:#fff;font-weight:700;font-size:13px;display:grid;place-items:center}
+.nm{flex:1;font-weight:700;font-size:14px;line-height:1.3;min-width:0}
+.hb{flex:none;width:40px;height:40px;border:0;background:none;font-size:26px;line-height:1;color:#b9b6ad;cursor:pointer;padding:0}
+.it.on .hb{color:var(--heart)}
+.res{height:6px;background:#efede7;border-radius:3px;margin:0 10px 10px;overflow:hidden;display:none}
+.res i{display:block;height:100%;background:var(--g2);width:0;transition:width .6s}
+.cnt{font-size:12px;color:var(--muted);font-weight:500;display:none}
+.showres .res,.showres .cnt{display:block}
+.bar{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.97);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom))}
+.bar .in{max-width:980px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.msg{flex:1;font-size:15px;font-weight:500}
+.go{border:0;border-radius:12px;background:var(--g);color:#fff;font:700 16px 'Noto Sans KR';padding:13px 22px;cursor:pointer}
+.go:disabled{background:#b8c4bd;cursor:default}
+.toast{position:fixed;left:50%;top:18px;transform:translateX(-50%);background:var(--g);color:#fff;padding:10px 18px;border-radius:999px;font-weight:700;display:none;z-index:9}
+</style>
+</head><body>
+<main class="wrap">
+  <h1>예그린교회 새 로고 투표</h1>
+  <p class="lead">마음에 드는 로고에 <b style="color:var(--heart)">♥</b>를 눌러 주세요. <b>여러 개 골라도 돼요.</b> 다 고르셨으면 아래 <b>투표하기</b>를 눌러 주세요. 나중에 바꾸고 다시 눌러도 돼요.</p>
+  <div class="grid" id="grid"></div>
+</main>
+<div class="bar"><div class="in"><div class="msg" id="msg">♥를 눌러 골라 주세요</div><button class="go" id="go" disabled>투표하기</button></div></div>
+<div class="toast" id="toast"></div>
+<script>
+// 투표 서버(구글 앱스 스크립트 웹 앱) 주소
+var API = 'https://script.google.com/macros/s/AKfycbyaZFDWbgJU160vzbutcKDSTzNNvwKSWZc-JOxOrOJdjfLxgPfUrI1G9TxMG4OISkxaXg/exec';
+var NAMES = ["Y + 잎 (최종안)","예그린 캘리그라피","유리 물방울","YEGRIN 굵은 글자","나무 십자가","물방울","YEGRIN 예그린교회","YE GRIN 레트로","물방울 + yegrin","초록 글자 + 잎","앱 아이콘 4종","금색 잎 나무","물방울 십자가","잎 달린 물방울","한글 레터링","붓글씨 예그린","Y + 잎 아이콘","Y + 잎 줄기 십자가","Y + 빛나는 십자가","열린 문","네 개의 창"];
+function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
+var device=store('yg-vote-device'); if(!device){device=Math.random().toString(36).slice(2)+Date.now().toString(36); store('yg-vote-device',device)}
+var picks=[]; try{picks=JSON.parse(store('yg-vote-picks')||'[]')}catch(e){picks=[]}
+var voted=store('yg-vote-done')==='1', sentKey=store('yg-vote-sent')||'';
+var grid=document.getElementById('grid'), go=document.getElementById('go'), msg=document.getElementById('msg');
+NAMES.forEach(function(n,i){
+  var no=i+1, el=document.createElement('figure'); el.className='it'; el.dataset.no=no; el.style.margin='0';
+  el.innerHTML='<img src="img/'+String(no).padStart(2,'0')+'.jpg" alt="'+no+'번 '+n+'" loading="lazy"><div class="cap"><span class="no">'+no+'</span><span class="nm">'+n+'<span class="cnt"></span></span><button class="hb" type="button" aria-label="'+no+'번 고르기">♡</button></div><div class="res"><i></i></div>';
+  el.addEventListener('click',function(){var k=picks.indexOf(no); if(k>-1)picks.splice(k,1); else picks.push(no); store('yg-vote-picks',JSON.stringify(picks)); render()});
+  grid.appendChild(el);
+});
+function render(){
+  [].forEach.call(grid.children,function(el){var on=picks.indexOf(+el.dataset.no)>-1; el.classList.toggle('on',on); el.querySelector('.hb').textContent=on?'♥':'♡'; el.querySelector('.hb').setAttribute('aria-pressed',on)});
+  var key=picks.slice().sort(function(a,b){return a-b}).join(',');
+  var changed=key!==sentKey;
+  go.disabled=!picks.length||(voted&&!changed);
+  go.textContent=voted?(changed?'다시 투표하기':'투표 완료'):'투표하기';
+  msg.innerHTML=picks.length?('<b>'+picks.length+'개</b> 골랐어요'+(voted&&!changed?' · 고마워요!':'')):'♥를 눌러 골라 주세요';
+}
+function toast(t){var e=document.getElementById('toast'); e.textContent=t; e.style.display='block'; setTimeout(function(){e.style.display='none'},2200)}
+function showResults(r){
+  if(!r||!r.counts)return; var max=1; for(var k in r.counts)max=Math.max(max,r.counts[k]);
+  grid.classList.add('showres');
+  [].forEach.call(grid.children,function(el){var c=r.counts[el.dataset.no]||0; el.querySelector('.res i').style.width=(c/max*100)+'%'; el.querySelector('.cnt').textContent=c+'표'});
+  msg.innerHTML=msg.innerHTML+' <span style="color:#6b716d;font-size:13px">(지금까지 '+r.voters+'명 참여)</span>';
+}
+go.addEventListener('click',function(){
+  if(!API){toast('투표 서버 연결 전이에요');return}
+  go.disabled=true; go.textContent='보내는 중…';
+  fetch(API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({device:device,picks:picks})})
+   .then(function(r){return r.json()}).then(function(r){
+     voted=true; store('yg-vote-done','1'); sentKey=picks.slice().sort(function(a,b){return a-b}).join(','); store('yg-vote-sent',sentKey);
+     render(); showResults(r); toast('투표했어요. 고마워요!');
+   }).catch(function(){toast('보내지 못했어요. 잠시 뒤 다시 눌러 주세요'); render()});
+});
+render();
+if(voted&&API){fetch(API).then(function(r){return r.json()}).then(showResults).catch(function(){})}
+</script>
+</body></html>
