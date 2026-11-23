@@ -2,6 +2,14 @@ window.MEDIA = {
  "lists": {
   "reading": [
    {
+    "videoId": "HBoaDgqH5LE",
+    "date": "2026-11-23",
+    "youtubeTitle": "예그린 성경통독 327일차 (26.11.23) 사도행전 25-26장",
+    "preacher": "",
+    "title": "성경통독 327일차",
+    "passage": "사도행전 25-26장"
+   },
+   {
     "videoId": "ZICU9Dxis6E",
     "date": "2026-11-22",
     "youtubeTitle": "예그린 성경통독 326일차 (26.11.22) 사도행전 22-24장",
@@ -152,14 +160,6 @@ window.MEDIA = {
     "preacher": "",
     "title": "성경통독 308일차",
     "passage": "요한복음 4-5장"
-   },
-   {
-    "videoId": "-TnV8hXMcZ8",
-    "date": "2026-11-03",
-    "youtubeTitle": "예그린 성경통독 307일차 (26.11.03) 요한복음 1-3장",
-    "preacher": "",
-    "title": "성경통독 307일차",
-    "passage": "요한복음 1-3장"
    }
   ],
   "sunday": [
