@@ -6,7 +6,7 @@
 <title>예그린교회 새 로고 투표</title>
 <meta property="og:title" content="예그린교회 새 로고 투표">
 <meta property="og:description" content="심볼과 글씨를 따로, 마음에 드는 것에 ♥ (여러 개 가능)">
-<meta property="og:image" content="https://elenglish123-ux.github.io/yegreen-site/vote/img2/01.jpg">
+<meta property="og:image" content="https://elenglish123-ux.github.io/yegreen-site/vote/img3/01.jpg">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
 <style>
 :root{--g:#1F4D3A;--g2:#2f6b4f;--bg:#F5F3EE;--card:#fff;--line:#e3e0d8;--muted:#6b716d;--heart:#e0465e}
@@ -17,11 +17,12 @@ h1{margin:0;color:var(--g);font-weight:900;font-size:clamp(24px,6vw,34px);letter
 .lead{color:var(--muted);margin:6px 0 18px;font-size:15px}
 h2{margin:26px 0 4px;font-size:20px;color:var(--g)}
 .sub{color:var(--muted);font-size:14px;margin:0 0 10px}
-.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-@media(max-width:720px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media(max-width:720px){.grid{grid-template-columns:1fr}}
 .it{background:var(--card);border:2px solid var(--line);border-radius:16px;overflow:hidden;display:grid;cursor:pointer;transition:border-color .15s,box-shadow .15s;-webkit-tap-highlight-color:transparent}
 .it.on{border-color:var(--heart);box-shadow:0 0 0 2px var(--heart)}
-.it img{width:100%;aspect-ratio:1;object-fit:contain;background:#fff;display:block}
+.it img{width:100%;aspect-ratio:1000/420;object-fit:contain;background:#fff;display:block}
+.newb{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:999px;background:#C9A54E;color:#fff;font-size:11px;font-weight:700;vertical-align:2px}
 .cap{display:flex;align-items:center;gap:8px;padding:10px 10px 12px;border-top:1px solid #efede7}
 .no{flex:none;width:28px;height:28px;border-radius:50%;background:var(--g);color:#fff;font-weight:700;font-size:13px;display:grid;place-items:center}
 .nm{flex:1;font-weight:700;font-size:14px;line-height:1.3;min-width:0}
@@ -50,7 +51,7 @@ h2{margin:26px 0 4px;font-size:20px;color:var(--g)}
 <script>
 // 투표 서버(구글 앱스 스크립트 웹 앱) 주소
 var API = 'https://script.google.com/macros/s/AKfycbyaZFDWbgJU160vzbutcKDSTzNNvwKSWZc-JOxOrOJdjfLxgPfUrI1G9TxMG4OISkxaXg/exec';
-var GROUPS = [{"t": "① 심볼", "d": "그림 모양만 골라 주세요", "items": [{"id": 1, "n": "Y + 잎", "label": "심볼 1", "m": "예그린의 Y, 두 손 들어 예배하는 사람과 새 생명의 잎"}, {"id": 2, "n": "Y + 잎 줄기 십자가", "label": "심볼 2", "m": "예배하는 Y 줄기에 십자가, 잎은 자라나는 믿음"}, {"id": 3, "n": "Y + 빛나는 십자가", "label": "심볼 3", "m": "두 손 든 예배자 위에 빛나는 십자가"}, {"id": 4, "n": "유리 물방울", "label": "심볼 4", "m": "은혜의 물방울 속 십자가, 지금 로고를 이어 받음"}, {"id": 5, "n": "물방울", "label": "심볼 5", "m": "은혜의 물방울과 십자가를 단순하게"}, {"id": 6, "n": "물방울 십자가", "label": "심볼 6", "m": "생명수 안에 새긴 십자가"}, {"id": 7, "n": "잎 달린 물방울", "label": "심볼 7", "m": "은혜를 받아 새싹이 돋는 모습"}, {"id": 8, "n": "물방울 속 나무", "label": "심볼 8", "m": "생명수 가에 심은 나무 (시편 1편)"}, {"id": 9, "n": "나무 십자가", "label": "심볼 9", "m": "줄기가 십자가인 나무, 시냇가에 심은 나무"}, {"id": 10, "n": "금색 잎 나무", "label": "심볼 10", "m": "열매 맺는 나무, 금색 잎은 하나님의 영광"}, {"id": 11, "n": "열린 문", "label": "심볼 11", "m": "누구나 들어오는 열린 교회의 문"}, {"id": 12, "n": "네 개의 창", "label": "심볼 12", "m": "세상을 향한 창, 한 칸에 비치는 빛"}]}, {"t": "② 글씨 · 한글", "d": "", "items": [{"id": 13, "n": "예그린교회 (본고딕)", "label": "글씨 1", "m": "반듯하고 또렷해 어디서나 잘 읽혀요"}, {"id": 14, "n": "예그린 캘리그라피", "label": "글씨 2", "m": "붓끝의 따뜻함, 린의 획이 십자가"}, {"id": 15, "n": "붓글씨 예그린", "label": "글씨 3", "m": "힘 있는 붓글씨, 마지막 획이 십자가"}, {"id": 16, "n": "한글 레터링", "label": "글씨 4", "m": "회의 세로획이 십자가가 되는 맞춤 글씨"}, {"id": 17, "n": "YEGRIN + 예그린교회", "label": "글씨 5", "m": "영문과 한글을 함께, G 안의 십자가"}, {"id": 18, "n": "초록 글자 + 잎", "label": "글씨 6", "m": "I 위의 점이 새싹 잎"}]}, {"t": "③ 글씨 · 영어", "d": "", "items": [{"id": 19, "n": "YEGRIN CHURCH", "label": "글씨 7", "m": "Y + 잎 로고와 짝을 이루는 깔끔한 영문"}, {"id": 20, "n": "YEGRIN 굵은 글자", "label": "글씨 8", "m": "굵고 힘 있게, G 속 십자가"}, {"id": 21, "n": "YE GRIN 레트로", "label": "글씨 9", "m": "밝고 젊은 느낌, 빛나는 십자가"}, {"id": 22, "n": "yegrin 소문자", "label": "글씨 10", "m": "둥글고 친근한 소문자"}, {"id": 23, "n": "yegrin 둥근 글자", "label": "글씨 11", "m": "i 위 점은 금색 물방울, g 속 십자가"}, {"id": 24, "n": "Yegrin 세리프", "label": "글씨 12", "m": "품위 있는 세리프, Y 안의 십자가"}, {"id": 25, "n": "yegrin 손글씨", "label": "글씨 13", "m": "한 붓 손글씨, 끝획이 십자가"}]}];
+var GROUPS = [{"t": "① 심볼", "d": "그림 모양만 골라 주세요 · 오른쪽은 앱 아이콘이에요", "items": [{"id": 1, "n": "Y + 잎", "label": "심볼 1", "m": "예그린의 Y, 두 손 들어 예배하는 사람과 새 생명의 잎"}, {"id": 2, "n": "Y + 잎 줄기 십자가", "label": "심볼 2", "m": "예배하는 Y 줄기에 십자가, 잎은 자라나는 믿음"}, {"id": 3, "n": "Y + 빛나는 십자가", "label": "심볼 3", "m": "두 손 든 예배자 위에 빛나는 십자가"}, {"id": 4, "n": "유리 물방울", "label": "심볼 4", "m": "은혜의 물방울 속 십자가, 지금 로고를 이어 받음"}, {"id": 5, "n": "물방울", "label": "심볼 5", "m": "은혜의 물방울과 십자가를 단순하게"}, {"id": 6, "n": "물방울 십자가", "label": "심볼 6", "m": "생명수 안에 새긴 십자가"}, {"id": 7, "n": "잎 달린 물방울", "label": "심볼 7", "m": "은혜를 받아 새싹이 돋는 모습"}, {"id": 8, "n": "물방울 속 나무", "label": "심볼 8", "m": "생명수 가에 심은 나무 (시편 1편)"}, {"id": 9, "n": "나무 십자가", "label": "심볼 9", "m": "줄기가 십자가인 나무, 시냇가에 심은 나무"}, {"id": 10, "n": "금색 잎 나무", "label": "심볼 10", "m": "열매 맺는 나무, 금색 잎은 하나님의 영광"}, {"id": 11, "n": "열린 문", "label": "심볼 11", "m": "누구나 들어오는 열린 교회의 문"}, {"id": 12, "n": "네 개의 창", "label": "심볼 12", "m": "세상을 향한 창, 한 칸에 비치는 빛"}, {"id": 26, "n": "올리브 잎 문 비둘기", "label": "심볼 13", "m": "노아의 비둘기가 물고 온 올리브 잎, 회복과 평화 (창 8:11)", "new": 1}, {"id": 27, "n": "포도송이 십자가", "label": "심볼 14", "m": "포도나무에 붙은 가지처럼 열매 맺는 교회 (요 15:5)", "new": 1}, {"id": 28, "n": "두 잎 하트", "label": "심볼 15", "m": "두 잎이 모인 하트, 가운데 빈 곳이 십자가", "new": 1}, {"id": 29, "n": "펼친 말씀과 빛", "label": "심볼 16", "m": "펼친 성경 위로 비치는 십자가 빛, 말씀 중심", "new": 1}, {"id": 30, "n": "생수의 강", "label": "심볼 17", "m": "십자가에서 흘러나오는 생수의 강 (요 7:38)", "new": 1}, {"id": 31, "n": "십자가 아래 공동체", "label": "심볼 18", "m": "십자가 아래 모여 함께 지어져 가는 교회", "new": 1}, {"id": 32, "n": "말씀의 등불", "label": "심볼 19", "m": "내 발에 등, 내 길에 빛 (시 119:105)", "new": 1}, {"id": 33, "n": "원형 엠블럼", "label": "심볼 20", "m": "굿즈·도장·강대상에 쓰기 좋은 둥근 마크", "new": 1}]}, {"t": "② 글씨 · 한글", "d": "", "items": [{"id": 13, "n": "예그린교회 (본고딕)", "label": "글씨 1", "m": "반듯하고 또렷해 어디서나 잘 읽혀요"}, {"id": 14, "n": "예그린 캘리그라피", "label": "글씨 2", "m": "붓끝의 따뜻함, 린의 획이 십자가"}, {"id": 15, "n": "붓글씨 예그린", "label": "글씨 3", "m": "힘 있는 붓글씨, 마지막 획이 십자가"}, {"id": 16, "n": "한글 레터링", "label": "글씨 4", "m": "회의 세로획이 십자가가 되는 맞춤 글씨"}, {"id": 17, "n": "YEGRIN + 예그린교회", "label": "글씨 5", "m": "영문과 한글을 함께, G 안의 십자가"}, {"id": 18, "n": "초록 글자 + 잎", "label": "글씨 6", "m": "I 위의 점이 새싹 잎"}]}, {"t": "③ 글씨 · 영어", "d": "", "items": [{"id": 19, "n": "YEGRIN CHURCH", "label": "글씨 7", "m": "Y + 잎 로고와 짝을 이루는 깔끔한 영문"}, {"id": 20, "n": "YEGRIN 굵은 글자", "label": "글씨 8", "m": "굵고 힘 있게, G 속 십자가"}, {"id": 21, "n": "YE GRIN 레트로", "label": "글씨 9", "m": "밝고 젊은 느낌, 빛나는 십자가"}, {"id": 22, "n": "yegrin 소문자", "label": "글씨 10", "m": "둥글고 친근한 소문자"}, {"id": 23, "n": "yegrin 둥근 글자", "label": "글씨 11", "m": "i 위 점은 금색 물방울, g 속 십자가"}, {"id": 24, "n": "Yegrin 세리프", "label": "글씨 12", "m": "품위 있는 세리프, Y 안의 십자가"}, {"id": 25, "n": "yegrin 손글씨", "label": "글씨 13", "m": "한 붓 손글씨, 끝획이 십자가"}]}];
 function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
 var KP='yg-vote2-picks',KD='yg-vote2-done',KS='yg-vote2-sent';
 var device=store('yg-vote-device'); if(!device){device=Math.random().toString(36).slice(2)+Date.now().toString(36); store('yg-vote-device',device)}
@@ -63,25 +64,26 @@ GROUPS.forEach(function(g){
   var box=document.createElement('div'); box.className='grid'; grid.appendChild(box);
   g.items.forEach(function(it){
     var no=it.id, el=document.createElement('figure'); el.className='it'; el.dataset.no=no; el.style.margin='0';
-    el.innerHTML='<img src="img2/'+String(no).padStart(2,'0')+'.jpg" alt="'+it.label+' '+it.n+'" loading="lazy"><div class="cap"><span class="no">'+it.label.split(' ')[1]+'</span><span class="nm">'+it.n+'<span class="cnt"></span></span><button class="hb" type="button" aria-label="'+it.label+' 고르기">♡</button></div><p class="mean">'+it.m+'</p><div class="res"><i></i></div>';
+    el.innerHTML='<img src="img3/'+String(no).padStart(2,'0')+'.jpg?v=1123" alt="'+it.label+' '+it.n+'" loading="lazy"><div class="cap"><span class="no">'+it.label.split(' ')[1]+'</span><span class="nm">'+it.n+(it['new']?'<span class="newb">NEW</span>':'')+'<span class="cnt"></span></span><button class="hb" type="button" aria-label="'+it.label+' 고르기">♡</button></div><p class="mean">'+it.m+'</p><div class="res"><i></i></div>';
     el.addEventListener('click',function(){var k=picks.indexOf(no); if(k>-1)picks.splice(k,1); else picks.push(no); store(KP,JSON.stringify(picks)); render()});
     box.appendChild(el);
   });
 });
+function isSym(n){return n<=12||n>=26}
 function render(){
   [].forEach.call(grid.querySelectorAll('.it'),function(el){var on=picks.indexOf(+el.dataset.no)>-1; el.classList.toggle('on',on); el.querySelector('.hb').textContent=on?'♥':'♡'; el.querySelector('.hb').setAttribute('aria-pressed',on)});
   var key=picks.slice().sort(function(a,b){return a-b}).join(',');
   var changed=key!==sentKey;
   go.disabled=!picks.length||(voted&&!changed);
   go.textContent=voted?(changed?'다시 투표하기':'투표 완료'):'투표하기';
-  var ns=picks.filter(function(n){return n<=12}).length, nt=picks.length-ns;
+  var ns=picks.filter(isSym).length, nt=picks.length-ns;
   msg.innerHTML=picks.length?('심볼 <b>'+ns+'</b> · 글씨 <b>'+nt+'</b>개 골랐어요'+(voted&&!changed?' · 고마워요!':'')):'♥를 눌러 골라 주세요';
 }
 function toast(t){var e=document.getElementById('toast'); e.textContent=t; e.style.display='block'; setTimeout(function(){e.style.display='none'},2200)}
 function showResults(r){
-  if(!r||!r.counts)return; var mx=function(a,b){var m=1;for(var k=a;k<=b;k++)m=Math.max(m,r.counts[k]||0);return m}, m1=mx(1,12), m2=mx(13,25);
+  if(!r||!r.counts)return; var mx=function(a,b){var m=1;for(var k=a;k<=b;k++)m=Math.max(m,r.counts[k]||0);return m}, m1=Math.max(mx(1,12),mx(26,33)), m2=mx(13,25);
   grid.classList.add('showres');
-  [].forEach.call(grid.querySelectorAll('.it'),function(el){var c=r.counts[el.dataset.no]||0, max=(+el.dataset.no<=12?m1:m2); el.querySelector('.res i').style.width=(c/max*100)+'%'; el.querySelector('.cnt').textContent=c+'표'});
+  [].forEach.call(grid.querySelectorAll('.it'),function(el){var c=r.counts[el.dataset.no]||0, max=(isSym(+el.dataset.no)?m1:m2); el.querySelector('.res i').style.width=(c/max*100)+'%'; el.querySelector('.cnt').textContent=c+'표'});
   msg.innerHTML=msg.innerHTML+' <span style="color:#6b716d;font-size:13px">(지금까지 '+r.voters+'명 참여)</span>';
 }
 go.addEventListener('click',function(){
