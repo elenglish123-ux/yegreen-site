@@ -14,7 +14,7 @@
   header.className = 'site';
   header.innerHTML =
     '<div class="wrap nav">' +
-      '<a href="index.html" class="logo"><img src="logo-mark.svg" alt=""><span>예그린교회<small>예수님을 그리워하는 교회</small></span></a>' +
+      '<a href="index.html" class="logo"><img src="logo-mark.svg" alt=""><span>예그린교회<small>YEGRIN CHURCH</small></span></a>' +
       '<nav class="menu" id="menu">' +
         MENU.map(function (m) { return '<a href="' + m[0] + '"' + (m[0] === here ? ' class="on"' : '') + '>' + m[1] + '</a>'; }).join('') +
       '</nav>' +

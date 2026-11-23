@@ -11,9 +11,25 @@
 <link rel="apple-touch-icon" href="icon-512.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&display=swap">
-<link rel="stylesheet" href="assets/style.css?v=1118">
+<link rel="stylesheet" href="assets/style.css?v=1123">
 </head>
 <body class="home">
+
+<!-- 처음 열 때 로고 인트로 (길튼교회 벤치마킹, 2026-11-23). 같은 창에서는 한 번만 -->
+<div class="intro" id="intro" aria-hidden="true">
+  <div class="intro-in">
+    <svg class="intro-mark" viewBox="0 0 100 130"><g fill="none" stroke-linecap="round">
+      <path pathLength="1" d="M57 2 C51 30, 29 58, 30 84 C31 98, 40 106, 51 107" stroke="#9fd06c" stroke-width="3.5"/>
+      <path pathLength="1" d="M58 40 C66 52, 79 68, 77 87 C75 100, 65 107, 53 107" stroke="#5fb0e6" stroke-width="6.5"/>
+      <path pathLength="1" d="M38 67 C52 66, 67 59, 81 45" stroke="#5fb0e6" stroke-width="5"/>
+      <path pathLength="1" d="M12 116 C30 110, 70 110, 88 116" stroke="#5fb0e6" stroke-width="2.4"/>
+      <path pathLength="1" d="M24 123 C40 118, 60 118, 76 123" stroke="#9fd06c" stroke-width="2.4"/>
+    </g></svg>
+    <div class="intro-name">예그린교회</div>
+    <div class="intro-en">YEGRIN CHURCH</div>
+  </div>
+</div>
+<script>try{if(sessionStorage.getItem('yg-intro'))document.documentElement.classList.add('no-intro')}catch(e){}</script>
 
 <!-- 첫 화면: 교회 한 문장 + 예그린 영상 (목사님 결정 H1-A, H2) -->
 <section class="cover">
@@ -24,7 +40,7 @@
   <div class="cover-text">
     <p class="cover-eyebrow">YEGRIN CHURCH</p>
     <h1>죄에서 멀어져<br>자유케 되는 교회</h1>
-    <p class="cover-sub">예그린교회 · 예수님을 그리워하는 교회</p>
+    <p class="cover-sub">기독교대한감리회 예그린교회</p>
     <p class="cover-time">주일예배 오전 10:50 · 인천 서구 연희동</p>
   </div>
   <a class="cover-down" href="#first" aria-label="아래로">내려서 더 보기<b>⌄</b></a>
@@ -40,6 +56,22 @@
       <a href="sermons.html"><span>▶</span><b>말씀 영상</b><small>주일설교 · 새벽예배</small></a>
     </div>
   </div>
+</section>
+
+<!-- 사진 대문: 화면 가득 사진 + 한 줄 (길튼교회 벤치마킹). 사진은 assets/front/ 에 같은 이름으로 바꿔 넣으면 됨 -->
+<section class="story" style="background-image:url(assets/front/retreat.jpg)">
+  <div class="story-text"><p class="story-en">WORSHIP</p><h2>함께 예배하는 교회</h2><p>주일 오전 8:50 · 10:50 · 오후 1:00</p><a href="worship.html">예배·모임 안내</a></div>
+</section>
+<section class="story" id="school" style="background-image:url(assets/front/kids.jpg)">
+  <div class="story-text"><p class="story-en">NEXT GENERATION</p><h2>하나님 나라를 세워 갈<br>다음 세대</h2>
+    <div class="story-chips"><span>유치부 <b>주일 11:00</b></span><span>아동부 <b>주일 11:00</b></span><span>청소년부 <b>주일 1:20</b></span></div>
+    <a href="worship.html#school">교회학교 안내</a></div>
+</section>
+<section class="story" style="background-image:url(assets/front/outdoor.jpg)">
+  <div class="story-text"><p class="story-en">COMMUNITY</p><h2>기도하는 목장 공동체</h2><p>목장마다 모여 말씀을 나누고 서로를 위해 기도해요</p><a href="newcomer.html">처음 오셨나요</a></div>
+</section>
+<section class="story" style="background-image:url(assets/front/mission.jpg)">
+  <div class="story-text"><p class="story-en">MISSION</p><h2>땅끝까지 함께하는 선교</h2><p>인도 · 필리핀 · 파푸아뉴기니 · 일본 · 북한</p><a href="about.html#mission">함께하는 선교</a></div>
 </section>
 
 <section class="block">
@@ -73,22 +105,6 @@
   </div>
 </section>
 
-<section class="block">
-  <div class="wrap">
-    <div class="head-row">
-      <div><div class="eyebrow2">VISION</div><h2>예그린교회 비전 · WORLD</h2></div>
-      <a class="more" href="about.html#vision">교회 소개</a>
-    </div>
-    <div class="vision">
-      <div><span>W</span><b>Worshiping Church</b>예배하는 교회</div>
-      <div><span>O</span><b>Oikos Church</b>기도하는 목장 교회</div>
-      <div><span>R</span><b>Reaching Out Church</b>구제·봉사하는 교회</div>
-      <div><span>L</span><b>Life Giving Church</b>선교·전도하는 교회</div>
-      <div><span>D</span><b>Discipling Church</b>제자 삼는 교회</div>
-    </div>
-  </div>
-</section>
-
 <section class="block alt">
   <div class="wrap">
     <div class="head-row">
@@ -110,14 +126,7 @@
 </section>
 
 <section class="block alt">
-  <div class="wrap grid2 two-info">
-    <div>
-      <div class="eyebrow2">MISSION</div>
-      <h2>함께하는 선교</h2>
-      <div class="mission">
-        <div>인도</div><div>필리핀</div><div>파푸아뉴기니</div><div>일본</div><div>북한</div>
-      </div>
-    </div>
+  <div class="wrap">
     <div>
       <div class="eyebrow2">OFFERING</div>
       <h2>헌금 안내</h2>
@@ -151,9 +160,30 @@
   </div>
 </section>
 
+<!-- 예배 안내 팝업: 들어오자마자 (2차 미팅 결정). "오늘 하루 보지 않기" -->
+<div class="wpop" id="wpop" role="dialog" aria-modal="true" aria-labelledby="wpopT" hidden>
+  <div class="wpop-box">
+    <button class="wpop-x" type="button" aria-label="닫기" data-wclose>×</button>
+    <p class="wpop-en">WORSHIP</p>
+    <h2 id="wpopT">예그린교회 예배 안내</h2>
+    <p class="wpop-hi">처음 오신 분도 언제든 환영합니다</p>
+    <dl>
+      <dt>주일예배</dt><dd>1부 오전 8:50 · 2부 오전 10:50</dd>
+      <dt>주일 오후예배</dt><dd>오후 1:00</dd>
+      <dt>수요예배</dt><dd>오후 7:30</dd>
+      <dt>금요성령집회</dt><dd>오후 8:30</dd>
+      <dt>새벽예배</dt><dd>화~금 오전 5:30</dd>
+      <dt>교회학교</dt><dd>유치부·아동부 11:00 · 청소년부 1:20</dd>
+    </dl>
+    <p class="wpop-addr">인천 서구 연희동 683-4 3층 · 아시아드경기장역 3번 출구</p>
+    <div class="wpop-btns"><a class="btn" href="visit.html">오시는 길</a><a class="btn ghost" href="newcomer.html">처음 오셨나요</a></div>
+    <button class="wpop-today" type="button" data-wtoday>오늘 하루 보지 않기</button>
+  </div>
+</div>
+
 <script src="media.js"></script>
 <script src="assets/gallery.js?v=1118"></script>
-<script src="assets/site.js?v=1118"></script>
+<script src="assets/site.js?v=1123"></script>
 <script>
   (function () {
     var Y = window.Yegreen;
@@ -165,6 +195,40 @@
         '<div class="txt"><h3>' + Y.esc(s.title) + '</h3><p>' + [Y.shortDate(s.date), s.passage].filter(Boolean).map(Y.esc).join(' · ') + '</p></div></a>';
     }).join('');
     Y.renderGallery(document.getElementById('homeGallery'), 1);
+
+    // 사진 대문: 화면에 들어오면 글이 떠오름
+    var stories = document.querySelectorAll('.story');
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold: 0.3 });
+      stories.forEach(function (el) { io.observe(el); });
+    } else { stories.forEach(function (el) { el.classList.add('in'); }); }
+
+    // 로고 인트로 → 예배 안내 팝업
+    var intro = document.getElementById('intro');
+    var pop = document.getElementById('wpop');
+    var d = new Date();
+    var today = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+    function getL(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+    function setL(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+    function openPop() {
+      if (getL('yg-wpop') === today) return;
+      pop.hidden = false;
+      requestAnimationFrame(function () { requestAnimationFrame(function () { pop.classList.add('on'); }); });
+    }
+    function closePop() { pop.classList.remove('on'); setTimeout(function () { pop.hidden = true; }, 250); }
+    pop.addEventListener('click', function (e) {
+      if (e.target.closest('[data-wtoday]')) { setL('yg-wpop', today); closePop(); return; }
+      if (e.target === pop || e.target.closest('[data-wclose]')) closePop();
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !pop.hidden) closePop(); });
+    function endIntro() {
+      if (!intro || intro.classList.contains('out')) return;
+      intro.classList.add('out');
+      try { sessionStorage.setItem('yg-intro', '1'); } catch (e) {}
+      setTimeout(function () { intro.remove(); openPop(); }, 700);
+    }
+    if (document.documentElement.classList.contains('no-intro')) { intro.remove(); setTimeout(openPop, 500); }
+    else { intro.addEventListener('click', endIntro); setTimeout(endIntro, 2700); }
   })();
 </script>
 </body>
