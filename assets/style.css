@@ -400,3 +400,15 @@ a.vcard { color: inherit; }
 .wpop-btns { display: flex; gap: 8px; justify-content: center; margin-top: 16px; }
 .wpop-btns .btn { flex: 1; }
 .wpop-today { margin-top: 12px; border: 0; background: none; color: var(--muted); font-size: 13px; text-decoration: underline; cursor: pointer; padding: 8px; }
+
+/* ── 행사 포스터 ── */
+.posters { display: flex; gap: 16px; overflow-x: auto; padding: 4px 2px 10px; margin-top: 18px; scroll-snap-type: x mandatory; }
+.posters .poster { flex: 0 0 auto; width: 240px; scroll-snap-align: start; background: #fff; border-radius: 16px; padding: 10px; box-shadow: 0 8px 22px rgba(0,0,0,.08); color: var(--ink); }
+.posters .poster img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: contain; border-radius: 10px; background: var(--cream); }
+.posters .poster b { display: block; margin: 10px 4px 2px; font-size: 15px; color: var(--green-d); }
+.posters .poster:hover img { opacity: .92; }
+@media (max-width: 640px) { .posters .poster { width: 58vw; } }
+.plight { position: fixed; inset: 0; z-index: 9500; background: rgba(0,0,0,.85); display: flex; align-items: center; justify-content: center; padding: 16px; cursor: zoom-out; }
+.plight[hidden] { display: none; }
+.plight img { max-width: 100%; max-height: 100%; border-radius: 8px; }
+.plight button { position: absolute; top: 10px; right: 14px; width: 44px; height: 44px; border: 0; background: none; color: #fff; font-size: 32px; cursor: pointer; }

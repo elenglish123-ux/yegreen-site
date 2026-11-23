@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" href="icon-512.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&display=swap">
-<link rel="stylesheet" href="assets/style.css?v=1123">
+<link rel="stylesheet" href="assets/style.css?v=1123b">
 </head>
 <body class="home">
 
@@ -57,6 +57,17 @@
     </div>
   </div>
 </section>
+
+<!-- 행사 포스터: posters/posters.js 목록. 올릴 포스터가 없으면 이 칸은 숨음 -->
+<section class="block alt" id="posterSec" hidden>
+  <div class="wrap">
+    <div class="head-row">
+      <div><div class="eyebrow2">EVENT</div><h2>교회 행사</h2></div>
+    </div>
+    <div class="posters" id="homePosters"></div>
+  </div>
+</section>
+<div class="plight" id="plight" hidden><button type="button" aria-label="닫기">×</button><img alt=""></div>
 
 <!-- 사진 대문: 화면 가득 사진 + 한 줄 (길튼교회 벤치마킹). 사진은 assets/front/ 에 같은 이름으로 바꿔 넣으면 됨 -->
 <section class="story" style="background-image:url(assets/front/retreat.jpg?v=2)">
@@ -182,6 +193,7 @@
 </div>
 
 <script src="media.js"></script>
+<script src="posters/posters.js?v=1123"></script>
 <script src="assets/gallery.js?v=1118"></script>
 <script src="assets/site.js?v=1123"></script>
 <script>
@@ -195,6 +207,25 @@
         '<div class="txt"><h3>' + Y.esc(s.title) + '</h3><p>' + [Y.shortDate(s.date), s.passage].filter(Boolean).map(Y.esc).join(' · ') + '</p></div></a>';
     }).join('');
     Y.renderGallery(document.getElementById('homeGallery'), 1);
+
+    // 행사 포스터
+    (function () {
+      var t = new Date(), today = t.getFullYear() + '-' + ('0' + (t.getMonth() + 1)).slice(-2) + '-' + ('0' + t.getDate()).slice(-2);
+      var list = (window.POSTERS || []).filter(function (x) { return !x.until || x.until >= today; });
+      if (!list.length) return;
+      document.getElementById('posterSec').hidden = false;
+      document.getElementById('homePosters').innerHTML = list.map(function (x, i) {
+        var src = 'posters/' + x.img;
+        return '<a class="poster" href="' + Y.esc(x.link || src) + '"' + (x.link ? '' : ' data-pi="' + i + '"') + '><img src="' + Y.esc(src) + '" alt="' + Y.esc(x.title) + '" loading="lazy"><b>' + Y.esc(x.title) + '</b></a>';
+      }).join('');
+      var lb = document.getElementById('plight');
+      document.getElementById('homePosters').addEventListener('click', function (e) {
+        var a = e.target.closest('[data-pi]'); if (!a) return;
+        e.preventDefault(); lb.querySelector('img').src = a.getAttribute('href'); lb.hidden = false;
+      });
+      lb.addEventListener('click', function () { lb.hidden = true; });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') lb.hidden = true; });
+    })();
 
     // 사진 대문: 화면에 들어오면 글이 떠오름
     var stories = document.querySelectorAll('.story');
