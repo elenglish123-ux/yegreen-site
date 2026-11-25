@@ -3,10 +3,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex">
-<title>예그린교회 새 로고 투표</title>
-<meta property="og:title" content="예그린교회 새 로고 투표">
-<meta property="og:description" content="로고 후보 34개 중 마음에 드는 것에 ♥ (여러 개 가능)">
-<meta property="og:image" content="https://elenglish123-ux.github.io/yegreen-site/vote/img4/01.jpg">
+<title>예그린교회 로고 느낌 투표</title>
+<meta property="og:title" content="예그린교회 로고 느낌 투표">
+<meta property="og:description" content="다른 교회 로고 30개 중 마음에 드는 느낌에 ♥ (여러 개 가능)">
+<meta property="og:image" content="https://elenglish123-ux.github.io/yegreen-site/vote/img5/01.jpg">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
 <style>
 :root{--g:#0F5257;--g2:#FF7A59;--bg:#F5F3EE;--card:#fff;--line:#e3e0d8;--muted:#6b716d;--heart:#e0465e}
@@ -17,11 +17,11 @@ h1{margin:0;color:var(--g);font-weight:900;font-size:clamp(24px,6vw,34px);letter
 .lead{color:var(--muted);margin:6px 0 18px;font-size:15px}
 h2{margin:26px 0 4px;font-size:20px;color:var(--g)}
 .sub{color:var(--muted);font-size:14px;margin:0 0 10px}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-@media(max-width:720px){.grid{grid-template-columns:1fr}}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media(max-width:720px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .it{background:var(--card);border:2px solid var(--line);border-radius:16px;overflow:hidden;display:grid;cursor:pointer;transition:border-color .15s,box-shadow .15s;-webkit-tap-highlight-color:transparent}
 .it.on{border-color:var(--heart);box-shadow:0 0 0 2px var(--heart)}
-.it img{width:100%;aspect-ratio:1000/206;object-fit:contain;background:#fff;display:block}
+.it img{width:100%;aspect-ratio:4/3;object-fit:contain;background:#fff;display:block}
 .newb{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:999px;background:#C9A54E;color:#fff;font-size:11px;font-weight:700;vertical-align:2px}
 .cap{display:flex;align-items:center;gap:8px;padding:10px 10px 12px;border-top:1px solid #efede7}
 .no{flex:none;width:28px;height:28px;border-radius:50%;background:var(--g);color:#fff;font-weight:700;font-size:13px;display:grid;place-items:center}
@@ -42,8 +42,8 @@ h2{margin:26px 0 4px;font-size:20px;color:var(--g)}
 </style>
 </head><body>
 <main class="wrap">
-  <h1>예그린교회 새 로고 투표</h1>
-  <p class="lead">지금까지 만든 로고 중 추려 낸 <b>후보 34개</b>예요. 이번에는 <b>모양만</b> 골라 주세요. <b>색은 아직 정하지 않았어요</b> — 지금 색은 예시이고, 모양이 정해지면 여러 색을 입혀 한 번 더 투표해요. 마음에 드는 것에 <b style="color:var(--heart)">♥</b>를 눌러 주세요. <b>여러 개 골라도 돼요.</b> 다 고르셨으면 아래 <b>투표하기</b>를 눌러 주세요.<br><span style="font-size:14px">🌿 <b>예그린</b>은 "<b>예</b>수님을 <b>그리</b>워하는"이라는 뜻이에요. 로고마다 담은 뜻을 짧게 적어 두었어요.</span></p>
+  <h1>예그린교회 로고, 어떤 느낌이 좋을까요?</h1>
+  <p class="lead">우리 교회 로고를 만들기 전에, <b>어떤 느낌의 로고가 좋은지</b> 먼저 골라 보려고 해요. 아래는 <b>다른 교회들의 로고</b>예요(참고용). 「우리 로고도 이런 느낌이면 좋겠다」 싶은 것에 <b style="color:var(--heart)">♥</b>를 눌러 주세요. <b>여러 개 골라도 돼요.</b> 다 고르셨으면 아래 <b>투표하기</b>를 눌러 주세요.<br><span style="font-size:14px">🌿 많이 고른 느낌으로 예그린교회 로고를 만들어서, 그다음에 모양과 색을 투표해요.</span></p>
   <div id="grid"></div>
 </main>
 <div class="bar"><div class="in"><div class="msg" id="msg">♥를 눌러 골라 주세요</div><button class="go" id="go" disabled>투표하기</button></div></div>
@@ -51,9 +51,9 @@ h2{margin:26px 0 4px;font-size:20px;color:var(--g)}
 <script>
 // 투표 서버(구글 앱스 스크립트 웹 앱) 주소
 var API = 'https://script.google.com/macros/s/AKfycbyaZFDWbgJU160vzbutcKDSTzNNvwKSWZc-JOxOrOJdjfLxgPfUrI1G9TxMG4OISkxaXg/exec';
-var GROUPS = [{"t": "로고 후보 34개", "d": "왼쪽이 로고, 오른쪽은 앱 아이콘과 유튜브 동그라미예요", "items": [{"id": 1, "n": "ㅇ 십자가 네 색", "label": "후보 1", "m": "예그린의 첫 글자 ㅇ과 십자가, 네 칸은 예배·목장·나눔·선교"}, {"id": 2, "n": "십자가를 바라보는 사람", "label": "후보 2", "m": "두 팔 벌려 십자가를 바라보는 사람과 새잎 — 예수님을 그리워함"}, {"id": 3, "n": "그리움의 하트", "label": "후보 3", "m": "하트 끝에서 이어지는 십자가 — 예수님을 그리워하는 마음"}, {"id": 4, "n": "두 팔 든 예배자", "label": "후보 4", "m": "한 붓 사람이 두 팔을 들고 아래 획은 새잎, 위에 코랄빛 십자가"}, {"id": 5, "n": "예 모노그램", "label": "후보 5", "m": "ㅇ 속에 십자가, ㅖ 끝에 잎 — 예그린의 첫 글자"}, {"id": 6, "n": "Y 새싹 십자가", "label": "후보 6", "m": "한 줄기에서 난 두 잎이 Y, 줄기는 십자가"}, {"id": 7, "n": "두 손에 받는 빛", "label": "후보 7", "m": "모은 두 손이 받는 빛 한 방울, 그 안의 십자가"}, {"id": 8, "n": "코랄 원 Y 십자가", "label": "후보 8", "m": "간판 코랄 원에 두 손 든 Y와 십자가"}, {"id": 9, "n": "Y + 잎", "label": "후보 9", "m": "예그린의 Y, 두 손 들어 예배하는 사람과 새 생명의 잎"}, {"id": 10, "n": "나무 십자가", "label": "후보 10", "m": "줄기가 십자가인 나무, 시냇가에 심은 나무"}, {"id": 11, "n": "예그린 캘리그라피", "label": "후보 11", "m": "붓끝의 따뜻함, 린의 획이 십자가"}, {"id": 12, "n": "한글 레터링", "label": "후보 12", "m": "회의 세로획이 십자가가 되는 맞춤 글씨"}, {"id": 13, "n": "YEGRIN + 예그린교회", "label": "후보 13", "m": "영문과 한글을 함께, G 안의 십자가"}, {"id": 14, "n": "YEGRIN 굵은 글자", "label": "후보 14", "m": "굵고 힘 있게, G 속 십자가"}, {"id": 15, "n": "YE GRIN 레트로", "label": "후보 15", "m": "밝고 젊은 느낌, 빛나는 십자가"}, {"id": 16, "n": "캘리그라피 + 붓 하트", "label": "후보 16", "m": "붓으로 그린 하트에서 십자가가 솟고 코랄빛 잎 — 예수님을 그리워하는 마음"}, {"id": 17, "n": "한글 레터링 + 새싹 십자가", "label": "후보 17", "m": "「회」의 십자가 획을 이어받아, 둥근 그릇 같은 획에서 새싹이 돋음"}, {"id": 18, "n": "YEGRIN 두 줄 + G 십자가", "label": "후보 18", "m": "G 속 십자가와 코랄 네모 점 — 글자 로고의 G를 그대로 심볼로"}, {"id": 19, "n": "YEGRIN 굵은 글자 + Y 예배자", "label": "후보 19", "m": "굵은 Y가 두 팔 든 사람, 코랄 머리, 줄기 속 십자가"}, {"id": 20, "n": "레트로 + YE+ 배지", "label": "후보 20", "m": "레트로 글자를 줄인 YE+ 배지, 빛나는 코랄 십자가"}, {"id": 21, "n": "두 사람 Y", "label": "후보 21", "m": "두 사람이 손을 들어 Y를 이루고 가운데 십자가 — 함께 예배하는 교회"}, {"id": 22, "n": "십자가와 흘러가는 물결", "label": "후보 22", "m": "십자가 아래 물결이 흘러 멀어짐 — 죄가 씻겨 나감"}, {"id": 23, "n": "열린 틀과 두 갈래 길", "label": "후보 23", "m": "닫힌 네모 틀의 모서리가 열리고, Y 길이 그곳의 십자가로"}, {"id": 24, "n": "엇갈린 막대 십자가", "label": "후보 24", "m": "둥근 막대들이 엇갈려 십자가, 사이 빈 곳이 Y — 여러 사람이 모여 하나"}, {"id": 25, "n": "원 안의 yegrin", "label": "후보 25", "m": "딥틸 원 안에 yegrin, i 점이 코랄 십자가, 잎 모양 곡선"}, {"id": 26, "n": "풀려 나가는 바람개비", "label": "후보 26", "m": "십자가를 둘러싼 네 조각이 한 방향으로 돌며 바깥으로 풀려 나감 — 자유"}, {"id": 27, "n": "동네 지붕 사이의 Y", "label": "후보 27", "m": "가는 선 동네 지붕 중 하나가 Y로 열리고 십자가가 솟음 — 우리 동네의 교회"}, {"id": 28, "n": "겹친 두 잎", "label": "후보 28", "m": "딥틸·코랄 잎 두 장이 V로 벌어지고, 겹친 곳에 십자가"}, {"id": 29, "n": "세 원의 겹침", "label": "후보 29", "m": "세 원이 겹친 한가운데가 흰 십자가 — 삼위일체, 함께 모인 교회"}, {"id": 30, "n": "산 능선과 갈라지는 강", "label": "후보 30", "m": "가는 선 산 위로 십자가가 해처럼 떠오르고, 아래 강이 Y로 갈라져 흘러감"}, {"id": 31, "n": "열린 아치 문", "label": "후보 31", "m": "가는 선 아치 문, 문 안의 길이 Y로 갈라지고 위에 십자가 — 누구나 들어오는 교회"}, {"id": 32, "n": "열리는 하늘 문 Y", "label": "후보 32", "m": "Y의 두 팔이 하늘 문처럼 활짝 열리고, 그 사이로 십자가 빛이 쏟아짐"}, {"id": 33, "n": "두 손에 받친 십자가", "label": "후보 33", "m": "모은 두 손이 그릇처럼 십자가를 조심스럽게 받쳐 듦 — 빛 없이 단정하게"}, {"id": 34, "n": "두 손과 빛나는 십자가", "label": "후보 34", "m": "27-1을 더 단순하게 — 굵은 두 손, 작은 십자가, 짧은 빛줄기 셋"}]}];
+var GROUPS = [{"t": "레퍼런스 30개", "d": "다른 교회들의 로고예요. 우리 로고를 이런 느낌으로 만들면 좋겠다 싶은 것을 골라 주세요", "items": [{"id": 1, "n": "POD CHURCH", "label": "레퍼런스 1", "m": "주황 동그라미 하나에 이름만 — 가장 단순하고 눈에 띔"}, {"id": 2, "n": "인천방주교회", "label": "레퍼런스 2", "m": "동그라미 안 방주와 십자가, 파란 입체"}, {"id": 3, "n": "마가의다락방교회", "label": "레퍼런스 3", "m": "십자가와 M 글자를 겹친 선 그림"}, {"id": 4, "n": "필그림선교교회", "label": "레퍼런스 4", "m": "붉은 원 안 P 글자 모노그램"}, {"id": 5, "n": "필그림교회", "label": "레퍼런스 5", "m": "파랑·갈색 붓 느낌 십자가"}, {"id": 6, "n": "길튼교회", "label": "레퍼런스 6", "m": "파란 면 두 개가 만든 i(십자가) 모양"}, {"id": 7, "n": "토론토십자가교회", "label": "레퍼런스 7", "m": "주황 블록 글자"}, {"id": 8, "n": "Gospel Grace Church", "label": "레퍼런스 8", "m": "글자 아래 곡선 한 줄 — 글자만으로 된 로고"}, {"id": 9, "n": "The Grove", "label": "레퍼런스 9", "m": "둥근 원 안 글자와 잎 곡선"}, {"id": 10, "n": "Immanuel Church", "label": "레퍼런스 10", "m": "가는 선으로 그린 도시 풍경과 교회 첨탑"}, {"id": 11, "n": "산과 십자가 (해외 교회)", "label": "레퍼런스 11", "m": "검은 원 안 산 능선과 십자가"}, {"id": 12, "n": "North Point Community Church", "label": "레퍼런스 12", "m": "둥근 조각들이 모인 원, 주황·회색"}, {"id": 13, "n": "World Changers Church", "label": "레퍼런스 13", "m": "지구본과 가는 글자"}, {"id": 14, "n": "Menai Anglican Church", "label": "레퍼런스 14", "m": "여러 색 블록이 겹친 십자가"}, {"id": 15, "n": "Lynwood", "label": "레퍼런스 15", "m": "엇갈린 막대로 만든 십자가"}, {"id": 16, "n": "춘천안디옥교회", "label": "레퍼런스 16", "m": "원 안 지구와 불꽃, 흰 글자"}, {"id": 17, "n": "반석교회", "label": "레퍼런스 17", "m": "바위 위 교회 지붕을 선으로"}, {"id": 18, "n": "신촌은혜로운교회", "label": "레퍼런스 18", "m": "네 칸으로 나눈 원 = 십자가"}, {"id": 19, "n": "늘함께교회", "label": "레퍼런스 19", "m": "가는 선 새싹과 점, 가벼운 글자"}, {"id": 20, "n": "새연천교회", "label": "레퍼런스 20", "m": "스테인드글라스 다각형과 글자"}, {"id": 21, "n": "향동이음교회", "label": "레퍼런스 21", "m": "스테인드글라스 창 같은 색 블록"}, {"id": 22, "n": "주영광교회", "label": "레퍼런스 22", "m": "하트와 손글씨 느낌 글자"}, {"id": 23, "n": "정다운빛교회", "label": "레퍼런스 23", "m": "펼친 성경과 별"}, {"id": 24, "n": "양문교회", "label": "레퍼런스 24", "m": "세로 줄 막대와 십자가, 굵은 글자"}, {"id": 25, "n": "믿는자들의침례교회", "label": "레퍼런스 25", "m": "십자가와 물결, 맞춤 글자"}, {"id": 26, "n": "은유한교회", "label": "레퍼런스 26", "m": "물결 선과 십자가 (간판 사진)"}, {"id": 27, "n": "함께걷는교회", "label": "레퍼런스 27", "m": "세 아치 = 함께 걷는 사람들, 둥근 글자"}, {"id": 28, "n": "뭇별교회", "label": "레퍼런스 28", "m": "별 모양 안에 십자가, 굵은 글자"}, {"id": 29, "n": "소망길교회", "label": "레퍼런스 29", "m": "네모 틀 안 교회를 선으로"}, {"id": 30, "n": "은석교회", "label": "레퍼런스 30", "m": "자모(ㅇ+ㅅ)로 만든 예배당 모노그램"}]}];
 function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
-var KP='yg-vote3-picks',KD='yg-vote3-done',KS='yg-vote3-sent';
+var KP='yg-vote4-picks',KD='yg-vote4-done',KS='yg-vote4-sent';
 var device=store('yg-vote-device'); if(!device){device=Math.random().toString(36).slice(2)+Date.now().toString(36); store('yg-vote-device',device)}
 var picks=[]; try{picks=JSON.parse(store(KP)||'[]')}catch(e){picks=[]}
 var voted=store(KD)==='1', sentKey=store(KS)||'';
@@ -64,7 +64,7 @@ GROUPS.forEach(function(g){
   var box=document.createElement('div'); box.className='grid'; grid.appendChild(box);
   g.items.forEach(function(it){
     var no=it.id, el=document.createElement('figure'); el.className='it'; el.dataset.no=no; el.style.margin='0';
-    el.innerHTML='<img src="img4/'+String(no).padStart(2,'0')+'.jpg?v=1125" alt="'+it.label+' '+it.n+'" loading="lazy"><div class="cap"><span class="no">'+it.label.split(' ')[1]+'</span><span class="nm">'+it.n+(it['new']?'<span class="newb">NEW</span>':'')+'<span class="cnt"></span></span><button class="hb" type="button" aria-label="'+it.label+' 고르기">♡</button></div><p class="mean">'+it.m+'</p><div class="res"><i></i></div>';
+    el.innerHTML='<img src="img5/'+String(no).padStart(2,'0')+'.jpg?v=1125r" alt="'+it.label+' '+it.n+'" loading="lazy"><div class="cap"><span class="no">'+it.label.split(' ')[1]+'</span><span class="nm">'+it.n+(it['new']?'<span class="newb">NEW</span>':'')+'<span class="cnt"></span></span><button class="hb" type="button" aria-label="'+it.label+' 고르기">♡</button></div><p class="mean">'+it.m+'</p><div class="res"><i></i></div>';
     el.addEventListener('click',function(){var k=picks.indexOf(no); if(k>-1)picks.splice(k,1); else picks.push(no); store(KP,JSON.stringify(picks)); render()});
     box.appendChild(el);
   });
@@ -80,7 +80,7 @@ function render(){
 }
 function toast(t){var e=document.getElementById('toast'); e.textContent=t; e.style.display='block'; setTimeout(function(){e.style.display='none'},2200)}
 function showResults(r){
-  if(!r||!r.counts)return; var mx=function(a,b){var m=1;for(var k=a;k<=b;k++)m=Math.max(m,r.counts[k]||0);return m}, m1=mx(1,34), m2=m1;
+  if(!r||!r.counts)return; var mx=function(a,b){var m=1;for(var k=a;k<=b;k++)m=Math.max(m,r.counts[k]||0);return m}, m1=mx(1,30), m2=m1;
   grid.classList.add('showres');
   [].forEach.call(grid.querySelectorAll('.it'),function(el){var c=r.counts[el.dataset.no]||0, max=(isSym(+el.dataset.no)?m1:m2); el.querySelector('.res i').style.width=(c/max*100)+'%'; el.querySelector('.cnt').textContent=c+'표'});
   msg.innerHTML=msg.innerHTML+' <span style="color:#6b716d;font-size:13px">(지금까지 '+r.voters+'명 참여)</span>';
