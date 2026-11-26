@@ -193,7 +193,7 @@
 </div>
 
 <script src="media.js"></script>
-<script src="posters/posters.js?v=1123"></script>
+<script>/* 포스터 목록은 주보 만들기가 매주 바꾸므로 10분마다 새로 받음 */ document.write('<script src="posters/posters.js?t=' + Math.floor(Date.now() / 6e5) + '"><\/script>');</script>
 <script src="assets/gallery.js?v=1118"></script>
 <script src="assets/site.js?v=1123"></script>
 <script>
