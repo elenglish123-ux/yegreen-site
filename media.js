@@ -2,6 +2,14 @@ window.MEDIA = {
  "lists": {
   "reading": [
    {
+    "videoId": "lVdCDjspd2U",
+    "date": "2026-11-26",
+    "youtubeTitle": "예그린 성경통독 330일차 (26.11.26) 로마서 3-6장",
+    "preacher": "",
+    "title": "성경통독 330일차",
+    "passage": "로마서 3-6장"
+   },
+   {
     "videoId": "LXmKPXQAInI",
     "date": "2026-11-25",
     "youtubeTitle": "예그린 성경통독 329일차 (26.11.25) 로마서 1-2장",
@@ -152,14 +160,6 @@ window.MEDIA = {
     "preacher": "",
     "title": "성경통독 311일차",
     "passage": "요한복음 10-11장"
-   },
-   {
-    "videoId": "rAn9P-xCzEQ",
-    "date": "2026-11-06",
-    "youtubeTitle": "예그린 성경통독 310일차 (26.11.06) 요한복음 8-9장",
-    "preacher": "",
-    "title": "성경통독 310일차",
-    "passage": "요한복음 8-9장"
    }
   ],
   "sunday": [
@@ -282,6 +282,22 @@ window.MEDIA = {
    }
   ],
   "dawn": [
+   {
+    "videoId": "2YGqHIHa5rk",
+    "date": "2026-11-26",
+    "youtubeTitle": "2026.11.26 새벽예배(아모스 8장) 고용진 목사 예그린교회",
+    "preacher": "고용진 목사",
+    "title": "새벽예배 · 아모스 8장",
+    "passage": "아모스 8장"
+   },
+   {
+    "videoId": "CX_UpZgYSN8",
+    "date": "2026-11-26",
+    "youtubeTitle": "2026.11.26 새벽예배(아모스 8장) 고용진 목사 예그린교회",
+    "preacher": "고용진 목사",
+    "title": "새벽예배 · 아모스 8장",
+    "passage": "아모스 8장"
+   },
    {
     "videoId": "NjKplsNpiwo",
     "date": "2026-11-25",
@@ -425,22 +441,6 @@ window.MEDIA = {
     "preacher": "고용진 목사",
     "title": "새벽예배 · 호세아 11장",
     "passage": "호세아 11장"
-   },
-   {
-    "videoId": "MAu5jvcoWIE",
-    "date": "2026-10-27",
-    "youtubeTitle": "2026.10.27 새벽예배(호세아 10장) 고용진 목사 예그린교회",
-    "preacher": "고용진 목사",
-    "title": "새벽예배 · 호세아 10장",
-    "passage": "호세아 10장"
-   },
-   {
-    "videoId": "4AVezNOSCj0",
-    "date": "2026-10-16",
-    "youtubeTitle": "2026.10.16 새벽예배(호세아 9장) 고용진 목사 예그린교회",
-    "preacher": "고용진 목사",
-    "title": "새벽예배 · 호세아 9장",
-    "passage": "호세아 9장"
    }
   ],
   "study": [
