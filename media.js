@@ -2,6 +2,14 @@ window.MEDIA = {
  "lists": {
   "reading": [
    {
+    "videoId": "EJ7SfdrjfMA",
+    "date": "2026-11-27",
+    "youtubeTitle": "예그린 성경통독 331일차 (26.11.27) 로마서 7-9장",
+    "preacher": "",
+    "title": "성경통독 331일차",
+    "passage": "로마서 7-9장"
+   },
+   {
     "videoId": "lVdCDjspd2U",
     "date": "2026-11-26",
     "youtubeTitle": "예그린 성경통독 330일차 (26.11.26) 로마서 3-6장",
@@ -152,14 +160,6 @@ window.MEDIA = {
     "preacher": "",
     "title": "성경통독 312일차",
     "passage": "요한복음 12-13장"
-   },
-   {
-    "videoId": "OZ1mq58WxZA",
-    "date": "2026-11-07",
-    "youtubeTitle": "예그린 성경통독 311일차 (26.11.07) 요한복음 10-11장",
-    "preacher": "",
-    "title": "성경통독 311일차",
-    "passage": "요한복음 10-11장"
    }
   ],
   "sunday": [
